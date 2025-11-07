@@ -6,8 +6,8 @@ public class PlayerController : MonoBehaviour
 {
     Rigidbody rb;
 
-    [SerializeField] private float speed;
-    [SerializeField] private float frontSpeed;
+    [SerializeField][Header("‰¡ˆÚ“®‘¬“x")] private float speed;
+    [SerializeField][Header("‘OˆÚ“®‘¬“x")] private float frontSpeed;
 
     // Start is called before the first frame update
     void Start()
