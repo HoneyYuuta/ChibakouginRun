@@ -5,7 +5,10 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     Rigidbody rb;
-    float speed = 3.0f;
+
+    [SerializeField] private float speed;
+    [SerializeField] private float frontSpeed;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -31,5 +34,6 @@ public class PlayerController : MonoBehaviour
         {
             rb.velocity = -transform.right * speed;
         }
+
     }
 }
