@@ -28,12 +28,14 @@ public class PlayerController : MonoBehaviour
         {
             rb.velocity = transform.right * speed;
         }
-
         // Aキー（左移動）
-        if (Input.GetKey(KeyCode.A))
+        else if (Input.GetKey(KeyCode.A))
         {
             rb.velocity = -transform.right * speed;
         }
-
+        else
+        {
+            rb.velocity = Vector3.zero;
+        }
     }
 }
