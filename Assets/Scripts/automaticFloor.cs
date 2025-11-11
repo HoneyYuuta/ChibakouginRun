@@ -7,14 +7,19 @@ using static UnityEditor.Progress;
 
 public class automaticFloor : MonoBehaviour
 {
+    public GameObject floor;
+    public GameObject Obstacles;
+    public GameObject Items;
     public GameObject[] floorObject;
-    public GameObject[] ObstaclesObject;
-    public GameObject[] ItemsObject;
-    public int XPos;
+    public int XPos=1;
     // Start is called before the first frame update
     void Start()
     {
-        XPos = floorObject.Length;
+        for (int i = 0; i < 5; i++)
+        {
+            movingObject(floor, new Vector2(0, 0));
+            XPos++;
+        }
     }
 
     // Update is called once per frame
@@ -27,22 +32,33 @@ public class automaticFloor : MonoBehaviour
             XPos++;
         }
     }
-
-    void AutomaticFloor() {
+    void summonObject( GameObject Object, Vector2 pox) { 
+       int Pos = floorObject.Length;
+        GameObject ball = Instantiate(Object, new Vector3(XPos * 10, pox.x, pox.y), Quaternion.identity);
+        Array.Resize(ref floorObject, Pos+1);
+        floorObject[Pos] = ball;
+        ball.transform.parent = this.transform;
+    }
+    void movingObject(GameObject Object, Vector2 pox)
+    {
         foreach (GameObject item in floorObject)
         {
-            if(item == null) continue;
-            if(item.activeSelf != false) continue;
+            if (item == null) continue;
+            if(item.tag != Object.tag) continue;
+            if (item.activeSelf != false) continue;
             item.SetActive(true);
-            item.transform.position = new Vector3(XPos * 10, 0, 0);
-            AutomaticObstacles(XPos);
+            item.transform.position = new Vector3(XPos * 10, pox.x, pox.y);
+            if (item.GetComponent<MeshRenderer>().material
+                == Object.GetComponent<MeshRenderer>().material) return;
+            item.GetComponent<MeshRenderer>().material = Object.GetComponent<MeshRenderer>().material;
             return;
         }
-        GameObject ball = Instantiate(floorObject[1], new Vector3(XPos * 10, 0, 0), Quaternion.identity);
-        Array.Resize(ref floorObject, XPos+1);
-        floorObject[XPos] = ball;
-        ball.transform.parent = this.transform;
-       
+        summonObject( Object,pox);
+
+    }
+    void AutomaticFloor() {
+        movingObject(floor, new Vector2(0, 0));
+    
 
     }
     void AutomaticItems() {
@@ -57,36 +73,15 @@ public class automaticFloor : MonoBehaviour
         }
 
     }
-
+   
 
     void AutomaticObstacles(int Y) {
-        foreach (GameObject item in ObstaclesObject)
-        {
-            if (item == null) continue;
-            if (item.activeSelf != false) continue;
-            item.SetActive(true);
-            item.transform.position = new Vector3(XPos * 10, 1, Y);
-            return;
-        }
-        GameObject ball = Instantiate(ObstaclesObject[1], new Vector3(XPos * 10, 1, Y), Quaternion.identity);
-        Array.Resize(ref ObstaclesObject, XPos + 1);
-        ObstaclesObject[XPos] = ball;
-        ball.transform.parent = this.transform;
-      
+        movingObject(Obstacles, new Vector2(1,Y));
+
+
     }
     void AutomaticPowerUpItems(int Y)
     {
-        foreach (GameObject item in ItemsObject)
-        {
-            if (item == null) continue;
-            if (item.activeSelf != false) continue;
-            item.SetActive(true);
-            item.transform.position = new Vector3(XPos * 10, 1, Y);
-            return;
-        }
-        GameObject ball = Instantiate(ItemsObject[1], new Vector3(XPos * 10, 1, Y), Quaternion.identity);
-        Array.Resize(ref ItemsObject, XPos + 1);
-        ItemsObject[XPos] = ball;
-        ball.transform.parent = this.transform;
+        movingObject(Obstacles, new Vector2(1, Y));
     }
 }
