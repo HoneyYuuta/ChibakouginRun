@@ -231,7 +231,7 @@ GameObject:
   - component: {fileID: 447201672}
   m_Layer: 0
   m_Name: Cube (1)
-  m_TagString: Untagged
+  m_TagString: Obstacles
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -306,13 +306,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 447201671}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.98, y: 0.82, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 2.05, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_Father: {fileID: 1031723695}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &663106705
 GameObject:
@@ -328,7 +328,7 @@ GameObject:
   - component: {fileID: 663106706}
   m_Layer: 0
   m_Name: Cube
-  m_TagString: Untagged
+  m_TagString: Items
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -403,13 +403,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 663106705}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 4.36, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.9, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_Father: {fileID: 1031723695}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &727932740
 GameObject:
@@ -525,6 +525,8 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1745109864}
+  - {fileID: 663106709}
+  - {fileID: 447201675}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -540,12 +542,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8ceaed06f4e5fe4c85877b939d1a6b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  floorObject:
-  - {fileID: 1745109863}
-  ObstaclesObject:
-  - {fileID: 663106705}
-  ItemsObject:
-  - {fileID: 447201671}
+  floor: {fileID: 1745109863}
+  Obstacles: {fileID: 663106705}
+  Items: {fileID: 447201671}
+  floorObject: []
   XPos: 0
 --- !u!1 &1745109863
 GameObject:
@@ -561,7 +561,7 @@ GameObject:
   - component: {fileID: 1745109865}
   m_Layer: 0
   m_Name: Cube
-  m_TagString: Untagged
+  m_TagString: Finish
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
