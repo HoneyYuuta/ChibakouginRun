@@ -8,6 +8,8 @@ public class ScoreManager : MonoBehaviour
 {
     public TextMeshProUGUI scoreText;
     private float score = 0;
+
+    [SerializeField] private GameObject PlayerObj;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,7 +21,7 @@ public class ScoreManager : MonoBehaviour
     {
         // 初期スコアを表示
         UpdateScoreText();
-        score += Time.deltaTime;
+        score = PlayerObj.transform.position.z;
     }
 
     void UpdateScoreText()
@@ -27,6 +29,6 @@ public class ScoreManager : MonoBehaviour
         if (scoreText == null) return;
         // 小数点を切り捨てて表示
         int displayScore = Mathf.FloorToInt(score);
-        scoreText.text = "Score: " + displayScore.ToString();
+        scoreText.text = "Score:" + displayScore.ToString();
     }
 }
