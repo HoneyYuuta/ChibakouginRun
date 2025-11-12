@@ -27,14 +27,17 @@ public class automaticFloor : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.A))
         {
-            AutomaticFloor();
-            AutomaticItems();
-            XPos++;
+            GenerationOfStages();
         }
+    }
+    public void GenerationOfStages() {
+        AutomaticFloor();
+        AutomaticItems();
+        XPos++;
     }
     void summonObject( GameObject Object, Vector2 pox) { 
        int Pos = floorObject.Length;
-        GameObject ball = Instantiate(Object, new Vector3(XPos * 10, pox.x, pox.y), Quaternion.identity);
+        GameObject ball = Instantiate(Object, new Vector3(pox.y, pox.x, XPos * 10), Quaternion.identity);
         Array.Resize(ref floorObject, Pos+1);
         floorObject[Pos] = ball;
         ball.transform.parent = this.transform;
@@ -47,7 +50,7 @@ public class automaticFloor : MonoBehaviour
             if(item.tag != Object.tag) continue;
             if (item.activeSelf != false) continue;
             item.SetActive(true);
-            item.transform.position = new Vector3(XPos * 10, pox.x, pox.y);
+            item.transform.position = new Vector3(pox.y, pox.x, XPos * 10);
             if (item.GetComponent<MeshRenderer>().material
                 == Object.GetComponent<MeshRenderer>().material) return;
             item.GetComponent<MeshRenderer>().material = Object.GetComponent<MeshRenderer>().material;

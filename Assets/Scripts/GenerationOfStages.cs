@@ -1,0 +1,30 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using static UnityEditor.Progress;
+
+public class GenerationOfStages : MonoBehaviour
+{
+    public automaticFloor automaticFloor;
+    public Vector3 v3 = new Vector3();
+    public float distance = 10f;
+   
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        Ray ray = new Ray(this.transform.position, v3);
+        RaycastHit hit;
+        if (Physics.Raycast(ray, out hit, distance))
+        {
+            Debug.Log(hit.collider.gameObject.transform.position);
+        }
+        else { automaticFloor.GenerationOfStages(); }
+        Debug.DrawRay(ray.origin, ray.direction * distance, Color.red, 5);
+    }
+}
