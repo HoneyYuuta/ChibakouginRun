@@ -4,15 +4,20 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    Rigidbody rb;
-
-    [SerializeField][Header("横移動速度")] private float sideSpeed;
-    [SerializeField][Header("前移動速度")] private float frontSpeed;
-
-    [SerializeField][Header("X軸の移動制限範囲")] private float movementRestrictions = 2.0f;
+    private Rigidbody rb;
+    private float sideSpeed;
+    private float frontSpeed;
+    private float movementRestrictions;
 
     // 左右の移動入力を保持する変数 (-1:左, 1:右, 0:停止)
     private float horizontalInput = 0f;
+
+    // frontSpeed の public プロパティを追加
+    public float flontSpeed
+    {
+        get { return frontSpeed; }
+        set { frontSpeed = value; }
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -20,7 +25,6 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody>();
     }
 
-    // Updateは今回は使用しないので空のままでOK
     void Update()
     {
 
