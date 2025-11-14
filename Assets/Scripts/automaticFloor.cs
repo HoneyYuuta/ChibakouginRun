@@ -87,6 +87,6 @@ public class automaticFloor : MonoBehaviour
     }
     void AutomaticPowerUpItems(float Y)
     {
-        movingObject(Obstacles, new Vector2(1, Y));
+        movingObject(Items, new Vector2(1, Y));
     }
 }
