@@ -12,10 +12,11 @@ public class automaticFloor : MonoBehaviour
     public GameObject Items;
     public GameObject[] floorObject;
     public int XPos=1;
+    public float ItemWidth = 1.5f;
     // Start is called before the first frame update
     void Start()
     {
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < 10; i++)
         {
             movingObject(floor, new Vector2(0, 0));
             XPos++;
@@ -47,8 +48,8 @@ public class automaticFloor : MonoBehaviour
         foreach (GameObject item in floorObject)
         {
             if (item == null) continue;
-            if(item.tag != Object.tag) continue;
             if (item.activeSelf != false) continue;
+            if (item.tag != Object.tag) continue;
             item.SetActive(true);
             item.transform.position = new Vector3(pox.y, pox.x, XPos * 10);
             if (item.GetComponent<MeshRenderer>().material
@@ -66,7 +67,8 @@ public class automaticFloor : MonoBehaviour
     }
     void AutomaticItems() {
         int number = (int)UnityEngine.Random.Range(1f,3f);
-        int Y = 3 * (int)UnityEngine.Random.Range(-2f, 2f);
+        
+        float Y = ItemWidth * (int)UnityEngine.Random.Range(-2f, 2f);
         Debug.Log(number);
         if (number ==1) {
             AutomaticObstacles(Y);
@@ -78,12 +80,12 @@ public class automaticFloor : MonoBehaviour
     }
    
 
-    void AutomaticObstacles(int Y) {
+    void AutomaticObstacles(float Y) {
         movingObject(Obstacles, new Vector2(1,Y));
 
 
     }
-    void AutomaticPowerUpItems(int Y)
+    void AutomaticPowerUpItems(float Y)
     {
         movingObject(Obstacles, new Vector2(1, Y));
     }

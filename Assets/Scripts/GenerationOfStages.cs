@@ -23,17 +23,16 @@ public class GenerationOfStages : MonoBehaviour
             timer -= Time.deltaTime;
         }
         if (timer > 0) return;
-        Ray ray = new Ray(this.transform.position, v3);
-        RaycastHit hit;
-        if (Physics.Raycast(ray, out hit, distance))
-        {
-            Debug.Log(hit.collider.gameObject.transform.position);
-        }
-        else
-        {
+        if (IsInvokingGenerationOfStages()) return;
             timer = 0.5f;
             automaticFloor.GenerationOfStages(); 
-        }
+    }
+    bool IsInvokingGenerationOfStages()
+    {
+        Ray ray = new Ray(this.transform.position, v3);
+        RaycastHit hit;
         Debug.DrawRay(ray.origin, ray.direction * distance, Color.red, 5);
+        if (Physics.Raycast(ray, out hit, distance)) return true;
+        return false;
     }
 }
