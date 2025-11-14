@@ -5,9 +5,9 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     private Rigidbody rb;
-    private float sideSpeed;
-    private float frontSpeed;
-    private float movementRestrictions;
+    [SerializeField][Header("横移動速度")] private float sideSpeed;
+    [SerializeField][Header("前移動速度")] private float frontSpeed;
+    [SerializeField][Header("移動制限")] private float movementRestrictions;
 
     // 左右の移動入力を保持する変数 (-1:左, 1:右, 0:停止)
     private float horizontalInput = 0f;
@@ -75,17 +75,20 @@ public class PlayerController : MonoBehaviour
     public void StartMovingLeft()
     {
         horizontalInput = -1f;
+        Debug.Log("左移動開始");
     }
 
     //右移動を開始する
     public void StartMovingRight()
     {
         horizontalInput = 1f;
+        Debug.Log("右移動開始");
     }
 
     //横移動を停止する
     public void StopMoving()
     {
         horizontalInput = 0f;
+        Debug.Log("横移動停止");
     }
 }
