@@ -10,8 +10,10 @@ public class automaticFloor : MonoBehaviour
     public GameObject floor;
     public GameObject Obstacles;
     public GameObject Items;
+    [SerializeField]
+    private ItemDataBase StageDat;
     public GameObject[] floorObject;
-    public int XPos=1;
+    public int XPos=0;
     public float ItemWidth = 1.5f;
     // Start is called before the first frame update
     void Start()
@@ -21,6 +23,14 @@ public class automaticFloor : MonoBehaviour
             movingObject(floor, new Vector2(0, 0));
             XPos++;
         }
+        StageChange(0);
+    }
+
+    void StageChange(int a)
+    {
+        floor = StageDat.ItemList[a].FloorObject;
+        Obstacles = StageDat.ItemList[a].ObstaclesObject;
+        Items = StageDat.ItemList[a].ItemObject;
     }
 
     // Update is called once per frame
@@ -29,6 +39,7 @@ public class automaticFloor : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.A))
         {
             GenerationOfStages();
+            StageChange(1);
         }
     }
     public void GenerationOfStages() {
