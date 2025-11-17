@@ -246,6 +246,7 @@ MonoBehaviour:
   Items: {fileID: 5127940053525047414}
   floorObject: []
   XPos: 0
+  ItemWidth: 1.5
 --- !u!1 &5127940054382697824
 GameObject:
   m_ObjectHideFlags: 0
@@ -258,6 +259,7 @@ GameObject:
   - component: {fileID: 5127940054382697829}
   - component: {fileID: 5127940054382697826}
   - component: {fileID: 5127940054382697827}
+  - component: {fileID: 8656604351226014332}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Items
@@ -343,3 +345,15 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &8656604351226014332
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5127940054382697824}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ccf3612ee4b7ad643af41fd2bd6d506a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

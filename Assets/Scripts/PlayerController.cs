@@ -22,6 +22,7 @@ public class PlayerController : MonoBehaviour
         set { frontSpeed = value; }
     }
 
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -36,6 +37,8 @@ public class PlayerController : MonoBehaviour
     {
         HandleMovement();
     }
+
+
 
     private void KeyboardController()
     {
