@@ -136,7 +136,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6855827543587383202, guid: 5671d576b8201e7499d8e4a762c8fbb6, type: 3}
       propertyPath: frontSpeed
-      value: 15
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 6855827543587383203, guid: 5671d576b8201e7499d8e4a762c8fbb6, type: 3}
       propertyPath: m_Constraints
@@ -956,7 +956,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6084195412896713491, guid: b0c6f05fdcad6c1498d893f52ec519b1, type: 3}
       propertyPath: frontSpeed
-      value: 15
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 6084195412896713492, guid: b0c6f05fdcad6c1498d893f52ec519b1, type: 3}
       propertyPath: m_RootOrder

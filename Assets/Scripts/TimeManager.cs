@@ -19,11 +19,11 @@ public class TimeManager : MonoBehaviour
     void Update()
     {
         ElapsedTime += Time.deltaTime;
-        
+
         var playerController = player.GetComponent<PlayerController>();
         if (playerController != null)
         {
-            playerController.flontSpeed = 5 + (ElapsedTime / 10);
+            playerController.FrontSpeed = 5 + (ElapsedTime / 10);
         }
     }
 }
