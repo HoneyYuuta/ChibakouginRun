@@ -6,9 +6,11 @@ using static UnityEditor.Progress;
 public class GenerationOfStages : MonoBehaviour
 {
     public automaticFloor automaticFloor;
-    public Vector3 v3 = new Vector3();
-    public float distance = 10f;
-   float timer = 0f;
+    public Vector3 direction = new Vector3();//レイの方向
+    public float FiringPosition = 80f;//レイの発射位置のz座標
+    public float distance = 10f;//レイの距離
+    float timer = 0f;//クールタイム用タイマー
+    public float cooldownTime = 0.5f;//
     // Start is called before the first frame update
     void Start()
     {
@@ -24,12 +26,14 @@ public class GenerationOfStages : MonoBehaviour
         }
         if (timer > 0) return;
         if (IsInvokingGenerationOfStages()) return;
-            timer = 0.5f;
+            timer = cooldownTime; 
             automaticFloor.GenerationOfStages(); 
     }
     bool IsInvokingGenerationOfStages()
     {
-        Ray ray = new Ray(this.transform.position, v3);
+        Vector3 FIRINGOSITION = this.transform.position;
+        FIRINGOSITION.z += FiringPosition;//レイの発射位置
+        Ray ray = new Ray(FIRINGOSITION, direction);
         RaycastHit hit;
         Debug.DrawRay(ray.origin, ray.direction * distance, Color.red, 5);
         if (Physics.Raycast(ray, out hit, distance)) { 
