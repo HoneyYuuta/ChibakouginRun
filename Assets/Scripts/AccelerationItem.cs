@@ -5,7 +5,7 @@ using UnityEngine;
 public class AccelerationItem : MonoBehaviour
 {
     [SerializeField][Header("‰Á‘¬‚ÌŒø‰ÊŠÔ")] private float AccelerationDuration;
-    [SerializeField][Header("‘¬“x‚Ì‘‰Á—Ê")] private float Speed??Increase;
+    [SerializeField][Header("‘¬“x‚Ì‘‰Á—Ê")] private float SpeedIncrease;
     // Start is called before the first frame update
     void Start()
     {
