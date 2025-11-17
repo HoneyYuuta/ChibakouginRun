@@ -13,4 +13,13 @@ MonoBehaviour:
   m_Name: New Speed Database
   m_EditorClassIdentifier: 
   speedList:
-  - Speed: 0
+  - Speed: 5
+  - Speed: 10
+  - Speed: 15
+  - Speed: 20
+  - Speed: 25
+  - Speed: 30
+  - Speed: 35
+  - Speed: 40
+  - Speed: 45
+  - Speed: 50

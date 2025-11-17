@@ -136,7 +136,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6855827543587383202, guid: 5671d576b8201e7499d8e4a762c8fbb6, type: 3}
       propertyPath: frontSpeed
-      value: 5
+      value: 70
       objectReference: {fileID: 0}
     - target: {fileID: 6855827543587383203, guid: 5671d576b8201e7499d8e4a762c8fbb6, type: 3}
       propertyPath: m_Constraints
@@ -515,7 +515,7 @@ MonoBehaviour:
   direction: {x: 0, y: -1, z: 0}
   FiringPosition: 80
   distance: 90
-  cooldownTime: 0.5
+  cooldownTime: 0.1
 --- !u!114 &963194230
 MonoBehaviour:
   m_ObjectHideFlags: 0
