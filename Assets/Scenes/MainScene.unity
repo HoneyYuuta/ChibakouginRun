@@ -508,8 +508,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   automaticFloor: {fileID: 1011399624}
-  v3: {x: 0, y: -0.09, z: 1}
-  distance: 80
+  direction: {x: 0, y: -1, z: 0}
+  FiringPosition: 80
+  distance: 90
+  cooldownTime: 0.5
 --- !u!114 &963194230
 MonoBehaviour:
   m_ObjectHideFlags: 0
