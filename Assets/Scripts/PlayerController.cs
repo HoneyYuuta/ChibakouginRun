@@ -43,6 +43,7 @@ public class PlayerController : MonoBehaviour
         HandleMovement();
     }
 
+
     //アイテムとの衝突を検知するためのメソッド
     private void OnTriggerEnter(Collider other)
     {
