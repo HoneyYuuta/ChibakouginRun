@@ -77,17 +77,18 @@ public class automaticFloor : MonoBehaviour
 
     }
     void AutomaticItems() {
-        int number = (int)UnityEngine.Random.Range(1f,3f);
-        
-        float Y = ItemWidth * (int)UnityEngine.Random.Range(-2f, 2f);
+        int number = (int)UnityEngine.Random.Range(1f,11f);
         Debug.Log(number);
-        if (number ==1) {
+        if (number > 7) return;
+        float Y = ItemWidth * (int)UnityEngine.Random.Range(-2f, 2f);
+      
+        if (number <= 4)
+        {
             AutomaticObstacles(Y);
+            return;
         }
-        else {
-            AutomaticPowerUpItems(Y);
-        }
-
+       
+        AutomaticPowerUpItems(Y);
     }
    
 
