@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class AccelerationItem : MonoBehaviour, Items
 {
-    //IItemのルールなので、このメソッドを必ず書く
+    //Itemsのルールなので、このメソッドを必ず書く
     public void ApplyEffect(GameObject target)
     {
         //渡されてきたGameObject(プレイヤー)からPlayerControllerを取得
