@@ -208,9 +208,21 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5127940053930259265, guid: 6e2a9500af6ec48449b02a9292117d8c, type: 3}
+      propertyPath: Items
+      value: 
+      objectReference: {fileID: 6899049117333707635, guid: 707c41622e38e484096ea66e2d764837, type: 3}
+    - target: {fileID: 5127940053930259265, guid: 6e2a9500af6ec48449b02a9292117d8c, type: 3}
+      propertyPath: floor
+      value: 
+      objectReference: {fileID: 761123479289464831, guid: 2459bb02b17eb794199dba88890a85d9, type: 3}
+    - target: {fileID: 5127940053930259265, guid: 6e2a9500af6ec48449b02a9292117d8c, type: 3}
       propertyPath: StageDat
       value: 
       objectReference: {fileID: 11400000, guid: bae271e1c8a6c9140abb11550007dfaf, type: 2}
+    - target: {fileID: 5127940053930259265, guid: 6e2a9500af6ec48449b02a9292117d8c, type: 3}
+      propertyPath: Obstacles
+      value: 
+      objectReference: {fileID: 1175153937330276026, guid: f9b6d4cf6d8328a42b9dc75c6f81b60a, type: 3}
     - target: {fileID: 5127940053930259294, guid: 6e2a9500af6ec48449b02a9292117d8c, type: 3}
       propertyPath: m_RootOrder
       value: 2

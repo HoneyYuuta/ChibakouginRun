@@ -64,8 +64,8 @@ public class automaticFloor : MonoBehaviour
             item.SetActive(true);
             item.transform.position = new Vector3(pox.y, pox.x, XPos * 10);
             if (item.GetComponent<MeshRenderer>().material
-                == Object.GetComponent<MeshRenderer>().material) return;
-            item.GetComponent<MeshRenderer>().material = Object.GetComponent<MeshRenderer>().material;
+                == Object.GetComponent<MeshRenderer>().sharedMaterial) return;
+            item.GetComponent<MeshRenderer>().material = Object.GetComponent<MeshRenderer>().sharedMaterial;
             return;
         }
         summonObject( Object,pox);
