@@ -47,7 +47,7 @@ public class PlayerController : MonoBehaviour
     //アイテムとの衝突を検知するためのメソッド
     private void OnTriggerEnter(Collider other)
     {
-        //衝突した相手が「IItem」というルール(インターフェース)を持っているかチェック
+        //衝突した相手が「Items」というルール(インターフェース)を持っているかチェック
         Items item = other.GetComponent<Items>();
         if (item != null)
         {
