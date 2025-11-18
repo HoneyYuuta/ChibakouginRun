@@ -138,6 +138,10 @@ PrefabInstance:
       propertyPath: frontSpeed
       value: 70
       objectReference: {fileID: 0}
+    - target: {fileID: 6855827543587383202, guid: 5671d576b8201e7499d8e4a762c8fbb6, type: 3}
+      propertyPath: speedDatabase
+      value: 
+      objectReference: {fileID: 11400000, guid: 00a39e0a61d0cf74882bcc1a458522a1, type: 2}
     - target: {fileID: 6855827543587383203, guid: 5671d576b8201e7499d8e4a762c8fbb6, type: 3}
       propertyPath: m_Constraints
       value: 116

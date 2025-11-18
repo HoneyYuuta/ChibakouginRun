@@ -23,7 +23,7 @@ public class TimeManager : MonoBehaviour
         var playerController = player.GetComponent<PlayerController>();
         if (playerController != null)
         {
-            playerController.FrontSpeed = 5 + (ElapsedTime / 10);
+            //playerController.FrontSpeed = 5 + (ElapsedTime / 10);
         }
     }
 }

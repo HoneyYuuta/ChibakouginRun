@@ -1,36 +1,41 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static Items;
 
 public class PlayerController : MonoBehaviour
 {
     private Rigidbody rb;
     [SerializeField][Header("横移動速度")] private float sideSpeed;
-    [SerializeField][Header("前移動速度")] private float frontSpeed;
     [SerializeField][Header("移動制限")] private float movementRestrictions;
 
-    //左右の移動入力を保持する変数 (-1:左, 1:右, 0:停止)。GetAxisの値もここに入る（-1..1）
+    //インスペクターからSpeedDatabaseを設定するための変数
+    [Header("データベース")]
+    [SerializeField] private speedDatabase speedDatabase;
+
+    //現在のプレイヤーの速度レベルを管理する変数
+    private int currentLevel = 0;
+
+    //左右の移動入力を保持する変数 (-1:左, 1:右, 0:停止)。
     private float horizontalInput = 0f;
 
     //UIボタンによる入力が有効かどうか
     private bool uiControlActive = false;
 
-    //frontSpeed の public プロパティ
-    public float FrontSpeed
-    {
-        get { return frontSpeed; }
-        set { frontSpeed = value; }
-    }
-
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        //ゲーム開始時にデータベースが設定されているか確認
+        if (speedDatabase == null)
+        {
+            Debug.LogError("PlayerControllerにSpeedDatabaseが設定されていません！");
+        }
     }
 
     void Update()
     {
-        KeyboardController();
+        //KeyboardController();
     }
 
     private void FixedUpdate()
@@ -38,12 +43,19 @@ public class PlayerController : MonoBehaviour
         HandleMovement();
     }
 
-
-
-    private void KeyboardController()
+    //アイテムとの衝突を検知するためのメソッド
+    private void OnTriggerEnter(Collider other)
     {
-        
+        //衝突した相手が「IItem」というルール(インターフェース)を持っているかチェック
+        Items item = other.GetComponent<Items>();
+        if (item != null)
+        {
+            //持っていたら、そのアイテムのApplyEffectメソッドを呼び出す
+            //引数には自分自身(プレイヤー)のGameObjectを渡す
+            item.ApplyEffect(this.gameObject);
+        }
     }
+
 
     //移動処理の本体
     private void HandleMovement()
@@ -61,8 +73,9 @@ public class PlayerController : MonoBehaviour
     //入力に基づいた目標速度を計算する
     private Vector3 CalculateDesiredVelocity()
     {
-        //常に前進する速度
-        Vector3 forwardVel = transform.forward * frontSpeed;
+        //frontSpeedを直接使う代わりに、データベースから現在のレベルに応じた速度を取得する
+        float currentFrontSpeed = speedDatabase.GetSpeedForLevel(currentLevel);
+        Vector3 forwardVel = transform.forward * currentFrontSpeed;
 
         //横移動（horizontalInputの値に比例）
         Vector3 horizontalVel = transform.right * sideSpeed * horizontalInput;
@@ -74,47 +87,62 @@ public class PlayerController : MonoBehaviour
     //移動制限を考慮した速度を計算する
     private Vector3 ApplyMovementRestrictions(Vector3 velocity)
     {
-        //次フレームの予測位置を計算し、x座標を制限内に収める
         float dt = Time.fixedDeltaTime;
         Vector3 projectedPos = rb.position + velocity * dt;
         float clampedX = Mathf.Clamp(projectedPos.x, -movementRestrictions, movementRestrictions);
 
-        //予測位置が制限を超えていた場合、x方向の速度を補正する
         if (!Mathf.Approximately(clampedX, projectedPos.x))
         {
             float correctedXVel = (clampedX - rb.position.x) / dt;
             velocity.x = correctedXVel;
         }
-
         return velocity;
     }
 
     //計算された速度をRigidbodyに適用する
     private void ApplyVelocity(Vector3 velocity)
     {
-        // Y成分は既存の物理挙動（重力など）を維持する
         velocity.y = rb.velocity.y;
         rb.velocity = velocity;
     }
 
 
-    // --- UIボタンから呼び出すための公開メソッド ---
+    // --- アイテム側から呼ばれる、レベルを操作するための公開メソッド ---
 
-    //左移動を開始する
+    /// プレイヤーの速度レベルを1上げる
+    public void IncreaseLevel()
+    {
+        // 最大レベルを超えないようにチェック
+        if (currentLevel < speedDatabase.GetMaxLevel())
+        {
+            currentLevel++;
+            Debug.Log("Level Up! 新しいレベル: " + currentLevel + ", 新しい速度: " + speedDatabase.GetSpeedForLevel(currentLevel));
+        }
+    }
+
+    //プレイヤーの速度レベルを1下げる
+    public void DecreaseLevel()
+    {
+        //レベル0より下に行かないようにチェック
+        if (currentLevel > 0)
+        {
+            currentLevel--;
+            Debug.Log("Level Down! 新しいレベル: " + currentLevel + ", 新しい速度: " + speedDatabase.GetSpeedForLevel(currentLevel));
+        }
+    }
+
+
+    // --- UIボタンから呼び出すための公開メソッド ---
     public void StartMovingLeft()
     {
         horizontalInput = -1f;
         uiControlActive = true;
     }
-
-    //右移動を開始する
     public void StartMovingRight()
     {
         horizontalInput = 1f;
         uiControlActive = true;
     }
-
-    //横移動を停止する
     public void StopMoving()
     {
         horizontalInput = 0f;

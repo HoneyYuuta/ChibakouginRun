@@ -2,35 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AccelerationItem : MonoBehaviour
+public class AccelerationItem : MonoBehaviour, Items
 {
-    [SerializeField][Header("加速の効果時間")] private float AccelerationDuration;
-    [SerializeField][Header("速度の増加量")] private float SpeedIncrease;
-    // Start is called before the first frame update
-    void Start()
+    //IItemのルールなので、このメソッドを必ず書く
+    public void ApplyEffect(GameObject target)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        /*
-        if (collision.gameObject.CompareTag("Player"))
+        //渡されてきたGameObject(プレイヤー)からPlayerControllerを取得
+        PlayerController player = target.GetComponent<PlayerController>();
+        if (player != null)
         {
-            PlayerController playerController = collision.gameObject.GetComponent<PlayerController>();
-            if (playerController != null)
-            {
-                playerController.FrontSpeed += 2.0f; // 速度を2.0f増加させる
-                Destroy(gameObject); // アイテムを消す
-            }
+            // プレイヤーのレベルを上げるメソッドを呼び出す
+            player.IncreaseLevel();
         }
-        */
-    }
 
+        //役目を終えたので自分自身を消す
+        Destroy(gameObject);
+    }
 }
