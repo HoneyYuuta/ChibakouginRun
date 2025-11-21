@@ -1,32 +1,29 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static Items;
+using DG.Tweening;
+// using static Items; // Itemsクラスの定義場所によりますが、エラーが出る場合は外してください
 
 public class PlayerController : MonoBehaviour
 {
     private Rigidbody rb;
-    [SerializeField][Header("横移動速度")] private float sideSpeed;
-    [SerializeField][Header("移動制限")] private float movementRestrictions;
 
-    //インスペクターからSpeedDatabaseを設定するための変数
     [Header("データベース")]
-    [SerializeField] private speedDatabase speedDatabase;
+    [SerializeField] private speedDatabase speedDatabase; // クラス名が大文字始まり(SpeedDatabase)か確認してください
+    [SerializeField][Header("横移動にかける時間")] private float lateralMoveDuration;
+    [SerializeField][Header("横移動の距離（レーン幅）")] private float lateralMoveDistance;
 
-    //現在のプレイヤーの速度レベルを管理する変数
     private int currentLevel = 0;
 
-    //左右の移動入力を保持する変数 (-1:左, 1:右, 0:停止)。
-    private float horizontalInput = 0f;
+    // ▼追加：現在のレーン位置を管理 (-1:左, 0:中央, 1:右)
+    private int currentLaneIndex = 0;
 
-    //UIボタンによる入力が有効かどうか
-    private bool uiControlActive = false;
-
+    // ▼追加：移動中かどうかを判定するフラグ（連打防止用）
+    private bool isLaneChanging = false;
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        //ゲーム開始時にデータベースが設定されているか確認
         if (speedDatabase == null)
         {
             Debug.LogError("PlayerControllerにSpeedDatabaseが設定されていません！");
@@ -35,7 +32,7 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        //KeyboardController();
+        // 横移動は Dotween に任せるため処理なし
     }
 
     private void FixedUpdate()
@@ -43,110 +40,104 @@ public class PlayerController : MonoBehaviour
         HandleMovement();
     }
 
-
-    //アイテムとの衝突を検知するためのメソッド
     private void OnTriggerEnter(Collider other)
     {
-        //衝突した相手が「Items」というルール(インターフェース)を持っているかチェック
-        Items item = other.GetComponent<Items>();
+        // Itemsクラスの定義に合わせて適宜修正してください
+        var item = other.GetComponent<Items>(); // 型名をItemsに合わせてください
         if (item != null)
         {
-            //持っていたら、そのアイテムのApplyEffectメソッドを呼び出す
-            //引数には自分自身(プレイヤー)のGameObjectを渡す
             item.ApplyEffect(this.gameObject);
         }
     }
 
-
-    //移動処理の本体
     private void HandleMovement()
     {
-        //1. 目標となる速度を計算する
         Vector3 desiredVel = CalculateDesiredVelocity();
-
-        //2. 移動範囲の制限を適用する
-        Vector3 restrictedVel = ApplyMovementRestrictions(desiredVel);
-
-        //3. Rigidbodyの速度を更新する
-        ApplyVelocity(restrictedVel);
+        ApplyVelocity(desiredVel);
     }
 
-    //入力に基づいた目標速度を計算する
     private Vector3 CalculateDesiredVelocity()
     {
-        //frontSpeedを直接使う代わりに、データベースから現在のレベルに応じた速度を取得する
-        float currentFrontSpeed = speedDatabase.GetSpeedForLevel(currentLevel);
+        float currentFrontSpeed = speedDatabase != null ? speedDatabase.GetSpeedForLevel(currentLevel) : 0f;
         Vector3 forwardVel = transform.forward * currentFrontSpeed;
-
-        //横移動（horizontalInputの値に比例）
-        Vector3 horizontalVel = transform.right * sideSpeed * horizontalInput;
-
-        //最終的な目標速度
-        return forwardVel + horizontalVel;
+        return forwardVel;
     }
 
-    //移動制限を考慮した速度を計算する
-    private Vector3 ApplyMovementRestrictions(Vector3 velocity)
-    {
-        float dt = Time.fixedDeltaTime;
-        Vector3 projectedPos = rb.position + velocity * dt;
-        float clampedX = Mathf.Clamp(projectedPos.x, -movementRestrictions, movementRestrictions);
-
-        if (!Mathf.Approximately(clampedX, projectedPos.x))
-        {
-            float correctedXVel = (clampedX - rb.position.x) / dt;
-            velocity.x = correctedXVel;
-        }
-        return velocity;
-    }
-
-    //計算された速度をRigidbodyに適用する
     private void ApplyVelocity(Vector3 velocity)
     {
         velocity.y = rb.velocity.y;
         rb.velocity = velocity;
     }
 
-
-    // --- アイテム側から呼ばれる、レベルを操作するための公開メソッド ---
-
-    /// プレイヤーの速度レベルを1上げる
     public void IncreaseLevel()
     {
-        // 最大レベルを超えないようにチェック
+        if (speedDatabase == null) return;
         if (currentLevel < speedDatabase.GetMaxLevel())
         {
             currentLevel++;
-            Debug.Log("Level Up! 新しいレベル: " + currentLevel + ", 新しい速度: " + speedDatabase.GetSpeedForLevel(currentLevel));
+            Debug.Log("Level Up! " + currentLevel);
         }
     }
 
-    //プレイヤーの速度レベルを1下げる
     public void DecreaseLevel()
     {
-        //レベル0より下に行かないようにチェック
         if (currentLevel > 0)
         {
             currentLevel--;
-            Debug.Log("Level Down! 新しいレベル: " + currentLevel + ", 新しい速度: " + speedDatabase.GetSpeedForLevel(currentLevel));
+            Debug.Log("Level Down! " + currentLevel);
         }
     }
 
+    // --- ▼▼▼ ここから横移動の修正部分 ▼▼▼ ---
 
-    // --- UIボタンから呼び出すための公開メソッド ---
     public void StartMovingLeft()
     {
-        horizontalInput = -1f;
-        uiControlActive = true;
+        // 移動中なら何もしない（連打防止）
+        if (isLaneChanging) return;
+
+        // 現在のレーンが「左端(-1)」より大きい場合のみ移動可能
+        if (currentLaneIndex > -1)
+        {
+            currentLaneIndex--; // レーン番号を1つ減らす
+            MoveToLane();
+        }
     }
+
     public void StartMovingRight()
     {
-        horizontalInput = 1f;
-        uiControlActive = true;
+        // 移動中なら何もしない
+        if (isLaneChanging) return;
+
+        // 現在のレーンが「右端(1)」より小さい場合のみ移動可能
+        if (currentLaneIndex < 1)
+        {
+            currentLaneIndex++; // レーン番号を1つ増やす
+            MoveToLane();
+        }
     }
+
+    // 実際の移動処理をまとめたメソッド
+    private void MoveToLane()
+    {
+        isLaneChanging = true; // 移動開始フラグを立てる
+
+        // 目標のX座標を計算 (レーン番号 × レーン幅)
+        // 例：幅が2の場合 -> 左(-2), 中央(0), 右(2) となる
+        float targetX = currentLaneIndex * lateralMoveDistance;
+
+        // DOTweenで移動
+        transform.DOLocalMoveX(targetX, lateralMoveDuration)
+            .SetEase(Ease.OutQuad)
+            .SetLink(gameObject) // オブジェクト破棄時の安全策
+            .OnComplete(() =>
+            {
+                // 移動が終わったらフラグを下ろす
+                isLaneChanging = false;
+            });
+    }
+
     public void StopMoving()
     {
-        horizontalInput = 0f;
-        uiControlActive = false;
+        // DOTweenの場合は自動で止まるので、ここは空でOK
     }
 }

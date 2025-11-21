@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AccelerationItem : MonoBehaviour, Items
+public class SpeedDownItem : MonoBehaviour, Items
 {
     //Itemsのルールなので、このメソッドを必ず書く
     public void ApplyEffect(GameObject target)
@@ -12,7 +12,7 @@ public class AccelerationItem : MonoBehaviour, Items
         if (player != null)
         {
             // プレイヤーのレベルを上げるメソッドを呼び出す
-            player.IncreaseLevel();
+            player.DecreaseLevel();
         }
 
         //役目を終えたので自分自身を消す
