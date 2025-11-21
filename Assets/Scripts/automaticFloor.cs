@@ -15,6 +15,7 @@ public class automaticFloor : MonoBehaviour
     public GameObject[] floorObject;
     public int XPos=0;
     public float ItemWidth = 1.5f;
+    public int X = 0;
     // Start is called before the first frame update
     void Start()
     {
@@ -23,14 +24,17 @@ public class automaticFloor : MonoBehaviour
             movingObject(floor, new Vector2(0, 0));
             XPos++;
         }
-        StageChange(0);
+        StageChange();
     }
 
-    void StageChange(int a)
+    void StageChange()
     {
-        floor = StageDat.ItemList[a].FloorObject;
-        Obstacles = StageDat.ItemList[a].ObstaclesObject;
-        Items = StageDat.ItemList[a].ItemObject;
+        if (StageDat == null) return;
+        if (StageDat.ItemList.Count <= X)X = 0;
+        floor = StageDat.ItemList[X].FloorObject;
+        Obstacles = StageDat.ItemList[X].ObstaclesObject;
+        Items = StageDat.ItemList[X].ItemObject;
+        X++;
     }
 
     // Update is called once per frame
@@ -38,8 +42,7 @@ public class automaticFloor : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.A))
         {
-            GenerationOfStages();
-            StageChange(1);
+            StageChange();
         }
     }
     public void GenerationOfStages() {
@@ -66,6 +69,8 @@ public class automaticFloor : MonoBehaviour
             if (item.GetComponent<MeshRenderer>().material
                 == Object.GetComponent<MeshRenderer>().sharedMaterial) return;
             item.GetComponent<MeshRenderer>().material = Object.GetComponent<MeshRenderer>().sharedMaterial;
+            if(item.GetComponent<MeshFilter>().mesh == Object.GetComponent<MeshFilter>().sharedMesh) return;
+            item.GetComponent<MeshFilter>().mesh = Object.GetComponent<MeshFilter>().sharedMesh;
             return;
         }
         summonObject( Object,pox);
@@ -87,15 +92,12 @@ public class automaticFloor : MonoBehaviour
             AutomaticObstacles(Y);
             return;
         }
-       
         AutomaticPowerUpItems(Y);
     }
    
 
     void AutomaticObstacles(float Y) {
         movingObject(Obstacles, new Vector2(1,Y));
-
-
     }
     void AutomaticPowerUpItems(float Y)
     {
