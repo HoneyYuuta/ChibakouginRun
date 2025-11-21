@@ -19,14 +19,8 @@ public class CreatingAndDeletingStages : MonoBehaviour
   
      void OnTriggerEnter(Collider other)
      {
-        if (other.tag == "ChibaCorgi") return;
-        if (this.tag == "Finish")
-        {
-            Debug.Log("すり抜けた！");
-            return;
-        }
+        if (other.gameObject.tag == "ChibaCorgi") return;
         
-        other.gameObject.SetActive(false);
-      
+            other.gameObject.SetActive(false);
      }
 }

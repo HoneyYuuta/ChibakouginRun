@@ -19,6 +19,7 @@ public class CreatingAndDeleting : MonoBehaviour
   
      void OnTriggerEnter(Collider other)
      {
+        if (other.gameObject.tag == "ChibaCorgi") return;
         other.gameObject.SetActive(false);
       
      }
