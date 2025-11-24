@@ -32,7 +32,14 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        // ‰¡ˆÚ“®‚Í Dotween ‚É”C‚¹‚é‚½‚ßˆ—‚È‚µ
+        if(Input.GetKeyDown(KeyCode.A))
+        {
+            StartMovingLeft();
+        }
+        else if(Input.GetKeyDown(KeyCode.D))
+        {
+            StartMovingRight();
+        }
     }
 
     private void FixedUpdate()
@@ -87,8 +94,6 @@ public class PlayerController : MonoBehaviour
             Debug.Log("Level Down! " + currentLevel);
         }
     }
-
-    // --- ¥¥¥ ‚±‚±‚©‚ç‰¡ˆÚ“®‚ÌC³•”•ª ¥¥¥ ---
 
     public void StartMovingLeft()
     {
