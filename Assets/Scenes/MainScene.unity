@@ -982,6 +982,14 @@ PrefabInstance:
       propertyPath: frontSpeed
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 6084195412896713491, guid: b0c6f05fdcad6c1498d893f52ec519b1, type: 3}
+      propertyPath: speedDatabase
+      value: 
+      objectReference: {fileID: 11400000, guid: 00a39e0a61d0cf74882bcc1a458522a1, type: 2}
+    - target: {fileID: 6084195412896713491, guid: b0c6f05fdcad6c1498d893f52ec519b1, type: 3}
+      propertyPath: levelUpInterval
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 6084195412896713492, guid: b0c6f05fdcad6c1498d893f52ec519b1, type: 3}
       propertyPath: m_RootOrder
       value: 4
