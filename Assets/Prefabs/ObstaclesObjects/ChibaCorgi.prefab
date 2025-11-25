@@ -128,4 +128,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7be1ff7a4b1ab514289887a3298bff6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speedDatabase: {fileID: 11400000, guid: 00a39e0a61d0cf74882bcc1a458522a1, type: 2}
   frontSpeed: 5
+  levelUpInterval: 10
+  autoLeveling: 1

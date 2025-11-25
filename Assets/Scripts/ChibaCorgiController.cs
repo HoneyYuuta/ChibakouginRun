@@ -35,7 +35,7 @@ public class ChibaCorgiController : MonoBehaviour
         }
 
         // 補間を有効にして見た目を滑らかに
-        rb.interpolation = RigidbodyInterpolation.Interpolate;
+        //rb.interpolation = RigidbodyInterpolation.Interpolate;
     }
 
     void Update()
@@ -76,27 +76,6 @@ public class ChibaCorgiController : MonoBehaviour
         {
             currentLevel++;
             Debug.Log($"ChibaCorgiController: Auto Level Up -> {currentLevel} (speed={speedDatabase.GetSpeedForLevel(currentLevel)})");
-        }
-    }
-
-    // 外部からレベル操作するメソッド（既存と同様）
-    public void IncreaseLevel()
-    {
-        if (speedDatabase == null) return;
-        if (currentLevel < speedDatabase.GetMaxLevel())
-        {
-            currentLevel++;
-            Debug.Log("Level Up! 新しいレベル: " + currentLevel + ", 新しい速度: " + speedDatabase.GetSpeedForLevel(currentLevel));
-        }
-    }
-
-    public void DecreaseLevel()
-    {
-        if (speedDatabase == null) return;
-        if (currentLevel > 0)
-        {
-            currentLevel--;
-            Debug.Log("Level Down! 新しいレベル: " + currentLevel + ", 新しい速度: " + speedDatabase.GetSpeedForLevel(currentLevel));
         }
     }
 

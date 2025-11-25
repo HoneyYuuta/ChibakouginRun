@@ -2,23 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
-// using static Items; // Itemsクラスの定義場所によりますが、エラーが出る場合は外してください
 
 public class PlayerController : MonoBehaviour
 {
     private Rigidbody rb;
+    private Coroutine speedResetCoroutine;
+    private float currentBuffDuration;
 
     [Header("データベース")]
-    [SerializeField] private speedDatabase speedDatabase; // クラス名が大文字始まり(SpeedDatabase)か確認してください
+    [SerializeField] private speedDatabase speedDatabase;
     [SerializeField][Header("横移動にかける時間")] private float lateralMoveDuration;
     [SerializeField][Header("横移動の距離（レーン幅）")] private float lateralMoveDistance;
 
     private int currentLevel = 0;
 
-    // ▼追加：現在のレーン位置を管理 (-1:左, 0:中央, 1:右)
+    //現在のレーン位置を管理 (-1:左, 0:中央, 1:右)
     private int currentLaneIndex = 0;
 
-    // ▼追加：移動中かどうかを判定するフラグ（連打防止用）
+    //移動中かどうかを判定するフラグ（連打防止用）
     private bool isLaneChanging = false;
 
     void Start()
@@ -49,8 +50,8 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        // Itemsクラスの定義に合わせて適宜修正してください
-        var item = other.GetComponent<Items>(); // 型名をItemsに合わせてください
+        //Itemsクラスの定義に合わせて適宜修正してください
+        var item = other.GetComponent<Items>(); //型名をItemsに合わせてください
         if (item != null)
         {
             item.ApplyEffect(this.gameObject);
@@ -76,44 +77,103 @@ public class PlayerController : MonoBehaviour
         rb.velocity = velocity;
     }
 
+    public void ApplyTemporarySpeedUp(float duration)
+    {
+        //今回の効果時間を保存（上書き）
+        currentBuffDuration = duration;
+
+        //レベルを上げる（タイマーのリセットはIncreaseLevel内で行われる）
+        IncreaseLevel();
+    }
+
+    //プレイヤーの速度レベルを1上げる
     public void IncreaseLevel()
     {
-        if (speedDatabase == null) return;
         if (currentLevel < speedDatabase.GetMaxLevel())
         {
             currentLevel++;
             Debug.Log("Level Up! " + currentLevel);
+
+            // レベルが変わったのでタイマーをリセットする
+            ResetDecayTimer();
         }
+        //最大レベルでもタイマーだけリセットしたい場合は、ifの外にResetDecayTimer()を出してください
     }
 
+    //プレイヤーの速度レベルを1下げる
     public void DecreaseLevel()
     {
         if (currentLevel > 0)
         {
             currentLevel--;
             Debug.Log("Level Down! " + currentLevel);
+
+            //レベルが変わったのでタイマーをリセットする
+            ResetDecayTimer();
         }
+        else
+        {
+            //レベル0になったらタイマーは不要なので止める
+            StopDecayTimer();
+        }
+    }
+
+    //タイマー管理用のヘルパーメソッド
+
+    private void ResetDecayTimer()
+    {
+        //既存のタイマーがあれば止める
+        StopDecayTimer();
+
+        //レベルが0より大きく、かつ効果時間が設定されていれば、新しいタイマーをスタート
+        if (currentLevel > 0 && currentBuffDuration > 0)
+        {
+            speedResetCoroutine = StartCoroutine(DecayRoutine());
+        }
+    }
+
+    private void StopDecayTimer()
+    {
+        if (speedResetCoroutine != null)
+        {
+            StopCoroutine(speedResetCoroutine);
+            speedResetCoroutine = null;
+        }
+    }
+
+    /// <summary>
+    /// 時間が来たらレベルを下げるだけのシンプルなコルーチン
+    /// </summary>
+    private IEnumerator DecayRoutine()
+    {
+        // 設定された時間だけ待つ
+        yield return new WaitForSeconds(currentBuffDuration);
+
+        // 時間が来たらレベルを下げる
+        // ※ここでDecreaseLevelを呼ぶことで、DecreaseLevel内のResetDecayTimerが走り、
+        //   自動的に次のタイマーがスタートする（ループになる）
+        DecreaseLevel();
     }
 
     public void StartMovingLeft()
     {
-        // 移動中なら何もしない（連打防止）
+        //移動中なら何もしない（連打防止）
         if (isLaneChanging) return;
 
-        // 現在のレーンが「左端(-1)」より大きい場合のみ移動可能
+        //現在のレーンが「左端(-1)」より大きい場合のみ移動可能
         if (currentLaneIndex > -1)
         {
-            currentLaneIndex--; // レーン番号を1つ減らす
+            currentLaneIndex--; //レーン番号を1つ減らす
             MoveToLane();
         }
     }
 
     public void StartMovingRight()
     {
-        // 移動中なら何もしない
+        //移動中なら何もしない
         if (isLaneChanging) return;
 
-        // 現在のレーンが「右端(1)」より小さい場合のみ移動可能
+        //現在のレーンが「右端(1)」より小さい場合のみ移動可能
         if (currentLaneIndex < 1)
         {
             currentLaneIndex++; // レーン番号を1つ増やす
@@ -121,16 +181,16 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    // 実際の移動処理をまとめたメソッド
+    //実際の移動処理をまとめたメソッド
     private void MoveToLane()
     {
         isLaneChanging = true; // 移動開始フラグを立てる
 
-        // 目標のX座標を計算 (レーン番号 × レーン幅)
-        // 例：幅が2の場合 -> 左(-2), 中央(0), 右(2) となる
+        //目標のX座標を計算 (レーン番号 × レーン幅)
+        //例：幅が2の場合 -> 左(-2), 中央(0), 右(2) となる
         float targetX = currentLaneIndex * lateralMoveDistance;
 
-        // DOTweenで移動
+        //DOTweenで移動
         transform.DOLocalMoveX(targetX, lateralMoveDuration)
             .SetEase(Ease.OutQuad)
             .SetLink(gameObject) // オブジェクト破棄時の安全策
@@ -143,6 +203,6 @@ public class PlayerController : MonoBehaviour
 
     public void StopMoving()
     {
-        // DOTweenの場合は自動で止まるので、ここは空でOK
+        //DOTweenの場合は自動で止まるので、ここは空でOK
     }
 }
