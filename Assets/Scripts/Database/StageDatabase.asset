@@ -14,11 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemList:
   - FloorObject: {fileID: 761123479289464831, guid: 2459bb02b17eb794199dba88890a85d9, type: 3}
-    ItemObject: {fileID: 1175153937330276026, guid: f9b6d4cf6d8328a42b9dc75c6f81b60a, type: 3}
-    ObstaclesObject: {fileID: 6899049117333707635, guid: 707c41622e38e484096ea66e2d764837, type: 3}
+    ItemObject: {fileID: 3723341898024776394, guid: 249db6ab46723ce429f54fa95f668876, type: 3}
+    ObstaclesObject: {fileID: 3940639877696081267, guid: fb2fec9c347cd4a48a9d2b04e4f9cd4c, type: 3}
   - FloorObject: {fileID: 761123479289464831, guid: 8a73aafdc6feebb4189ec64feb94a7ee, type: 3}
     ItemObject: {fileID: 1175153937330276026, guid: 6e81d8afbb8cb0d42b6d7c9b3a0af8f6, type: 3}
     ObstaclesObject: {fileID: 6899049117333707635, guid: 806470e249910244e84f7d076ea8a3d0, type: 3}
   - FloorObject: {fileID: 761123479289464831, guid: 2459bb02b17eb794199dba88890a85d9, type: 3}
-    ItemObject: {fileID: 1175153937330276026, guid: 6e81d8afbb8cb0d42b6d7c9b3a0af8f6, type: 3}
-    ObstaclesObject: {fileID: 8702270732904893336, guid: 6d607deaefed0ce46aeb5169a5253e4e, type: 3}
+    ItemObject: {fileID: 1175153937330276026, guid: f9b6d4cf6d8328a42b9dc75c6f81b60a, type: 3}
+    ObstaclesObject: {fileID: 6899049117333707635, guid: 707c41622e38e484096ea66e2d764837, type: 3}

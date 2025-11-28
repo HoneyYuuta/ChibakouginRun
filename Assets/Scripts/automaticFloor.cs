@@ -21,12 +21,12 @@ public class automaticFloor : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        StageChange();
         for (int i = 0; i < 10; i++)
         {
             movingObject(floor, new Vector2(0, 0));
             XCoordinate++;
         }
-        StageChange();
     }
     //このメソッドは、現在のインデックス X に基づいて床、障害物、アイテムを更新してステージを変更します
     void StageChange()
@@ -69,17 +69,12 @@ public class automaticFloor : MonoBehaviour
             if (item == null) continue;
             if (item.activeSelf != false) continue;
             if (item.tag != Object.tag) continue;
+            if (item.GetComponent<MeshFilter>().mesh != Object.GetComponent<MeshFilter>().sharedMesh) continue;
             item.SetActive(true);
             item.transform.position = new Vector3(pox.y, pox.x, XCoordinate * 10);
-            // メッシュとマテリアルを更新
-            if (item.GetComponent<MeshRenderer>().material
-                == Object.GetComponent<MeshRenderer>().sharedMaterial) return;
-            item.GetComponent<MeshRenderer>().material = Object.GetComponent<MeshRenderer>().sharedMaterial;
-            if(item.GetComponent<MeshFilter>().mesh == Object.GetComponent<MeshFilter>().sharedMesh) return;
-            item.GetComponent<MeshFilter>().mesh = Object.GetComponent<MeshFilter>().sharedMesh;
             return;
         }
-        summonObject( Object,pox);
+        summonObject(Object,pox);
 
     }
 
