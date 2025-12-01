@@ -22,6 +22,19 @@ public class PlayerController : MonoBehaviour
     //移動中かどうかを判定するフラグ（連打防止用）
     private bool isLaneChanging = false;
 
+    //UI表示用に、現在の残り時間の割合(0.0?1.0)を保持する変数
+    public float BuffTimeRatio { get; private set; } = 0f;
+
+    //現在の速度を外部(UI)から取得するためのプロパティ
+    public float CurrentSpeed
+    {
+        get
+        {
+            if (speedDatabase == null) return 0f;
+            return speedDatabase.GetSpeedForLevel(currentLevel);
+        }
+    }
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -139,15 +152,29 @@ public class PlayerController : MonoBehaviour
             StopCoroutine(speedResetCoroutine);
             speedResetCoroutine = null;
         }
+        BuffTimeRatio = 0f;
     }
 
-    //時間が来たらレベルを下げるだけのシンプルなコルーチン
+    //時間が来たらレベルを下げるコルーチン
     private IEnumerator DecayRoutine()
     {
-        // 設定された時間だけ待つ
-        yield return new WaitForSeconds(currentBuffDuration);
+        float timer = currentBuffDuration;
 
-        //時間が来たらレベルを下げる
+        //タイマーが0になるまでループする
+        while (timer > 0)
+        {
+            //1フレーム分の時間を引く
+            timer -= Time.deltaTime;
+
+            //UI用に「残り時間の割合」を計算 (1.0 → 0.0 へ減っていく)
+            BuffTimeRatio = timer / currentBuffDuration;
+
+            //次のフレームまで待つ
+            yield return null;
+        }
+
+        //時間切れ処理
+        BuffTimeRatio = 0f;
         DecreaseLevel();
     }
 
@@ -172,7 +199,7 @@ public class PlayerController : MonoBehaviour
         //現在のレーンが「右端(1)」より小さい場合のみ移動可能
         if (currentLaneIndex < 1)
         {
-            currentLaneIndex++; // レーン番号を1つ増やす
+            currentLaneIndex++; //レーン番号を1つ増やす
             MoveToLane();
         }
     }
@@ -180,10 +207,10 @@ public class PlayerController : MonoBehaviour
     //実際の移動処理をまとめたメソッド
     private void MoveToLane()
     {
-        isLaneChanging = true; // 移動開始フラグを立てる
+        isLaneChanging = true;//移動開始フラグを立てる
 
-        //目標のX座標を計算 (レーン番号 × レーン幅)
-        //例：幅が2の場合 -> 左(-2), 中央(0), 右(2) となる
+        //目標のX座標を計算(レーン番号×レーン幅)
+        //例：幅が2の場合->左(-2),中央(0),右(2)となる
         float targetX = currentLaneIndex * lateralMoveDistance;
 
         //DOTweenで移動
