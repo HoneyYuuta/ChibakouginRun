@@ -94,17 +94,38 @@ public class automaticFloor : MonoBehaviour
         if (number <= 4)
         {
             AutomaticObstacles(Y);
+
+           // AutomaticObstaclesGeneration(Y);
             return;
         }
-        AutomaticPowerUpItems(Y);
+        AutomaticPowerUpItemsGeneration(Y);
+    }
+    void AutomaticObstacles(float Y)
+    {
+        float A = Y / ItemWidth;
+        switch (A) {
+            case 1:
+                AutomaticObstaclesGeneration(0* ItemWidth);
+                AutomaticObstaclesGeneration(-1 * ItemWidth);
+                break;
+            case 0:
+                AutomaticObstaclesGeneration(1 * ItemWidth);
+                AutomaticObstaclesGeneration(-1 * ItemWidth);
+                break;
+            case -1:
+                AutomaticObstaclesGeneration(1 * ItemWidth);
+                AutomaticObstaclesGeneration(0 * ItemWidth);
+                break;
+
+        }
     }
 
     // このメソッドは、自動的に障害物を生成します
-    void AutomaticObstacles(float Y) {
+    void AutomaticObstaclesGeneration(float Y) {
         movingObject(Obstacles, new Vector2(1,Y));
     }
     // このメソッドは、自動的にパワーアップアイテムを生成します
-    void AutomaticPowerUpItems(float Y)
+    void AutomaticPowerUpItemsGeneration(float Y)
     {
         movingObject(Items, new Vector2(1, Y));
     }
