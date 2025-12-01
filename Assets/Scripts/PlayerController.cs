@@ -141,17 +141,13 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// 時間が来たらレベルを下げるだけのシンプルなコルーチン
-    /// </summary>
+    //時間が来たらレベルを下げるだけのシンプルなコルーチン
     private IEnumerator DecayRoutine()
     {
         // 設定された時間だけ待つ
         yield return new WaitForSeconds(currentBuffDuration);
 
-        // 時間が来たらレベルを下げる
-        // ※ここでDecreaseLevelを呼ぶことで、DecreaseLevel内のResetDecayTimerが走り、
-        //   自動的に次のタイマーがスタートする（ループになる）
+        //時間が来たらレベルを下げる
         DecreaseLevel();
     }
 

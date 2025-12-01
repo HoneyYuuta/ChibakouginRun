@@ -4,19 +4,26 @@ using UnityEngine;
 
 public class AccelerationItem : MonoBehaviour, Items
 {
-    //Itemsのルールなので、このメソッドを必ず書く
-
     [Header("効果時間（秒）")]
-    [SerializeField] private float duration = 5.0f; // 一定時間スピードアップ
+    [SerializeField] private float duration = 5.0f; //一定時間スピードアップ
+
+    //このアイテムを取った時のスコア
+    [Header("獲得スコア")]
+    [SerializeField] private int scoreAmount = 100;
 
     public void ApplyEffect(GameObject target)
     {
-        //渡されてきたGameObject(プレイヤー)からPlayerControllerを取得
+        //プレイヤーへの速度変更効果
         PlayerController player = target.GetComponent<PlayerController>();
         if (player != null)
         {
-            // 以前の IncreaseLevel() ではなく、時間指定版のメソッドを呼ぶ
             player.ApplyTemporarySpeedUp(duration);
+        }
+
+        //ScoreManagerが存在するか確認してから加算する
+        if (ScoreManager.Instance != null)
+        {
+            ScoreManager.Instance.AddScore(scoreAmount);
         }
 
         //役目を終えたので自分自身を消す

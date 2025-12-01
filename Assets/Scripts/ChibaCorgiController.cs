@@ -11,7 +11,7 @@ public class ChibaCorgiController : MonoBehaviour
     [SerializeField][Header("前移動速度（フォールバック）")] private float frontSpeed;
 
     [Header("自動レベルアップ設定")]
-    [SerializeField][Tooltip("何秒ごとにレベルを上げるか")] private float levelUpInterval = 10f;
+    [SerializeField][Tooltip("何秒ごとにレベルを上げるか")] private float levelUpInterval = 20f;
     [SerializeField][Tooltip("自動レベルアップを有効にするか")] private bool autoLeveling = true;
 
     // 現在の速度レベル（データベース参照時に使用）
@@ -34,8 +34,6 @@ public class ChibaCorgiController : MonoBehaviour
             Debug.LogWarning("ChibaCorgiController: speedDatabase が設定されていません。frontSpeed をフォールバックとして使用します。");
         }
 
-        // 補間を有効にして見た目を滑らかに
-        //rb.interpolation = RigidbodyInterpolation.Interpolate;
     }
 
     void Update()
