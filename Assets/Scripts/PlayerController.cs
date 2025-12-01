@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
@@ -9,25 +9,44 @@ public class PlayerController : MonoBehaviour
     private Coroutine speedResetCoroutine;
     private float currentBuffDuration;
 
-    [Header("ƒf[ƒ^ƒx[ƒX")]
-    [SerializeField] private speedDatabase speedDatabase;
-    [SerializeField][Header("‰¡ˆÚ“®‚É‚©‚¯‚éŠÔ")] private float lateralMoveDuration;
-    [SerializeField][Header("‰¡ˆÚ“®‚Ì‹——£iƒŒ[ƒ“•j")] private float lateralMoveDistance;
-
+    [SerializeField][Header("ãƒ‡ãƒ¼ã‚¿ãƒ™ãƒ¼ã‚¹")] private speedDatabase speedDatabase;
+    [SerializeField][Header("æ¨ªç§»å‹•ã«ã‹ã‘ã‚‹æ™‚é–“")] private float lateralMoveDuration;
+    [SerializeField][Header("æ¨ªç§»å‹•ã®è·é›¢ï¼ˆãƒ¬ãƒ¼ãƒ³å¹…ï¼‰")] private float lateralMoveDistance;
+    [SerializeField][Header("åŠ é€Ÿåº¦è¨­å®š")] private float accelerationSpeed = 2.0f;
     private int currentLevel = 0;
 
-    //Œ»İ‚ÌƒŒ[ƒ“ˆÊ’u‚ğŠÇ— (-1:¶, 0:’†‰›, 1:‰E)
+    //ç¾åœ¨ã€å®Ÿéš›ã«å‡ºã¦ã„ã‚‹é€Ÿåº¦ï¼ˆå†…éƒ¨è¨ˆç®—ç”¨ï¼‰
+    private float currentActualSpeed = 0f;
+
+    //ç¾åœ¨ã®ãƒ¬ãƒ¼ãƒ³ä½ç½®ã‚’ç®¡ç† (-1:å·¦, 0:ä¸­å¤®, 1:å³)
     private int currentLaneIndex = 0;
 
-    //ˆÚ“®’†‚©‚Ç‚¤‚©‚ğ”»’è‚·‚éƒtƒ‰ƒOi˜A‘Å–h~—pj
+    //ç§»å‹•ä¸­ã‹ã©ã†ã‹ã‚’åˆ¤å®šã™ã‚‹ãƒ•ãƒ©ã‚°ï¼ˆé€£æ‰“é˜²æ­¢ç”¨ï¼‰
     private bool isLaneChanging = false;
+
+    //UIè¡¨ç¤ºç”¨ã«ã€ç¾åœ¨ã®æ®‹ã‚Šæ™‚é–“ã®å‰²åˆ(0.0ã€œ1.0)ã‚’ä¿æŒã™ã‚‹å¤‰æ•°
+    public float BuffTimeRatio { get; private set; } = 0f;
+
+    public float CurrentSpeed
+    {
+        get
+        {
+            // æ»‘ã‚‰ã‹ã«å¤‰åŒ–ã—ã¦ã„ã‚‹æœ€ä¸­ã®å€¤ã‚’è¿”ã™
+            return currentActualSpeed;
+        }
+    }
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         if (speedDatabase == null)
         {
-            Debug.LogError("PlayerController‚ÉSpeedDatabase‚ªİ’è‚³‚ê‚Ä‚¢‚Ü‚¹‚ñI");
+            Debug.LogError("PlayerControllerã«SpeedDatabaseãŒè¨­å®šã•ã‚Œã¦ã„ã¾ã›ã‚“ï¼");
+        }
+        else
+        {
+            // ã‚²ãƒ¼ãƒ é–‹å§‹æ™‚ã¯ã€ãƒ¬ãƒ™ãƒ«0ã®é€Ÿåº¦ã‚’åˆæœŸå€¤ã«ã™ã‚‹
+            currentActualSpeed = speedDatabase.GetSpeedForLevel(0);
         }
     }
 
@@ -50,8 +69,8 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        //ItemsƒNƒ‰ƒX‚Ì’è‹`‚É‡‚í‚¹‚Ä“K‹XC³‚µ‚Ä‚­‚¾‚³‚¢
-        var item = other.GetComponent<Items>(); //Œ^–¼‚ğItems‚É‡‚í‚¹‚Ä‚­‚¾‚³‚¢
+        //Itemsã‚¯ãƒ©ã‚¹ã®å®šç¾©ã«åˆã‚ã›ã¦é©å®œä¿®æ­£ã—ã¦ãã ã•ã„
+        var item = other.GetComponent<Items>(); //å‹åã‚’Itemsã«åˆã‚ã›ã¦ãã ã•ã„
         if (item != null)
         {
             item.ApplyEffect(this.gameObject);
@@ -66,8 +85,15 @@ public class PlayerController : MonoBehaviour
 
     private Vector3 CalculateDesiredVelocity()
     {
-        float currentFrontSpeed = speedDatabase != null ? speedDatabase.GetSpeedForLevel(currentLevel) : 0f;
-        Vector3 forwardVel = transform.forward * currentFrontSpeed;
+        //ä»Šã®ãƒ¬ãƒ™ãƒ«ã«ãŠã‘ã‚‹ã€Œç›®æ¨™ã¨ã™ã¹ãé€Ÿåº¦ã€ã‚’å–å¾—
+        float targetSpeed = speedDatabase != null ? speedDatabase.GetSpeedForLevel(currentLevel) : 0f;
+
+        //ã€Œç¾åœ¨ã®å®Ÿéš›ã®é€Ÿåº¦ã€ã‚’ã€Œç›®æ¨™é€Ÿåº¦ã€ã«å‘ã‘ã¦å¾ã€…ã«è¿‘ã¥ã‘ã‚‹ (Lerp)
+        // ime.fixedDeltaTime * accelerationSpeed ã§å¤‰åŒ–ã®åº¦åˆã„ã‚’èª¿æ•´
+        currentActualSpeed = Mathf.Lerp(currentActualSpeed, targetSpeed, Time.fixedDeltaTime * accelerationSpeed);
+
+        //è¨ˆç®—ã—ãŸã€Œå®Ÿéš›ã®é€Ÿåº¦ã€ã‚’ä½¿ã£ã¦é€²ã‚€
+        Vector3 forwardVel = transform.forward * currentActualSpeed;
         return forwardVel;
     }
 
@@ -79,14 +105,14 @@ public class PlayerController : MonoBehaviour
 
     public void ApplyTemporarySpeedUp(float duration)
     {
-        //¡‰ñ‚ÌŒø‰ÊŠÔ‚ğ•Û‘¶iã‘‚«j
+        //ä»Šå›ã®åŠ¹æœæ™‚é–“ã‚’ä¿å­˜ï¼ˆä¸Šæ›¸ãï¼‰
         currentBuffDuration = duration;
 
-        //ƒŒƒxƒ‹‚ğã‚°‚éiƒ^ƒCƒ}[‚ÌƒŠƒZƒbƒg‚ÍIncreaseLevel“à‚Ås‚í‚ê‚éj
+        //ãƒ¬ãƒ™ãƒ«ã‚’ä¸Šã’ã‚‹ï¼ˆã‚¿ã‚¤ãƒãƒ¼ã®ãƒªã‚»ãƒƒãƒˆã¯IncreaseLevelå†…ã§è¡Œã‚ã‚Œã‚‹ï¼‰
         IncreaseLevel();
     }
 
-    //ƒvƒŒƒCƒ„[‚Ì‘¬“xƒŒƒxƒ‹‚ğ1ã‚°‚é
+    //ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®é€Ÿåº¦ãƒ¬ãƒ™ãƒ«ã‚’1ä¸Šã’ã‚‹
     public void IncreaseLevel()
     {
         if (currentLevel < speedDatabase.GetMaxLevel())
@@ -94,13 +120,13 @@ public class PlayerController : MonoBehaviour
             currentLevel++;
             Debug.Log("Level Up! " + currentLevel);
 
-            // ƒŒƒxƒ‹‚ª•Ï‚í‚Á‚½‚Ì‚Åƒ^ƒCƒ}[‚ğƒŠƒZƒbƒg‚·‚é
+            // ãƒ¬ãƒ™ãƒ«ãŒå¤‰ã‚ã£ãŸã®ã§ã‚¿ã‚¤ãƒãƒ¼ã‚’ãƒªã‚»ãƒƒãƒˆã™ã‚‹
             ResetDecayTimer();
         }
-        //Å‘åƒŒƒxƒ‹‚Å‚àƒ^ƒCƒ}[‚¾‚¯ƒŠƒZƒbƒg‚µ‚½‚¢ê‡‚ÍAif‚ÌŠO‚ÉResetDecayTimer()‚ğo‚µ‚Ä‚­‚¾‚³‚¢
+        //æœ€å¤§ãƒ¬ãƒ™ãƒ«ã§ã‚‚ã‚¿ã‚¤ãƒãƒ¼ã ã‘ãƒªã‚»ãƒƒãƒˆã—ãŸã„å ´åˆã¯ã€ifã®å¤–ã«ResetDecayTimer()ã‚’å‡ºã—ã¦ãã ã•ã„
     }
 
-    //ƒvƒŒƒCƒ„[‚Ì‘¬“xƒŒƒxƒ‹‚ğ1‰º‚°‚é
+    //ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®é€Ÿåº¦ãƒ¬ãƒ™ãƒ«ã‚’1ä¸‹ã’ã‚‹
     public void DecreaseLevel()
     {
         if (currentLevel > 0)
@@ -108,24 +134,24 @@ public class PlayerController : MonoBehaviour
             currentLevel--;
             Debug.Log("Level Down! " + currentLevel);
 
-            //ƒŒƒxƒ‹‚ª•Ï‚í‚Á‚½‚Ì‚Åƒ^ƒCƒ}[‚ğƒŠƒZƒbƒg‚·‚é
+            //ãƒ¬ãƒ™ãƒ«ãŒå¤‰ã‚ã£ãŸã®ã§ã‚¿ã‚¤ãƒãƒ¼ã‚’ãƒªã‚»ãƒƒãƒˆã™ã‚‹
             ResetDecayTimer();
         }
         else
         {
-            //ƒŒƒxƒ‹0‚É‚È‚Á‚½‚çƒ^ƒCƒ}[‚Í•s—v‚È‚Ì‚Å~‚ß‚é
+            //ãƒ¬ãƒ™ãƒ«0ã«ãªã£ãŸã‚‰ã‚¿ã‚¤ãƒãƒ¼ã¯ä¸è¦ãªã®ã§æ­¢ã‚ã‚‹
             StopDecayTimer();
         }
     }
 
-    //ƒ^ƒCƒ}[ŠÇ——p‚Ìƒwƒ‹ƒp[ƒƒ\ƒbƒh
+    //ã‚¿ã‚¤ãƒãƒ¼ç®¡ç†ç”¨ã®ãƒ˜ãƒ«ãƒ‘ãƒ¼ãƒ¡ã‚½ãƒƒãƒ‰
 
     private void ResetDecayTimer()
     {
-        //Šù‘¶‚Ìƒ^ƒCƒ}[‚ª‚ ‚ê‚Î~‚ß‚é
+        //æ—¢å­˜ã®ã‚¿ã‚¤ãƒãƒ¼ãŒã‚ã‚Œã°æ­¢ã‚ã‚‹
         StopDecayTimer();
 
-        //ƒŒƒxƒ‹‚ª0‚æ‚è‘å‚«‚­A‚©‚ÂŒø‰ÊŠÔ‚ªİ’è‚³‚ê‚Ä‚¢‚ê‚ÎAV‚µ‚¢ƒ^ƒCƒ}[‚ğƒXƒ^[ƒg
+        //ãƒ¬ãƒ™ãƒ«ãŒ0ã‚ˆã‚Šå¤§ããã€ã‹ã¤åŠ¹æœæ™‚é–“ãŒè¨­å®šã•ã‚Œã¦ã„ã‚Œã°ã€æ–°ã—ã„ã‚¿ã‚¤ãƒãƒ¼ã‚’ã‚¹ã‚¿ãƒ¼ãƒˆ
         if (currentLevel > 0 && currentBuffDuration > 0)
         {
             speedResetCoroutine = StartCoroutine(DecayRoutine());
@@ -139,66 +165,80 @@ public class PlayerController : MonoBehaviour
             StopCoroutine(speedResetCoroutine);
             speedResetCoroutine = null;
         }
+        BuffTimeRatio = 0f;
     }
 
-    //ŠÔ‚ª—ˆ‚½‚çƒŒƒxƒ‹‚ğ‰º‚°‚é‚¾‚¯‚ÌƒVƒ“ƒvƒ‹‚ÈƒRƒ‹[ƒ`ƒ“
+    //æ™‚é–“ãŒæ¥ãŸã‚‰ãƒ¬ãƒ™ãƒ«ã‚’ä¸‹ã’ã‚‹ã‚³ãƒ«ãƒ¼ãƒãƒ³
     private IEnumerator DecayRoutine()
     {
-        // İ’è‚³‚ê‚½ŠÔ‚¾‚¯‘Ò‚Â
-        yield return new WaitForSeconds(currentBuffDuration);
+        float timer = currentBuffDuration;
 
-        //ŠÔ‚ª—ˆ‚½‚çƒŒƒxƒ‹‚ğ‰º‚°‚é
+        //ã‚¿ã‚¤ãƒãƒ¼ãŒ0ã«ãªã‚‹ã¾ã§ãƒ«ãƒ¼ãƒ—ã™ã‚‹
+        while (timer > 0)
+        {
+            //1ãƒ•ãƒ¬ãƒ¼ãƒ åˆ†ã®æ™‚é–“ã‚’å¼•ã
+            timer -= Time.deltaTime;
+
+            //UIç”¨ã«ã€Œæ®‹ã‚Šæ™‚é–“ã®å‰²åˆã€ã‚’è¨ˆç®— (1.0 â†’ 0.0 ã¸æ¸›ã£ã¦ã„ã)
+            BuffTimeRatio = timer / currentBuffDuration;
+
+            //æ¬¡ã®ãƒ•ãƒ¬ãƒ¼ãƒ ã¾ã§å¾…ã¤
+            yield return null;
+        }
+
+        //æ™‚é–“åˆ‡ã‚Œå‡¦ç†
+        BuffTimeRatio = 0f;
         DecreaseLevel();
     }
 
     public void StartMovingLeft()
     {
-        //ˆÚ“®’†‚È‚ç‰½‚à‚µ‚È‚¢i˜A‘Å–h~j
+        //ç§»å‹•ä¸­ãªã‚‰ä½•ã‚‚ã—ãªã„ï¼ˆé€£æ‰“é˜²æ­¢ï¼‰
         if (isLaneChanging) return;
 
-        //Œ»İ‚ÌƒŒ[ƒ“‚ªu¶’[(-1)v‚æ‚è‘å‚«‚¢ê‡‚Ì‚İˆÚ“®‰Â”\
+        //ç¾åœ¨ã®ãƒ¬ãƒ¼ãƒ³ãŒã€Œå·¦ç«¯(-1)ã€ã‚ˆã‚Šå¤§ãã„å ´åˆã®ã¿ç§»å‹•å¯èƒ½
         if (currentLaneIndex > -1)
         {
-            currentLaneIndex--; //ƒŒ[ƒ“”Ô†‚ğ1‚ÂŒ¸‚ç‚·
+            currentLaneIndex--; //ãƒ¬ãƒ¼ãƒ³ç•ªå·ã‚’1ã¤æ¸›ã‚‰ã™
             MoveToLane();
         }
     }
 
     public void StartMovingRight()
     {
-        //ˆÚ“®’†‚È‚ç‰½‚à‚µ‚È‚¢
+        //ç§»å‹•ä¸­ãªã‚‰ä½•ã‚‚ã—ãªã„
         if (isLaneChanging) return;
 
-        //Œ»İ‚ÌƒŒ[ƒ“‚ªu‰E’[(1)v‚æ‚è¬‚³‚¢ê‡‚Ì‚İˆÚ“®‰Â”\
+        //ç¾åœ¨ã®ãƒ¬ãƒ¼ãƒ³ãŒã€Œå³ç«¯(1)ã€ã‚ˆã‚Šå°ã•ã„å ´åˆã®ã¿ç§»å‹•å¯èƒ½
         if (currentLaneIndex < 1)
         {
-            currentLaneIndex++; // ƒŒ[ƒ“”Ô†‚ğ1‚Â‘‚â‚·
+            currentLaneIndex++; //ãƒ¬ãƒ¼ãƒ³ç•ªå·ã‚’1ã¤å¢—ã‚„ã™
             MoveToLane();
         }
     }
 
-    //ÀÛ‚ÌˆÚ“®ˆ—‚ğ‚Ü‚Æ‚ß‚½ƒƒ\ƒbƒh
+    //å®Ÿéš›ã®ç§»å‹•å‡¦ç†ã‚’ã¾ã¨ã‚ãŸãƒ¡ã‚½ãƒƒãƒ‰
     private void MoveToLane()
     {
-        isLaneChanging = true; // ˆÚ“®ŠJnƒtƒ‰ƒO‚ğ—§‚Ä‚é
+        isLaneChanging = true;//ç§»å‹•é–‹å§‹ãƒ•ãƒ©ã‚°ã‚’ç«‹ã¦ã‚‹
 
-        //–Ú•W‚ÌXÀ•W‚ğŒvZ (ƒŒ[ƒ“”Ô† ~ ƒŒ[ƒ“•)
-        //—áF•‚ª2‚Ìê‡ -> ¶(-2), ’†‰›(0), ‰E(2) ‚Æ‚È‚é
+        //ç›®æ¨™ã®Xåº§æ¨™ã‚’è¨ˆç®—(ãƒ¬ãƒ¼ãƒ³ç•ªå·Ã—ãƒ¬ãƒ¼ãƒ³å¹…)
+        //ä¾‹ï¼šå¹…ãŒ2ã®å ´åˆ->å·¦(-2),ä¸­å¤®(0),å³(2)ã¨ãªã‚‹
         float targetX = currentLaneIndex * lateralMoveDistance;
 
-        //DOTween‚ÅˆÚ“®
+        //DOTweenã§ç§»å‹•
         transform.DOLocalMoveX(targetX, lateralMoveDuration)
             .SetEase(Ease.OutQuad)
-            .SetLink(gameObject) // ƒIƒuƒWƒFƒNƒg”jŠü‚ÌˆÀ‘Sô
+            .SetLink(gameObject) // ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆç ´æ£„æ™‚ã®å®‰å…¨ç­–
             .OnComplete(() =>
             {
-                // ˆÚ“®‚ªI‚í‚Á‚½‚çƒtƒ‰ƒO‚ğ‰º‚ë‚·
+                // ç§»å‹•ãŒçµ‚ã‚ã£ãŸã‚‰ãƒ•ãƒ©ã‚°ã‚’ä¸‹ã‚ã™
                 isLaneChanging = false;
             });
     }
 
     public void StopMoving()
     {
-        //DOTween‚Ìê‡‚Í©“®‚Å~‚Ü‚é‚Ì‚ÅA‚±‚±‚Í‹ó‚ÅOK
+        //DOTweenã®å ´åˆã¯è‡ªå‹•ã§æ­¢ã¾ã‚‹ã®ã§ã€ã“ã“ã¯ç©ºã§OK
     }
 }
