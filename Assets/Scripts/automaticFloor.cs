@@ -57,6 +57,7 @@ public class automaticFloor : MonoBehaviour
     void summonObject( GameObject Object, Vector2 pox) { 
        int ArrayLength = floorObject.Length;//配列の現在の長さを取得
         GameObject ball = Instantiate(Object, new Vector3(pox.y, pox.x, XCoordinate * 10), Quaternion.identity);
+        ball.name = Object.name;
         Array.Resize(ref floorObject, ArrayLength+1);
         floorObject[ArrayLength] = ball;
         ball.transform.parent = this.transform;
@@ -69,7 +70,7 @@ public class automaticFloor : MonoBehaviour
             if (item == null) continue;
             if (item.activeSelf != false) continue;
             if (item.tag != Object.tag) continue;
-            if (item.GetComponent<MeshFilter>().mesh != Object.GetComponent<MeshFilter>().sharedMesh) continue;
+            if (item.name != Object.name) continue;
             item.SetActive(true);
             item.transform.position = new Vector3(pox.y, pox.x, XCoordinate * 10);
             return;
