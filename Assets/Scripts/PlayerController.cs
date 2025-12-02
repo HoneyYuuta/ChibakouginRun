@@ -88,9 +88,21 @@ public class PlayerController : MonoBehaviour
         //今のレベルにおける「目標とすべき速度」を取得
         float targetSpeed = speedDatabase != null ? speedDatabase.GetSpeedForLevel(currentLevel) : 0f;
 
-        //「現在の実際の速度」を「目標速度」に向けて徐々に近づける (Lerp)
-        // ime.fixedDeltaTime * accelerationSpeed で変化の度合いを調整
+        //「現在の実際の速度」を「目標速度」に向けて徐々に近づける
         currentActualSpeed = Mathf.Lerp(currentActualSpeed, targetSpeed, Time.fixedDeltaTime * accelerationSpeed);
+
+        //レベルが0、かつ、実際の速度が 0.1 未満になったら
+        if (currentLevel == 0 && currentActualSpeed < 0.1f)
+        {
+            //速度を完全に0にする
+            currentActualSpeed = 0f;
+
+            //ゲームオーバー処理を実行
+            if (GameManager.Instance != null)
+            {
+                GameManager.Instance.GameOver();
+            }
+        }
 
         //計算した「実際の速度」を使って進む
         Vector3 forwardVel = transform.forward * currentActualSpeed;
@@ -119,11 +131,9 @@ public class PlayerController : MonoBehaviour
         {
             currentLevel++;
             Debug.Log("Level Up! " + currentLevel);
-
-            // レベルが変わったのでタイマーをリセットする
-            ResetDecayTimer();
         }
-        //最大レベルでもタイマーだけリセットしたい場合は、ifの外にResetDecayTimer()を出してください
+        // レベルが変わったのでタイマーをリセットする
+        ResetDecayTimer();
     }
 
     //プレイヤーの速度レベルを1下げる
