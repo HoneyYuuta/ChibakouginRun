@@ -15,6 +15,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField][Header("加速度設定")] private float accelerationSpeed = 2.0f;
     private int currentLevel = 0;
 
+    //停止モードかどうかを管理するフラグ
+    private bool isStopping = false;
+
     //現在、実際に出ている速度（内部計算用）
     private float currentActualSpeed = 0f;
 
@@ -85,14 +88,32 @@ public class PlayerController : MonoBehaviour
 
     private Vector3 CalculateDesiredVelocity()
     {
-        //今のレベルにおける「目標とすべき速度」を取得
-        float targetSpeed = speedDatabase != null ? speedDatabase.GetSpeedForLevel(currentLevel) : 0f;
+        float targetSpeed = 0f;
 
-        //「現在の実際の速度」を「目標速度」に向けて徐々に近づける (Lerp)
-        // ime.fixedDeltaTime * accelerationSpeed で変化の度合いを調整
+        //停止モードなら目標速度は0、そうでなければデータベースから取得
+        if (isStopping)
+        {
+            targetSpeed = 0f;
+        }
+        else
+        {
+            targetSpeed = speedDatabase != null ? speedDatabase.GetSpeedForLevel(currentLevel) : 0f;
+        }
+
+        //実際の速度を滑らかに変化させる
         currentActualSpeed = Mathf.Lerp(currentActualSpeed, targetSpeed, Time.fixedDeltaTime * accelerationSpeed);
 
-        //計算した「実際の速度」を使って進む
+        //停止判定（ゲームオーバー）
+        //レベル0 かつ 停止モード かつ 速度がほぼ0なら
+        if (currentLevel == 0 && isStopping && currentActualSpeed < 0.1f)
+        {
+            currentActualSpeed = 0f;
+            if (GameManager.Instance != null)
+            {
+                GameManager.Instance.GameOver();
+            }
+        }
+
         Vector3 forwardVel = transform.forward * currentActualSpeed;
         return forwardVel;
     }
@@ -105,6 +126,7 @@ public class PlayerController : MonoBehaviour
 
     public void ApplyTemporarySpeedUp(float duration)
     {
+        if (isStopping) isStopping = false;
         //今回の効果時間を保存（上書き）
         currentBuffDuration = duration;
 
@@ -119,11 +141,9 @@ public class PlayerController : MonoBehaviour
         {
             currentLevel++;
             Debug.Log("Level Up! " + currentLevel);
-
-            // レベルが変わったのでタイマーをリセットする
-            ResetDecayTimer();
         }
-        //最大レベルでもタイマーだけリセットしたい場合は、ifの外にResetDecayTimer()を出してください
+        // レベルが変わったのでタイマーをリセットする
+        ResetDecayTimer();
     }
 
     //プレイヤーの速度レベルを1下げる
@@ -133,13 +153,15 @@ public class PlayerController : MonoBehaviour
         {
             currentLevel--;
             Debug.Log("Level Down! " + currentLevel);
-
-            //レベルが変わったのでタイマーをリセットする
             ResetDecayTimer();
         }
         else
         {
-            //レベル0になったらタイマーは不要なので止める
+            //レベル0の時にさらに下げようとしたら、停止モードに移行する
+            Debug.Log("これ以上下がれない！停止モードへ移行");
+            isStopping = true;
+
+            //タイマーは止める
             StopDecayTimer();
         }
     }
@@ -235,10 +257,5 @@ public class PlayerController : MonoBehaviour
                 // 移動が終わったらフラグを下ろす
                 isLaneChanging = false;
             });
-    }
-
-    public void StopMoving()
-    {
-        //DOTweenの場合は自動で止まるので、ここは空でOK
     }
 }

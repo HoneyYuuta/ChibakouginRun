@@ -15,7 +15,5 @@ public class SpeedDownItem : MonoBehaviour, Items
             player.DecreaseLevel();
         }
 
-        //–ğ–Ú‚ğI‚¦‚½‚Ì‚Å©•ª©g‚ğÁ‚·
-        gameObject.SetActive(false);
     }
 }
