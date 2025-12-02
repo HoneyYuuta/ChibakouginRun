@@ -211,6 +211,10 @@ PrefabInstance:
       propertyPath: Obstacles
       value: 
       objectReference: {fileID: 1175153937330276026, guid: f9b6d4cf6d8328a42b9dc75c6f81b60a, type: 3}
+    - target: {fileID: 5127940053930259265, guid: 6e2a9500af6ec48449b02a9292117d8c, type: 3}
+      propertyPath: objectProbability
+      value: 
+      objectReference: {fileID: 11400000, guid: c8b66bb35b238f548a0f1f239821f355, type: 2}
     - target: {fileID: 5127940053930259294, guid: 6e2a9500af6ec48449b02a9292117d8c, type: 3}
       propertyPath: m_RootOrder
       value: 2
