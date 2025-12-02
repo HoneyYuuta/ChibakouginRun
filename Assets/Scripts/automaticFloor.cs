@@ -39,7 +39,7 @@ public class automaticFloor : MonoBehaviour
 
     void DifficultyUP() { 
     if(objectProbability == null) return;
-    if(objectProbability.ItemList.Count < DifficultyLevel) return;
+    if(objectProbability.ItemList.Count <= DifficultyLevel) return;
         FrequencyOfObstacles = objectProbability.ItemList[DifficultyLevel].FrequencyOfObstacles;
         FrequencyOfItems = objectProbability.ItemList[DifficultyLevel].FrequencyOfItems;
         ProbabilityOf2Obstacles = objectProbability.ItemList[DifficultyLevel].ProbabilityOf2Obstacles;
@@ -60,10 +60,13 @@ public class automaticFloor : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (XCoordinate %  FrequencyOfStageChanges != 0) return;
+    
+
+    }
+    void StageChangeAnoDifficultyUP() {
+        if (XCoordinate % FrequencyOfStageChanges != 0) return;
         StageChange();
         DifficultyUP();
-
     }
 
     // このメソッドは、自動的に床とアイテムを生成し、X座標を更新します
@@ -71,6 +74,7 @@ public class automaticFloor : MonoBehaviour
         AutomaticFloor();
         AutomaticItems();
         XCoordinate++;
+        StageChangeAnoDifficultyUP();
     }
     // このメソッドは、新しいゲームオブジェクトを指定された位置に生成し、floorObject配列に追加します
     void summonObject( GameObject Object, Vector2 pox) { 
@@ -101,6 +105,7 @@ public class automaticFloor : MonoBehaviour
     // このメソッドは、自動的に床を生成します
     void AutomaticFloor() {
         movingObject(floor, new Vector2(0, 0));
+      
     }
 
     // このメソッドは、自動的にアイテムまたは障害物を生成します
