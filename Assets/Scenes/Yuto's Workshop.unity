@@ -349,6 +349,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 6899049117333707635, guid: 707c41622e38e484096ea66e2d764837, type: 3}
     - target: {fileID: 5127940053930259265, guid: 6e2a9500af6ec48449b02a9292117d8c, type: 3}
+      propertyPath: objectProbability
+      value: 
+      objectReference: {fileID: 11400000, guid: c8b66bb35b238f548a0f1f239821f355, type: 2}
+    - target: {fileID: 5127940053930259265, guid: 6e2a9500af6ec48449b02a9292117d8c, type: 3}
       propertyPath: floorObject.Array.size
       value: 0
       objectReference: {fileID: 0}

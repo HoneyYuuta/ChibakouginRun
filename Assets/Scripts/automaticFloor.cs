@@ -8,25 +8,43 @@ using static UnityEditor.Progress;
 
 public class automaticFloor : MonoBehaviour
 {
-    public GameObject floor;//床のオブジェクト
-    public GameObject Obstacles;//障害物のオブジェクト
-    public GameObject Items;//アイテムのオブジェクト
+    GameObject floor;//床のオブジェクト
+    GameObject Obstacles;//障害物のオブジェクト
+    GameObject Items;//アイテムのオブジェクト
     [SerializeField]
     private ItemDataBase StageDat;//ステージデータベース
-    public GameObject[] floorObject;//床オブジェクトの配列
-    public int XCoordinate=0;//X座標
-    public float ItemWidth = 1.5f;//アイテムの幅
+    [SerializeField]
+    private ObjectProbabilityDatabase objectProbability;//オブジェクト確率データ
+    int DifficultyLevel = 0;//難易度レベル
+    [SerializeField] GameObject[] floorObject;//床オブジェクトの配列
+    [SerializeField] int XCoordinate=0;//X座標
+    [SerializeField] float ItemWidth = 1.5f;//アイテムの幅
     int StageDatabaseIndex = 0;//ステージデータベースのインデックス
-    public int FrequencyOfStageChanges = 100;//ステージ変更の頻度
+    [SerializeField] int FrequencyOfStageChanges = 100;//ステージ変更の頻度
+     int FrequencyOfObstacles = 40;//障害物の確率
+     int FrequencyOfItems = 30;//アイテムの確率
+    int ProbabilityOf2Obstacles = 0;//2つの障害物の確率
+
     // Start is called before the first frame update
     void Start()
     {
         StageChange();
+        DifficultyUP();
         for (int i = 0; i < 10; i++)
         {
             movingObject(floor, new Vector2(0, 0));
             XCoordinate++;
         }
+    }
+
+    void DifficultyUP() { 
+    if(objectProbability == null) return;
+    if(objectProbability.ItemList.Count < DifficultyLevel) return;
+        FrequencyOfObstacles = objectProbability.ItemList[DifficultyLevel].FrequencyOfObstacles;
+        FrequencyOfItems = objectProbability.ItemList[DifficultyLevel].FrequencyOfItems;
+        ProbabilityOf2Obstacles = objectProbability.ItemList[DifficultyLevel].ProbabilityOf2Obstacles;
+        DifficultyLevel++;
+
     }
     //このメソッドは、現在のインデックス X に基づいて床、障害物、アイテムを更新してステージを変更します
     void StageChange()
@@ -44,6 +62,7 @@ public class automaticFloor : MonoBehaviour
     {
         if (XCoordinate %  FrequencyOfStageChanges != 0) return;
         StageChange();
+        DifficultyUP();
 
     }
 
@@ -86,19 +105,22 @@ public class automaticFloor : MonoBehaviour
 
     // このメソッドは、自動的にアイテムまたは障害物を生成します
     void AutomaticItems() {
-        int number = (int)UnityEngine.Random.Range(1f,11f);
-        Debug.Log(number);
-        if (number > 7) return;
+        if (Probability(100- FrequencyOfObstacles - FrequencyOfItems)) return;
         float Y = ItemWidth * (int)UnityEngine.Random.Range(-2f, 2f);
-      
-        if (number <= 4)
+        if (Probability(FrequencyOfObstacles))
         {
-            AutomaticObstacles(Y);
-
-           // AutomaticObstaclesGeneration(Y);
+            ObstaclesGeneration(Y);
             return;
         }
         AutomaticPowerUpItemsGeneration(Y);
+    }
+    void ObstaclesGeneration(float Y) {
+        // 難易度に応じて障害物の生成方法を変更
+        if (Probability(ProbabilityOf2Obstacles)) {
+            AutomaticObstacles(Y);
+            return;
+        }
+        AutomaticObstaclesGeneration(Y);
     }
     void AutomaticObstacles(float Y)
     {
@@ -128,5 +150,22 @@ public class automaticFloor : MonoBehaviour
     void AutomaticPowerUpItemsGeneration(float Y)
     {
         movingObject(Items, new Vector2(1, Y));
+    }
+    public static bool Probability(float fPercent)
+    {
+        float fProbabilityRate = UnityEngine.Random.value * 100.0f;
+
+        if (fPercent == 100.0f && fProbabilityRate == fPercent)
+        {
+            return true;
+        }
+        else if (fProbabilityRate < fPercent)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 }
