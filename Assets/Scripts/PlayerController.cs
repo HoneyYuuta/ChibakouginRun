@@ -246,9 +246,4 @@ public class PlayerController : MonoBehaviour
                 isLaneChanging = false;
             });
     }
-
-    public void StopMoving()
-    {
-        //DOTweenの場合は自動で止まるので、ここは空でOK
-    }
 }
