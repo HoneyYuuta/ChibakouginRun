@@ -1,7 +1,7 @@
 using UnityEngine;
 using DG.Tweening;
 
-/// プレイヤーの横移動（レーンチェンジ）のみを管理するコンポーネント
+//プレイヤーの横移動（レーンチェンジ）のみを管理するコンポーネント
 
 public class PlayerLaneMover : MonoBehaviour
 {
