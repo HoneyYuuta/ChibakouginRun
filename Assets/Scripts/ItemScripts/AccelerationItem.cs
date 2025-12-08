@@ -5,7 +5,7 @@ using UnityEngine;
 public class AccelerationItem : MonoBehaviour, Items
 {
     [Header("効果時間（秒）")]
-    [SerializeField] private float duration = 5.0f; //一定時間スピードアップ
+    [SerializeField] private float duration = 3.0f; //一定時間スピードアップ
 
     //このアイテムを取った時のスコア
     [Header("獲得スコア")]
