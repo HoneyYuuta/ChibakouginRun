@@ -1,0 +1,78 @@
+﻿using UnityEngine;
+
+//プレイヤーの入力検知と各コンポーネントの統括を行うメインクラス
+[RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(PlayerLaneMover))]
+[RequireComponent(typeof(PlayerSpeedHandler))]
+public class PlayerController : MonoBehaviour
+{
+    private Rigidbody rb;
+    private PlayerLaneMover laneMover;
+    private PlayerSpeedHandler speedHandler;
+
+    //外部(UI等)からアクセスするためのプロパティ委譲
+    public float CurrentSpeed => speedHandler.CurrentSpeed;
+    public float BuffTimeRatio => speedHandler.BuffTimeRatio;
+
+    void Start()
+    {
+        rb = GetComponent<Rigidbody>();
+        laneMover = GetComponent<PlayerLaneMover>();
+        speedHandler = GetComponent<PlayerSpeedHandler>();
+    }
+
+    void Update()
+    {
+        //入力処理のみを担当し、実際の移動はMoverに依頼する
+        if (Input.GetKeyDown(KeyCode.A)) laneMover.MoveLeft();
+        else if (Input.GetKeyDown(KeyCode.D)) laneMover.MoveRight();
+    }
+
+    private void FixedUpdate()
+    {
+        //速度計算を依頼
+        speedHandler.UpdateSpeed(Time.fixedDeltaTime);
+
+        //計算された速度をRigidbodyに適用
+        ApplyVelocity();
+    }
+
+    private void ApplyVelocity(Vector3 velocity = default) // 引数は拡張用
+    {
+        //前進速度はSpeedHandlerから取得
+        Vector3 forwardVel = transform.forward * speedHandler.CurrentSpeed;
+
+        //Y成分(重力)は維持して適用
+        forwardVel.y = rb.velocity.y;
+        rb.velocity = forwardVel;
+    }
+
+    //衝突判定
+    private void OnTriggerEnter(Collider other)
+    {
+        //インターフェース経由でアクセスすることで、相手が何者か知らなくても効果を発動できる
+        var item = other.GetComponent<Items>();
+        if (item != null)
+        {
+            item.ApplyEffect(this.gameObject);
+        }
+    }
+
+    //外部(アイテム等)から呼ばれるメソッドの委譲
+    //これにより、アイテム側のコードを変更せずにリファクタリングが可能
+
+    public void ApplyTemporarySpeedUp(float duration)
+    {
+        speedHandler.ApplyTemporarySpeedUp(duration);
+    }
+
+    public void IncreaseLevel()
+    {
+        speedHandler.IncreaseLevel();
+    }
+
+    public void DecreaseLevel()
+    {
+        speedHandler.DecreaseLevel();
+    }
+}
