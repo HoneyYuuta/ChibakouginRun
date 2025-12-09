@@ -110,14 +110,16 @@ public class automaticFloor : MonoBehaviour
 
     // このメソッドは、自動的にアイテムまたは障害物を生成します
     void AutomaticItems() {
-        if (Probability(100- FrequencyOfObstacles - FrequencyOfItems)) return;
         float Y = ItemWidth * (int)UnityEngine.Random.Range(-2f, 2f);
         if (Probability(FrequencyOfObstacles))
         {
             ObstaclesGeneration(Y);
             return;
         }
+        if(!Probability(FrequencyOfItems)) return;
+
         AutomaticPowerUpItemsGeneration(Y);
+            return;  
     }
     void ObstaclesGeneration(float Y) {
         // 難易度に応じて障害物の生成方法を変更

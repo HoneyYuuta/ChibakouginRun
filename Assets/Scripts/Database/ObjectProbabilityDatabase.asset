@@ -19,3 +19,9 @@ MonoBehaviour:
   - FrequencyOfObstacles: 40
     FrequencyOfItems: 30
     ProbabilityOf2Obstacles: 50
+  - FrequencyOfObstacles: 50
+    FrequencyOfItems: 25
+    ProbabilityOf2Obstacles: 100
+  - FrequencyOfObstacles: 50
+    FrequencyOfItems: 0
+    ProbabilityOf2Obstacles: 100
