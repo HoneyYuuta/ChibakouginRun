@@ -13,15 +13,15 @@ MonoBehaviour:
   m_Name: ObjectProbabilityDatabase
   m_EditorClassIdentifier: 
   ItemList:
-  - FrequencyOfObstacles: 40
-    FrequencyOfItems: 30
+  - ObjectAppearanceProbability: 60
+    FrequencyOfObstacles: 60
     ProbabilityOf2Obstacles: 0
-  - FrequencyOfObstacles: 40
-    FrequencyOfItems: 30
+  - ObjectAppearanceProbability: 100
+    FrequencyOfObstacles: 40
     ProbabilityOf2Obstacles: 50
-  - FrequencyOfObstacles: 50
-    FrequencyOfItems: 25
+  - ObjectAppearanceProbability: 100
+    FrequencyOfObstacles: 50
     ProbabilityOf2Obstacles: 100
-  - FrequencyOfObstacles: 50
-    FrequencyOfItems: 0
+  - ObjectAppearanceProbability: 100
+    FrequencyOfObstacles: 100
     ProbabilityOf2Obstacles: 100

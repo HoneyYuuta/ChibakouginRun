@@ -218,7 +218,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &275536903
 GameObject:
@@ -319,7 +319,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5127940053930259265, guid: 6e2a9500af6ec48449b02a9292117d8c, type: 3}
   m_PrefabInstance: {fileID: 493621230}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1257812696}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f8ceaed06f4e5fe4c85877b939d1a6b9, type: 3}
@@ -362,7 +362,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5127940053930259294, guid: 6e2a9500af6ec48449b02a9292117d8c, type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5127940053930259294, guid: 6e2a9500af6ec48449b02a9292117d8c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -519,7 +519,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
 --- !u!54 &618571422
 Rigidbody:
@@ -635,10 +635,29 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   automaticFloor: {fileID: 310045537}
+  autoBackground: {fileID: 1257812698}
   direction: {x: 0, y: -1, z: 0}
   FiringPosition: 80
   distance: 20
   cooldownTime: 0.5
+--- !u!1 &1257812696 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5127940053930259295, guid: 6e2a9500af6ec48449b02a9292117d8c, type: 3}
+  m_PrefabInstance: {fileID: 493621230}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1257812698
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1257812696}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 158dab967d94cbc4b80edf759cae5ef4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BackgroundObject: {fileID: 11400000, guid: 59a47245a6272ee41990b32f9f01b628, type: 2}
 --- !u!1001 &3651157447552825704
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -652,7 +671,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9097377734610048715, guid: 6d607deaefed0ce46aeb5169a5253e4e, type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 9097377734610048715, guid: 6d607deaefed0ce46aeb5169a5253e4e, type: 3}
       propertyPath: m_LocalScale.x

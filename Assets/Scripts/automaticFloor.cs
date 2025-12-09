@@ -17,12 +17,12 @@ public class automaticFloor : MonoBehaviour
     private ObjectProbabilityDatabase objectProbability;//オブジェクト確率データ
     int DifficultyLevel = 0;//難易度レベル
     [SerializeField] GameObject[] floorObject;//床オブジェクトの配列
-    [SerializeField] int XCoordinate=0;//X座標
+    public int XCoordinate=0;//X座標
     [SerializeField] float ItemWidth = 1.5f;//アイテムの幅
     int StageDatabaseIndex = 0;//ステージデータベースのインデックス
     [SerializeField] int FrequencyOfStageChanges = 100;//ステージ変更の頻度
      int FrequencyOfObstacles = 40;//障害物の確率
-     int FrequencyOfItems = 30;//アイテムの確率
+     int ObjectAppearanceProbability = 30;//アイテムの確率
     int ProbabilityOf2Obstacles = 0;//2つの障害物の確率
 
     // Start is called before the first frame update
@@ -41,7 +41,7 @@ public class automaticFloor : MonoBehaviour
     if(objectProbability == null) return;
     if(objectProbability.ItemList.Count <= DifficultyLevel) return;
         FrequencyOfObstacles = objectProbability.ItemList[DifficultyLevel].FrequencyOfObstacles;
-        FrequencyOfItems = objectProbability.ItemList[DifficultyLevel].FrequencyOfItems;
+        ObjectAppearanceProbability = objectProbability.ItemList[DifficultyLevel].ObjectAppearanceProbability;
         ProbabilityOf2Obstacles = objectProbability.ItemList[DifficultyLevel].ProbabilityOf2Obstacles;
         DifficultyLevel++;
 
@@ -111,13 +111,12 @@ public class automaticFloor : MonoBehaviour
     // このメソッドは、自動的にアイテムまたは障害物を生成します
     void AutomaticItems() {
         float Y = ItemWidth * (int)UnityEngine.Random.Range(-2f, 2f);
+        if (!Probability(ObjectAppearanceProbability)) return;
         if (Probability(FrequencyOfObstacles))
         {
             ObstaclesGeneration(Y);
             return;
         }
-        if(!Probability(FrequencyOfItems)) return;
-
         AutomaticPowerUpItemsGeneration(Y);
             return;  
     }
