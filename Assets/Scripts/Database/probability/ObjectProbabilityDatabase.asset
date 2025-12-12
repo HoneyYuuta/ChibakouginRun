@@ -23,5 +23,5 @@ MonoBehaviour:
     FrequencyOfObstacles: 50
     ProbabilityOf2Obstacles: 100
   - ObjectAppearanceProbability: 100
-    FrequencyOfObstacles: 100
+    FrequencyOfObstacles: 95
     ProbabilityOf2Obstacles: 100
