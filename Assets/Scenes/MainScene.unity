@@ -444,6 +444,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!1 &778028987 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5127940053930259295, guid: 6e2a9500af6ec48449b02a9292117d8c, type: 3}
+  m_PrefabInstance: {fileID: 23542483}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &936427673 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 656086881, guid: 0a8ea19de8c215840a0c3f985b9681fd, type: 3}
@@ -555,6 +560,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   automaticFloor: {fileID: 1011399624}
+  autoBackground: {fileID: 1011399626}
   direction: {x: 0, y: -1, z: 0}
   FiringPosition: 80
   distance: 90
@@ -577,12 +583,25 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5127940053930259265, guid: 6e2a9500af6ec48449b02a9292117d8c, type: 3}
   m_PrefabInstance: {fileID: 23542483}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 778028987}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f8ceaed06f4e5fe4c85877b939d1a6b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1011399626
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 778028987}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 158dab967d94cbc4b80edf759cae5ef4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BackgroundObject: {fileID: 11400000, guid: 59a47245a6272ee41990b32f9f01b628, type: 2}
 --- !u!1 &1053334135
 GameObject:
   m_ObjectHideFlags: 0
