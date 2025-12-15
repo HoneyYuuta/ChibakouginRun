@@ -75,4 +75,13 @@ public class PlayerController : MonoBehaviour
     {
         speedHandler.DecreaseLevel();
     }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("ChibaCorgi"))
+        {
+            if (GameManager.Instance != null) GameManager.Instance.GameOver();
+        }
+    }
+
 }
