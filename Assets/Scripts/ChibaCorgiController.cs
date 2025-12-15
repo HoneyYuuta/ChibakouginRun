@@ -13,6 +13,8 @@ public class ChibaCorgiController : MonoBehaviour
     [Header("自動レベルアップ設定")]
     [SerializeField][Tooltip("何秒ごとにレベルを上げるか")] private float levelUpInterval = 20f;
     [SerializeField][Tooltip("自動レベルアップを有効にするか")] private bool autoLeveling = true;
+    [SerializeField][Header("チバコーギーに加算する速度")] private float speed = 1f;
+    private float speedchiba = 0f;
 
     // 現在の速度レベル（データベース参照時に使用）
     private int currentLevel = 0;
