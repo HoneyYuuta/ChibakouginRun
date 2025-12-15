@@ -4,20 +4,20 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.SocialPlatforms.Impl;
 
-public class SaveData : MonoBehaviour
+public static class SaveData
 {
-    public class IndividualSave
+    public static class IndividualSave
     {
-        public string Name = "name";
-        public string HighestScore = "string";
+        public static string Name = "name";
+        public static string HighestScore = "string";
     }
     public class Ranking {
         public string ScoreNumber;
         public string Name;
     }
-    class RankingSave
+    public static class  RankingSave
     {
-        public string[] Ranking = {
+        public static string[] Ranking = {
         ("Ranking_1st_place"),
         ("Ranking_2st_place"),
         ("Ranking_3st_place"),
@@ -29,7 +29,7 @@ public class SaveData : MonoBehaviour
         ("Ranking_9st_place"),
         ("Ranking_10st_place"),
          };
-        public string[] RankingName = {
+        public static string[] RankingName = {
         "RankingName_1st_place",
         "RankingName_2st_place",
         "RankingName_3st_place",
@@ -42,45 +42,58 @@ public class SaveData : MonoBehaviour
         "RankingName_10st_place",
          };
     }
-    IndividualSave individualSave = new IndividualSave();
-    RankingSave rankingSave = new RankingSave();
+
     public class Score
     {
         public int ScoreNumber;
         public string Name;
     }
-    public void RankingFunction(int score ,string name) {
+
+    //ランキング機能
+    public static void RankingFunction(int score ,string name) {
+        if(score <= PlayerPrefs.GetInt(RankingSave.Ranking[RankingSave.Ranking.Length -1])) return;
         Score[] RScore = new Score[11];
         RScore[10] = new Score() { ScoreNumber = score, Name = name };
-        for (int y = 0; y < rankingSave.Ranking.Length; y++)
+        for (int y = 0; y < RankingSave.Ranking.Length; y++)
         {
-            RScore[y] = new Score() { ScoreNumber = PlayerPrefs.GetInt(rankingSave.Ranking[y]), Name = PlayerPrefs.GetString(rankingSave.RankingName[y]) };
+            RScore[y] = new Score() { ScoreNumber = PlayerPrefs.GetInt(RankingSave.Ranking[y]), Name = PlayerPrefs.GetString(RankingSave.RankingName[y]) };
         }
         Score[] RankingScore = RScore.Where(e => e.ScoreNumber != 0).OrderBy(e => e.ScoreNumber).ToArray();
-        for (int y = 0; y < rankingSave.Ranking.Length; y++)
+        for (int y = 0; y < RankingSave.Ranking.Length; y++)
         {
-            if (RankingScore[y].ScoreNumber == PlayerPrefs.GetInt(rankingSave.Ranking[y])) return;
-            PlayerPrefs.SetInt(rankingSave.Ranking[y], RankingScore[y].ScoreNumber);
-            PlayerPrefs.SetString(rankingSave.RankingName[y], RankingScore[y].Name);
+            if (RankingScore[y].ScoreNumber == PlayerPrefs.GetInt(RankingSave.Ranking[y])) return;
+            PlayerPrefs.SetInt(RankingSave.Ranking[y], RankingScore[y].ScoreNumber);
+            PlayerPrefs.SetString(RankingSave.RankingName[y], RankingScore[y].Name);
         }
     }
-    public void HighestScore(int Sore) {
-        int HighestScore = PlayerPrefs.GetInt(individualSave.HighestScore);
+    //個人データ機能
+    public static void HighestScore(int Sore) {
+        int HighestScore = PlayerPrefs.GetInt(IndividualSave.HighestScore);
         if (Sore < HighestScore) return;
-        PlayerPrefs.SetInt(individualSave.HighestScore, Sore);
+        PlayerPrefs.SetInt(IndividualSave.HighestScore, Sore);
     }
-    public void Name(string name) {
-        PlayerPrefs.SetString(individualSave.Name, name);
+    public static void Name(string name) {
+        PlayerPrefs.SetString(IndividualSave.Name, name);
     }
-        // Start is called before the first frame update
-        void Start()
+    //名前
+    public static string SetName()
     {
-        
+        return PlayerPrefs.GetString(IndividualSave.Name, "Player");
+    }
+    //最高得点
+    public static int SetHighestScore()
+    {
+        return PlayerPrefs.GetInt(IndividualSave.HighestScore, 0);
+    }
+    //ランキング得点
+    public static int SetRankingScore(int rank)
+    {
+        return PlayerPrefs.GetInt(RankingSave.Ranking[rank], 0);
+    }
+    //ランキング名前
+    public static string SetRankingName(int rank)
+    {
+        return PlayerPrefs.GetString(RankingSave.RankingName[rank], "Player");
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
