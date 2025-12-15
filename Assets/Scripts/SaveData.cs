@@ -93,7 +93,7 @@ public static class SaveData
     //ランキング名前
     public static string SetRankingName(int rank)
     {
-        return PlayerPrefs.GetString(RankingSave.RankingName[rank], "Player");
+        return PlayerPrefs.GetString(RankingSave.RankingName[rank]);
     }
 
 }

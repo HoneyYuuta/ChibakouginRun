@@ -30,11 +30,24 @@ public class automaticFloor : MonoBehaviour
     {
         StageChange();
         DifficultyUP();
+        for (int i = 0; i < StageDat.ItemList.Count; i++)
+        {
+
+            for (int j = 0; j < 10; j++)
+            {
+                InitialItems(Items);
+                InitialItems(Obstacles);
+                StageChange();
+
+            }
+        }
+
         for (int i = 0; i < 10; i++)
         {
             movingObject(floor, new Vector2(0, 0));
             XCoordinate++;
         }
+      
     }
 
     void DifficultyUP() { 
@@ -85,6 +98,17 @@ public class automaticFloor : MonoBehaviour
         floorObject[ArrayLength] = ball;
         ball.transform.parent = this.transform;
     }
+    //初期アイテム
+    void InitialItems(GameObject Object) {
+        int ArrayLength = floorObject.Length;//配列の現在の長さを取得
+        GameObject ball = Instantiate(Object, new Vector3(0, -10, 0), Quaternion.identity);
+        ball.SetActive(false);
+        ball.name = Object.name;
+        Array.Resize(ref floorObject, ArrayLength + 1);
+        floorObject[ArrayLength] = ball;
+        ball.transform.parent = this.transform;
+    }
+
     // このメソッドは、指定されたゲームオブジェクトを再利用可能なオブジェクトプールから取得し、指定された位置に移動します
     void movingObject(GameObject Object, Vector2 pox)
     {
@@ -101,6 +125,7 @@ public class automaticFloor : MonoBehaviour
         summonObject(Object,pox);
 
     }
+
 
     // このメソッドは、自動的に床を生成します
     void AutomaticFloor() {
