@@ -30,8 +30,6 @@ public class GenerationOfStages : MonoBehaviour
         timer = cooldownTime;
         autoBackground.AutomaticBackground(automaticFloor.XCoordinate);
         automaticFloor.GenerationOfStages();
-     
-
     }
     bool IsInvokingGenerationOfStages()
     {
