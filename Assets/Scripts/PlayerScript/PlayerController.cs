@@ -14,6 +14,10 @@ public class PlayerController : MonoBehaviour
     private bool RightDownFlag = false;
     private bool LeftDownFlag = false;
 
+    //長押し処理のアレコレ
+    private float timeReset = 0f;
+    private float time = 0f;
+
     //外部(UI等)からアクセスするためのプロパティ委譲
     public float CurrentSpeed => speedHandler.CurrentSpeed;
     public float BuffTimeRatio => speedHandler.BuffTimeRatio;
@@ -27,9 +31,14 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        //入力処理のみを担当し、実際の移動はMoverに依頼する
-        if (Input.GetKey(KeyCode.A)|| LeftDownFlag) laneMover.MoveLeft();
+        time += Time.deltaTime;
+        if (time > timeReset)
+        {
+            //入力処理のみを担当し、実際の移動はMoverに依頼する
+            if (Input.GetKey(KeyCode.A)|| LeftDownFlag) laneMover.MoveLeft();
         else if (Input.GetKey(KeyCode.D) || RightDownFlag) laneMover.MoveRight();
+            time = 0;
+        }
     }
 
     private void FixedUpdate()
