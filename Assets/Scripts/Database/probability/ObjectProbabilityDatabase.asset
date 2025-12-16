@@ -15,7 +15,7 @@ MonoBehaviour:
   ItemList:
   - ObjectAppearanceProbability: 60
     FrequencyOfObstacles: 60
-    ProbabilityOf2Obstacles: 0
+    ProbabilityOf2Obstacles: 100
   - ObjectAppearanceProbability: 100
     FrequencyOfObstacles: 40
     ProbabilityOf2Obstacles: 50

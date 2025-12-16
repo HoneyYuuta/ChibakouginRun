@@ -7,4 +7,5 @@ public class PocketItem
    public GameObject FloorObject;
    public GameObject ItemObject;
    public GameObject ObstaclesObject;
+   public GameObject ConnectionObject;
 }

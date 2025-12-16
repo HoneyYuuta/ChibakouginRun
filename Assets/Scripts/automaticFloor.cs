@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEditor.MemoryProfiler;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 using static UnityEditor.Progress;
@@ -11,6 +12,7 @@ public class automaticFloor : MonoBehaviour
     GameObject floor;//床のオブジェクト
     GameObject Obstacles;//障害物のオブジェクト
     GameObject Items;//アイテムのオブジェクト
+    GameObject Connection;
     [SerializeField]
     private ItemDataBase StageDat;//ステージデータベース
     [SerializeField]
@@ -37,6 +39,7 @@ public class automaticFloor : MonoBehaviour
             {
                 InitialItems(Items);
                 InitialItems(Obstacles);
+                InitialItems(Connection);
                 StageChange();
 
             }
@@ -67,7 +70,8 @@ public class automaticFloor : MonoBehaviour
         floor = StageDat.ItemList[StageDatabaseIndex].FloorObject;
         Obstacles = StageDat.ItemList[StageDatabaseIndex].ObstaclesObject;
         Items = StageDat.ItemList[StageDatabaseIndex].ItemObject;
-        StageDatabaseIndex++;
+        Connection = StageDat.ItemList[StageDatabaseIndex].ConnectionObject;
+       StageDatabaseIndex++;
     }
 
     // Update is called once per frame
@@ -158,6 +162,7 @@ public class automaticFloor : MonoBehaviour
         float A = Y / ItemWidth;
         switch (A) {
             case 1:
+                movingObject(Connection, new Vector2(1, 0));
                 AutomaticObstaclesGeneration(0* ItemWidth);
                 AutomaticObstaclesGeneration(-1 * ItemWidth);
                 break;
@@ -166,6 +171,7 @@ public class automaticFloor : MonoBehaviour
                 AutomaticObstaclesGeneration(-1 * ItemWidth);
                 break;
             case -1:
+                movingObject(Connection, new Vector2(1, 1 * ItemWidth));
                 AutomaticObstaclesGeneration(1 * ItemWidth);
                 AutomaticObstaclesGeneration(0 * ItemWidth);
                 break;
