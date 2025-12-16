@@ -10,6 +10,10 @@ public class PlayerController : MonoBehaviour
     private PlayerLaneMover laneMover;
     private PlayerSpeedHandler speedHandler;
 
+    // ボタンを押したときtrue、離したときfalseになるフラグ
+    private bool RightDownFlag = false;
+    private bool LeftDownFlag = false;
+
     //外部(UI等)からアクセスするためのプロパティ委譲
     public float CurrentSpeed => speedHandler.CurrentSpeed;
     public float BuffTimeRatio => speedHandler.BuffTimeRatio;
@@ -24,8 +28,8 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         //入力処理のみを担当し、実際の移動はMoverに依頼する
-        if (Input.GetKeyDown(KeyCode.A)) laneMover.MoveLeft();
-        else if (Input.GetKeyDown(KeyCode.D)) laneMover.MoveRight();
+        if (Input.GetKey(KeyCode.A)|| LeftDownFlag) laneMover.MoveLeft();
+        else if (Input.GetKey(KeyCode.D) || RightDownFlag) laneMover.MoveRight();
     }
 
     private void FixedUpdate()
@@ -82,6 +86,23 @@ public class PlayerController : MonoBehaviour
         {
             if (GameManager.Instance != null) GameManager.Instance.GameOver();
         }
+    }
+
+    public void OnRightButtonDown()
+    {
+        RightDownFlag = true;
+    }
+    public void OnRightButtonUp()
+    {
+        RightDownFlag = false;
+    }
+    public void OnLeftButtonDown()
+    {
+        LeftDownFlag = true;
+    }
+    public void OnLeftButtonUp()
+    {
+        LeftDownFlag = false;
     }
 
 }
