@@ -16,17 +16,24 @@ public class LoadinManager : MonoBehaviour
     [SerializeField]
     private Slider slider;
 
+    [SerializeField] 
+    private TMP_InputField nameInputField;
+
     public void NextScene()
     {
-        //　ロード画面UIをアクティブにする
+        string inputName = nameInputField.text;
+        SaveData.Name(inputName);
+        
+        //ロード画面UIをアクティブにする
         loadUI.SetActive(true);
 
-        //　コルーチンを開始
+        //コルーチンを開始
         StartCoroutine("LoadData");
     }
 
     IEnumerator LoadData()
     {
+        
         // シーンの読み込みをする
         async = SceneManager.LoadSceneAsync("MainScene");
 
