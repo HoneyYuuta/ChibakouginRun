@@ -23,7 +23,7 @@ public class LoadinManager : MonoBehaviour
     {
         string inputName = nameInputField.text;
         SaveData.Name(inputName);
-        
+
         //ロード画面UIをアクティブにする
         loadUI.SetActive(true);
 

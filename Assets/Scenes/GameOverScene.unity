@@ -237,6 +237,22 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 1739010265613263912, guid: 030c72ccd1237684c9da1fa913d95301, type: 3}
   m_PrefabInstance: {fileID: 13052364}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &13052366 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1739010264661135057, guid: 030c72ccd1237684c9da1fa913d95301, type: 3}
+  m_PrefabInstance: {fileID: 13052364}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &13052367 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1739010265613263913, guid: 030c72ccd1237684c9da1fa913d95301, type: 3}
+  m_PrefabInstance: {fileID: 13052364}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &28550986 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8249754634700227295, guid: df41736bafeffe740b1e78ca11036dc8, type: 3}
@@ -317,6 +333,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1530505890}
     m_Modifications:
+    - target: {fileID: 5164210036756538258, guid: d87818246ae96314fa1162a59c6ee449, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 326491414}
+    - target: {fileID: 5164210036756538258, guid: d87818246ae96314fa1162a59c6ee449, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: EndGame
+      objectReference: {fileID: 0}
+    - target: {fileID: 5164210036756538258, guid: d87818246ae96314fa1162a59c6ee449, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: GameOverSceneManager, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 5164210036756538259, guid: d87818246ae96314fa1162a59c6ee449, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -418,6 +446,8 @@ GameObject:
   - component: {fileID: 326491411}
   - component: {fileID: 326491410}
   - component: {fileID: 326491409}
+  - component: {fileID: 326491413}
+  - component: {fileID: 326491414}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -491,6 +521,33 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &326491413
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 326491408}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64c1417d7be1c7e49a3ef55678f11848, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  loadUI: {fileID: 13052367}
+  slider: {fileID: 13052366}
+  nameInputField: {fileID: 0}
+--- !u!114 &326491414
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 326491408}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32cddad8985225e4d9fc7e1806fd5055, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &793392331
 GameObject:
   m_ObjectHideFlags: 0
