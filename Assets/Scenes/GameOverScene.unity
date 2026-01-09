@@ -756,6 +756,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: GAME STARTButton
       objectReference: {fileID: 0}
+    - target: {fileID: 8249754634700227294, guid: df41736bafeffe740b1e78ca11036dc8, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 326491413}
+    - target: {fileID: 8249754634700227294, guid: df41736bafeffe740b1e78ca11036dc8, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: NextScene
+      objectReference: {fileID: 0}
     - target: {fileID: 8249754634700227295, guid: df41736bafeffe740b1e78ca11036dc8, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -846,6 +854,26 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: df41736bafeffe740b1e78ca11036dc8, type: 3}
+--- !u!1 &1699022719 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8249754634700227232, guid: df41736bafeffe740b1e78ca11036dc8, type: 3}
+  m_PrefabInstance: {fileID: 1699022718}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1699022720
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1699022719}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64c1417d7be1c7e49a3ef55678f11848, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  loadUI: {fileID: 0}
+  slider: {fileID: 0}
+  nameInputField: {fileID: 0}
 --- !u!224 &1913033187 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5164210036756538259, guid: d87818246ae96314fa1162a59c6ee449, type: 3}
