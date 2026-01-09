@@ -26,4 +26,9 @@ public class GameOverSceneManager : MonoBehaviour
 #endif
     }
 
+    public void TitleGame()
+    {
+        UnityEngine.SceneManagement.SceneManager.LoadScene("TitleScene");
+    }
+
 }
