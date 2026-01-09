@@ -39,6 +39,8 @@ public class TitleManager : MonoBehaviour
     // Update is called once per frame
     private void UpdateUIState(string text)
     {
+        
+
         // 文字が入っているかチェック
         bool hasText = !string.IsNullOrWhiteSpace(text);
 
@@ -50,6 +52,10 @@ public class TitleManager : MonoBehaviour
         {
             if (hasText)
             {
+                string inputName = nameInputField.text;
+                SaveData.Name(inputName);
+                print("名前保存したでやんす");
+
                 // 文字がある時
                 BottonText.text = validMessage;
             }

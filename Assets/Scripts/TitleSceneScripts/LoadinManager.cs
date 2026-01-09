@@ -21,8 +21,6 @@ public class LoadinManager : MonoBehaviour
 
     public void NextScene()
     {
-        string inputName = nameInputField.text;
-        SaveData.Name(inputName);
 
         //ロード画面UIをアクティブにする
         loadUI.SetActive(true);
