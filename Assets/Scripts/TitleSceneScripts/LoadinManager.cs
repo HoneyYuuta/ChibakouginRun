@@ -16,12 +16,8 @@ public class LoadinManager : MonoBehaviour
     [SerializeField]
     private Slider slider;
 
-    [SerializeField] 
-    private TMP_InputField nameInputField;
-
     public void NextScene()
     {
-
         //ロード画面UIをアクティブにする
         loadUI.SetActive(true);
 
