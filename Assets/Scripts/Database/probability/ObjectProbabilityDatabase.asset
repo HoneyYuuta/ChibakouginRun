@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemList:
   - ObjectAppearanceProbability: 60
-    FrequencyOfObstacles: 60
-    ProbabilityOf2Obstacles: 100
+    FrequencyOfObstacles: 30
+    ProbabilityOf2Obstacles: 0
   - ObjectAppearanceProbability: 100
     FrequencyOfObstacles: 40
     ProbabilityOf2Obstacles: 50

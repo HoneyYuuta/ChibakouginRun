@@ -13,15 +13,15 @@ MonoBehaviour:
   m_Name: StageDatabase
   m_EditorClassIdentifier: 
   ItemList:
-  - FloorObject: {fileID: 761123479289464831, guid: 2459bb02b17eb794199dba88890a85d9, type: 3}
+  - FloorObject: {fileID: 997216389987337348, guid: c6cf823a7c7d50b44a752fc6d790d1ee, type: 3}
     ItemObject: {fileID: 3723341898024776394, guid: 249db6ab46723ce429f54fa95f668876, type: 3}
     ObstaclesObject: {fileID: 5324475241842349968, guid: d707c5da3001d674ab6b20904976538d, type: 3}
     ConnectionObject: {fileID: 9213292764056050771, guid: c9dd2265c8802f74c937be39af4be633, type: 3}
-  - FloorObject: {fileID: 761123479289464831, guid: 8a73aafdc6feebb4189ec64feb94a7ee, type: 3}
+  - FloorObject: {fileID: 997216389987337348, guid: c6cf823a7c7d50b44a752fc6d790d1ee, type: 3}
     ItemObject: {fileID: 1175153937330276026, guid: 6e81d8afbb8cb0d42b6d7c9b3a0af8f6, type: 3}
-    ObstaclesObject: {fileID: 6899049117333707635, guid: 806470e249910244e84f7d076ea8a3d0, type: 3}
+    ObstaclesObject: {fileID: 5324475241842349968, guid: d707c5da3001d674ab6b20904976538d, type: 3}
     ConnectionObject: {fileID: 9213292764056050771, guid: c9dd2265c8802f74c937be39af4be633, type: 3}
-  - FloorObject: {fileID: 761123479289464831, guid: 2459bb02b17eb794199dba88890a85d9, type: 3}
+  - FloorObject: {fileID: 997216389987337348, guid: c6cf823a7c7d50b44a752fc6d790d1ee, type: 3}
     ItemObject: {fileID: 2906210802408276400, guid: 5c14a954ed250a4418d187e2473c611c, type: 3}
-    ObstaclesObject: {fileID: 6899049117333707635, guid: 707c41622e38e484096ea66e2d764837, type: 3}
+    ObstaclesObject: {fileID: 5324475241842349968, guid: d707c5da3001d674ab6b20904976538d, type: 3}
     ConnectionObject: {fileID: 9213292764056050771, guid: c9dd2265c8802f74c937be39af4be633, type: 3}
