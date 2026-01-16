@@ -63,7 +63,6 @@ public class PlayerController : MonoBehaviour
     //衝突判定
     private void OnTriggerEnter(Collider other)
     {
-        //インターフェース経由でアクセスすることで、相手が何者か知らなくても効果を発動できる
         var item = other.GetComponent<Items>();
         if (item != null)
         {
@@ -72,7 +71,6 @@ public class PlayerController : MonoBehaviour
     }
 
     //外部(アイテム等)から呼ばれるメソッドの委譲
-    //これにより、アイテム側のコードを変更せずにリファクタリングが可能
 
     public void ApplyTemporarySpeedUp(float duration)
     {
@@ -87,6 +85,12 @@ public class PlayerController : MonoBehaviour
     public void DecreaseLevel()
     {
         speedHandler.DecreaseLevel();
+    }
+
+    //アイテムから呼ばれる窓口
+    public void ApplyTemporarySpeedDown(float duration)
+    {
+        speedHandler.ApplyTemporarySpeedDown(duration);
     }
 
     private void OnCollisionEnter(Collision collision)

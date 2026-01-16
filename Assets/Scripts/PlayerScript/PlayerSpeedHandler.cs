@@ -16,6 +16,9 @@ public class PlayerSpeedHandler : MonoBehaviour
     private float currentBuffDuration;
     public float BuffTimeRatio { get; private set; } = 0f;
 
+    //減速からの回復用タイマー
+    private Coroutine speedDownTime;
+
     //外部公開用の現在の速度プロパティ
     public float CurrentSpeed => currentActualSpeed;
 
@@ -81,6 +84,36 @@ public class PlayerSpeedHandler : MonoBehaviour
             isStopping = true;
             StopDecayTimer();
         }
+    }
+
+    //一時的な減速処理
+    public void ApplyTemporarySpeedDown(float duration)
+    {
+        // すでに減速からの回復待ち（タイマーが動いている）かどうかチェック
+        if (speedDownTime != null)
+        {
+            StopCoroutine(speedDownTime);
+            Debug.Log("減速効果延長（レベルは維持）");
+        }
+        else
+        {
+            DecreaseLevel();
+        }
+
+        // 新しい回復タイマーをスタート（延長または新規開始）
+        speedDownTime = StartCoroutine(RecoveryRoutine(duration));
+    }
+
+    //指定時間待ってからレベルを戻すコルーチン
+    private IEnumerator RecoveryRoutine(float duration)
+    {
+        yield return new WaitForSeconds(duration);
+
+        //時間が経過したらレベルを戻す
+        IncreaseLevel();
+
+        //タイマー変数を空にする
+        speedDownTime = null;
     }
 
     //タイマー処理

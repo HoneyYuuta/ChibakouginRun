@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1103378075273865173}
   - component: {fileID: 2930448947425563423}
   - component: {fileID: 8205851953696107491}
-  - component: {fileID: 3697479745079662531}
+  - component: {fileID: 6831865436086999474}
   m_Layer: 0
   m_Name: peanut_1
   m_TagString: Items
@@ -99,7 +99,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.04435173, y: 0.124424554, z: 0.044351738}
   m_Center: {x: 0.000000002793967, y: 0.000000023981556, z: 0.0000000018626445}
---- !u!114 &3697479745079662531
+--- !u!114 &6831865436086999474
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -108,8 +108,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3723341898024776394}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ccf3612ee4b7ad643af41fd2bd6d506a, type: 3}
+  m_Script: {fileID: 11500000, guid: bb06839e9de27a64790e543f81bf0089, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  duration: 3
   scoreAmount: 100
