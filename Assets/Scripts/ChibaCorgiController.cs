@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using DG.Tweening; // ▼追加：DOTweenを使うために必要
+using DG.Tweening; //DOTweenを使うために必要
 
 public class ChibaCorgiController : MonoBehaviour
 {
