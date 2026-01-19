@@ -1,23 +1,23 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class SpeedDownItem : MonoBehaviour, Items
 {
     [Header("効果時間（秒）")]
-    [SerializeField] private float duration = 3.0f; // 3秒間減速
+    [SerializeField] private float duration = 3.0f;
+
+    [Header("速度減少率 (0.1 = 10%ダウン)")]
+    [SerializeField, Range(0f, 1f)] private float penaltyRatio = 0.1f;
 
     public void ApplyEffect(GameObject target)
     {
-        // プレイヤーを取得
         PlayerController player = target.GetComponent<PlayerController>();
 
         if (player != null)
         {
-            //一時的な減速メソッドを呼ぶ
-            player.ApplyTemporarySpeedDown(duration);
+            //減少率も一緒に渡す
+            player.ApplyTemporarySpeedDown(duration, penaltyRatio);
         }
 
-        gameObject.SetActive(false);
+        Destroy(gameObject);
     }
 }
