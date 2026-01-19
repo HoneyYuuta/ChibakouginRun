@@ -2,22 +2,32 @@ using System.Collections;
 using UnityEngine;
 
 //プレイヤーの速度計算、レベル管理、バフタイマーを担当するコンポーネント
+
 public class PlayerSpeedHandler : MonoBehaviour
 {
     [SerializeField][Header("データベース")] private speedDatabase speedDatabase;
     [SerializeField][Header("加速度設定")] private float accelerationSpeed = 2.0f;
 
+    //自動レベルアップの設定
+    [Header("自動レベルアップ設定")]
+    [SerializeField] private bool enableAutoLevelUp = true; //有効/無効
+    [SerializeField] private float autoLevelUpInterval = 10.0f; //何秒ごとに上げるか
+
     private int currentLevel = 0;
     private float currentActualSpeed = 0f;
     private bool isStopping = false;
 
-    //バフ関連
-    private Coroutine speedResetCoroutine;
+    //速度倍率（通常は1.0 = 100%）
+    private float speedMultiplier = 1.0f;
+
+    //自動レベルアップ用タイマー
+    private float autoLevelTimer = 0f;
+
+    //バフ・デバフタイマー関連
+    private Coroutine speedRecoveryCoroutine; //減速からの回復用
+    private Coroutine speedResetCoroutine;    //加速アイテム用
     private float currentBuffDuration;
     public float BuffTimeRatio { get; private set; } = 0f;
-
-    //減速からの回復用タイマー
-    private Coroutine speedDownTime;
 
     //外部公開用の現在の速度プロパティ
     public float CurrentSpeed => currentActualSpeed;
@@ -28,19 +38,35 @@ public class PlayerSpeedHandler : MonoBehaviour
         else currentActualSpeed = speedDatabase.GetSpeedForLevel(0);
     }
 
-    //毎フレームの速度計算（FixedUpdateで呼ばれることを想定）
+    //毎フレームの速度計算
     public void UpdateSpeed(float deltaTime)
     {
-        float targetSpeed = isStopping ? 0f : speedDatabase.GetSpeedForLevel(currentLevel);
+        //自動レベルアップのタイマー処理
+        if (!isStopping && enableAutoLevelUp)
+        {
+            autoLevelTimer += deltaTime;
+            if (autoLevelTimer >= autoLevelUpInterval)
+            {
+                autoLevelTimer = 0f; //タイマーリセット
+                IncreaseLevel();     //レベルを上げる
+                Debug.Log("【自動】時間経過でレベルアップしました");
+            }
+        }
+
+
+        //データベースから基本速度を取得
+        float baseSpeed = isStopping ? 0f : speedDatabase.GetSpeedForLevel(currentLevel);
+
+        //基本速度に倍率を掛けて「目標速度」とする
+        float targetSpeed = baseSpeed * speedMultiplier;
 
         //滑らかに加速・減速
         currentActualSpeed = Mathf.Lerp(currentActualSpeed, targetSpeed, deltaTime * accelerationSpeed);
 
-        //停止判定（ゲームオーバーチェック）
+        //停止判定
         CheckGameOverCondition();
     }
 
-    //ゲームオーバー条件のチェック
     private void CheckGameOverCondition()
     {
         if (isStopping && currentActualSpeed < 0.1f)
@@ -55,9 +81,26 @@ public class PlayerSpeedHandler : MonoBehaviour
 
     public void ApplyTemporarySpeedUp(float duration)
     {
-        if (isStopping) isStopping = false; //復帰処理
+        if (isStopping) isStopping = false;
         currentBuffDuration = duration;
         IncreaseLevel();
+    }
+
+    //割合で速度を下げる処理
+    public void ApplyPercentageSpeedDown(float duration, float penaltyRatio)
+    {
+        //倍率を設定 (例: 1.0 - 0.1 = 0.9)
+        speedMultiplier = 1.0f - penaltyRatio;
+        Debug.Log($"速度 {penaltyRatio * 100}% ダウン！ 現在の倍率: {speedMultiplier}");
+
+        //すでに減速中ならタイマーをリセット
+        if (speedRecoveryCoroutine != null)
+        {
+            StopCoroutine(speedRecoveryCoroutine);
+        }
+
+        //回復タイマーを開始
+        speedRecoveryCoroutine = StartCoroutine(RecoveryRoutine(duration));
     }
 
     public void IncreaseLevel()
@@ -86,37 +129,17 @@ public class PlayerSpeedHandler : MonoBehaviour
         }
     }
 
-    //一時的な減速処理
-    public void ApplyTemporarySpeedDown(float duration)
-    {
-        // すでに減速からの回復待ち（タイマーが動いている）かどうかチェック
-        if (speedDownTime != null)
-        {
-            StopCoroutine(speedDownTime);
-            Debug.Log("減速効果延長（レベルは維持）");
-        }
-        else
-        {
-            DecreaseLevel();
-        }
-
-        // 新しい回復タイマーをスタート（延長または新規開始）
-        speedDownTime = StartCoroutine(RecoveryRoutine(duration));
-    }
-
-    //指定時間待ってからレベルを戻すコルーチン
+    //減速から回復するコルーチン
     private IEnumerator RecoveryRoutine(float duration)
     {
         yield return new WaitForSeconds(duration);
 
-        //時間が経過したらレベルを戻す
-        IncreaseLevel();
+        // 時間が経過したら倍率を1.0(100%)に戻す
+        speedMultiplier = 1.0f;
+        Debug.Log("速度制限解除！");
 
-        //タイマー変数を空にする
-        speedDownTime = null;
+        speedRecoveryCoroutine = null;
     }
-
-    //タイマー処理
 
     private void ResetDecayTimer()
     {

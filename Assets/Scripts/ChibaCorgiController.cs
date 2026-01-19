@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using DG.Tweening; //DOTweenを使うために必要
 
 public class ChibaCorgiController : MonoBehaviour
 {
@@ -17,11 +17,15 @@ public class ChibaCorgiController : MonoBehaviour
     [SerializeField][Header("チバコーギーに加算する速度")] private float speed = 1f;
     private float speedchiba = 0f;
 
-    // 現在の速度レベル（データベース参照時に使用）
+    [SerializeField][Header("何秒待ってから移動させるか")] private float DelayTime = 5.0f;
+
+    //現在の速度レベル（データベース参照時に使用）
     private int currentLevel = 0;
     private float levelUpTimer = 0f;
 
-    // Start is called before the first frame update
+    //ゲームが始まったかどうかを管理するフラグ
+    private bool isGameStarted = false;
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -37,19 +41,29 @@ public class ChibaCorgiController : MonoBehaviour
             Debug.LogWarning("ChibaCorgiController: speedDatabase が設定されていません。frontSpeed をフォールバックとして使用します。");
         }
 
+        //DOTweenを使って待機処理を行う
+        //DelayTime秒待ってから、{}の中身を実行する
+        DOVirtual.DelayedCall(DelayTime, () =>
+        {
+            isGameStarted = true;
+            Debug.Log("ChibaCorgi Start!"); //確認用ログ
+        })
+        .SetLink(gameObject); //オブジェクトが破壊されたらタイマーもキャンセルする安全策
     }
 
     void Update()
     {
+        //まだ始まっていなければ、レベルアップタイマーも動かさない
+        if (!isGameStarted) return;
+
         if (!autoLeveling || speedDatabase == null) return;
 
-        // タイマー進行。大きなフレーム遅延にも対応して複数段階アップできる。
+        //タイマー進行
         levelUpTimer += Time.deltaTime;
         while (levelUpTimer >= levelUpInterval)
         {
             levelUpTimer -= levelUpInterval;
             TryIncreaseLevelByTimer();
-            // 最大レベルに達したらタイマーをリセットして抜ける
             if (speedDatabase != null && currentLevel >= speedDatabase.GetMaxLevel())
             {
                 levelUpTimer = 0f;
@@ -60,16 +74,19 @@ public class ChibaCorgiController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        // speedDatabase がある場合はデータベースの値を参照し、なければ frontSpeed を使用
+        //まだ始まっていなければ移動させない
+        if (!isGameStarted) return;
+
+        //speedDatabase がある場合はデータベースの値を参照し、なければ frontSpeed を使用
         float currentFrontSpeed = speedDatabase != null ? speedDatabase.GetSpeedForLevel(currentLevel) : frontSpeed;
 
-        // 常に前進する速度（重力などのY成分は保持）
+        //常に前進する速度
         Vector3 forwardVel = transform.forward * currentFrontSpeed;
         forwardVel.y = rb.velocity.y;
         rb.velocity = forwardVel;
     }
 
-    // タイマー由来のレベルアップ（外部呼び出しと分けてログや挙動をわけられる）
+    //タイマー由来のレベルアップ
     private void TryIncreaseLevelByTimer()
     {
         if (speedDatabase == null) return;
@@ -80,14 +97,12 @@ public class ChibaCorgiController : MonoBehaviour
         }
     }
 
-    // 自動レベルアップの制御API
     public void SetAutoLeveling(bool enabled)
     {
         autoLeveling = enabled;
         if (!autoLeveling) levelUpTimer = 0f;
     }
 
-    // タイマーをリセット（チェックポイント等で呼ぶ想定）
     public void ResetLevelTimer()
     {
         levelUpTimer = 0f;

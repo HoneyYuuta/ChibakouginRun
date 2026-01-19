@@ -232,7 +232,7 @@ MonoBehaviour:
   m_CharacterValidation: 0
   m_RegexValue: 
   m_GlobalPointSize: 14
-  m_CharacterLimit: 0
+  m_CharacterLimit: 10
   m_OnEndEdit:
     m_PersistentCalls:
       m_Calls: []
@@ -890,7 +890,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   loadUI: {fileID: 843187416}
   slider: {fileID: 2030202400}
-  nameInputField: {fileID: 230573765}
 --- !u!114 &2047727023
 MonoBehaviour:
   m_ObjectHideFlags: 0
