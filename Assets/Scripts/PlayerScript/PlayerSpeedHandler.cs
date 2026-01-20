@@ -7,6 +7,7 @@ public class PlayerSpeedHandler : MonoBehaviour
 {
     [SerializeField][Header("データベース")] private speedDatabase speedDatabase;
     [SerializeField][Header("加速度設定")] private float accelerationSpeed = 2.0f;
+    [SerializeField][Header("減速度設定")] private float decelerationSpeed = 50.0f;
 
     //自動レベルアップの設定
     [Header("自動レベルアップ設定")]
@@ -49,7 +50,7 @@ public class PlayerSpeedHandler : MonoBehaviour
             {
                 autoLevelTimer = 0f; //タイマーリセット
                 IncreaseLevel();     //レベルを上げる
-                Debug.Log("【自動】時間経過でレベルアップしました");
+                Debug.Log("時間経過でレベルアップしました");
             }
         }
 
@@ -60,8 +61,17 @@ public class PlayerSpeedHandler : MonoBehaviour
         //基本速度に倍率を掛けて「目標速度」とする
         float targetSpeed = baseSpeed * speedMultiplier;
 
-        //滑らかに加速・減速
-        currentActualSpeed = Mathf.Lerp(currentActualSpeed, targetSpeed, deltaTime * accelerationSpeed);
+        //加速減速処理
+        if (targetSpeed < currentActualSpeed)
+        {
+            //減速する時
+            currentActualSpeed = Mathf.Lerp(currentActualSpeed, targetSpeed, deltaTime * decelerationSpeed);
+        }
+        else
+        {
+            //加速する時
+            currentActualSpeed = Mathf.Lerp(currentActualSpeed, targetSpeed, deltaTime * accelerationSpeed);
+        }
 
         //停止判定
         CheckGameOverCondition();
