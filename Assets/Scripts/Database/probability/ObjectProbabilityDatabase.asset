@@ -16,11 +16,20 @@ MonoBehaviour:
   - ObjectAppearanceProbability: 60
     FrequencyOfObstacles: 30
     ProbabilityOf2Obstacles: 0
+  - ObjectAppearanceProbability: 60
+    FrequencyOfObstacles: 50
+    ProbabilityOf2Obstacles: 25
   - ObjectAppearanceProbability: 100
     FrequencyOfObstacles: 40
     ProbabilityOf2Obstacles: 50
   - ObjectAppearanceProbability: 100
     FrequencyOfObstacles: 50
+    ProbabilityOf2Obstacles: 75
+  - ObjectAppearanceProbability: 100
+    FrequencyOfObstacles: 50
+    ProbabilityOf2Obstacles: 100
+  - ObjectAppearanceProbability: 100
+    FrequencyOfObstacles: 75
     ProbabilityOf2Obstacles: 100
   - ObjectAppearanceProbability: 100
     FrequencyOfObstacles: 95

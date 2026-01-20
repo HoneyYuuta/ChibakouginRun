@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DG.Tweening;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -14,6 +15,8 @@ public class automaticFloor : MonoBehaviour
     GameObject Items;//アイテムのオブジェクト
     GameObject Connection;
     [SerializeField]
+    Transform playerTransform;//プレイヤーのトランスフォーム
+    [SerializeField]
     private ItemDataBase StageDat;//ステージデータベース
     [SerializeField]
     private ObjectProbabilityDatabase objectProbability;//オブジェクト確率データ
@@ -26,7 +29,8 @@ public class automaticFloor : MonoBehaviour
      int FrequencyOfObstacles = 40;//障害物の確率
      int ObjectAppearanceProbability = 30;//アイテムの確率
     int ProbabilityOf2Obstacles = 0;//2つの障害物の確率
-
+    [SerializeField]
+    public StageChangeScript stageChangeScript;
     // Start is called before the first frame update
     void Start()
     {
@@ -52,7 +56,7 @@ public class automaticFloor : MonoBehaviour
         }
       
     }
-
+    
     void DifficultyUP() { 
     if(objectProbability == null) return;
     if(objectProbability.ItemList.Count <= DifficultyLevel) return;
@@ -72,12 +76,14 @@ public class automaticFloor : MonoBehaviour
         Items = StageDat.ItemList[StageDatabaseIndex].ItemObject;
         Connection = StageDat.ItemList[StageDatabaseIndex].ConnectionObject;
        StageDatabaseIndex++;
+        stageChangeScript.StageUpdate("");
     }
 
     // Update is called once per frame
     void Update()
     {
-    
+     if (playerTransform == null) return;
+     if (playerTransform.position.z < (XCoordinate - 10) * 10) return;
 
     }
     void StageChangeAnoDifficultyUP() {

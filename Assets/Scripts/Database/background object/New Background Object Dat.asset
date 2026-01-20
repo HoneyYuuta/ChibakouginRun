@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BackgroundObject:
   - BackgroundObject: {fileID: 919132149155446097, guid: d3c766d111de45b42b675de7a0b23059, type: 3}
-    BackgroundObjectCoordinate: {x: -3.5, y: 3, z: 0}
+    BackgroundObjectCoordinate: {x: -7, y: 9, z: 0}
     BackgroundObjectOrder: 15
