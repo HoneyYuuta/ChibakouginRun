@@ -18,7 +18,7 @@ MonoBehaviour:
     ObstaclesObject: {fileID: 5324475241842349968, guid: d707c5da3001d674ab6b20904976538d, type: 3}
     ConnectionObject: {fileID: 9213292764056050771, guid: c9dd2265c8802f74c937be39af4be633, type: 3}
   - FloorObject: {fileID: 997216389987337348, guid: c6cf823a7c7d50b44a752fc6d790d1ee, type: 3}
-    ItemObject: {fileID: 1175153937330276026, guid: 6e81d8afbb8cb0d42b6d7c9b3a0af8f6, type: 3}
+    ItemObject: {fileID: 4374994957154459947, guid: 8d8816cbf22a59d489be556c5c2c968c, type: 3}
     ObstaclesObject: {fileID: 5324475241842349968, guid: d707c5da3001d674ab6b20904976538d, type: 3}
     ConnectionObject: {fileID: 9213292764056050771, guid: c9dd2265c8802f74c937be39af4be633, type: 3}
   - FloorObject: {fileID: 997216389987337348, guid: c6cf823a7c7d50b44a752fc6d790d1ee, type: 3}
