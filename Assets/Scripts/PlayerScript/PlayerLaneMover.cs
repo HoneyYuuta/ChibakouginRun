@@ -29,7 +29,7 @@ public class PlayerLaneMover : MonoBehaviour
         ExecuteMove();
     }
 
-    //ÀÛ‚ÌˆÚ“®ˆ—iDOTweenj
+    //ÀÛ‚ÌˆÚ“®ˆ—
     private void ExecuteMove()
     {
         isLaneChanging = true;
