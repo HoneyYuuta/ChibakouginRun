@@ -209,20 +209,20 @@ public class automaticFloor : MonoBehaviour
         // 休憩を定期的に入れる
         if (XCoordinate % FrequencyOfStageChanges == 0) 
         return SegmentType.Safe;
-
-
-
-        return WeightedLottery(items);
+        SegmentType type = WeightedLottery(items);
+        if (lastSegment != SegmentType.Double) return type;
+        if (type != SegmentType.Double) return type;
+        return SegmentType.Single;
     }
     // このメソッドは、自動的にアイテムまたは障害物を生成します
     void AutomaticItems() {
         lastSegment = DecideSegment();
-        GenerateObstacles(lastSegment);
+        GenerateObstacles();
     }
-    void GenerateObstacles(SegmentType type)
+    void GenerateObstacles()
     {
         float Y = LaneToY(RandomLane());
-        switch (type)
+        switch (lastSegment)
         {
             case SegmentType.Safe://安全
                 return;
