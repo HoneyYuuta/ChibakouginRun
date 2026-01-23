@@ -23,7 +23,8 @@ public class automaticFloor : MonoBehaviour
     int DifficultyLevel = 0;//難易度レベル
     [SerializeField] GameObject[] floorObject;//床オブジェクトの配列
     public int XCoordinate=0;//X座標
-    [SerializeField] float ItemWidth = 1.5f;//アイテムの幅
+    [SerializeField] float ItemWidth = 1.5f;//アイテムの幅                       
+    [SerializeField] float FloorWidth = 15f;//床の幅
     int StageDatabaseIndex = 0;//ステージデータベースのインデックス
     [SerializeField] int FrequencyOfStageChanges = 100;//ステージ変更の頻度
      int FrequencyOfObstacles = 40;//障害物の確率
@@ -31,9 +32,69 @@ public class automaticFloor : MonoBehaviour
     int ProbabilityOf2Obstacles = 0;//2つの障害物の確率
     [SerializeField]
     public StageChangeScript stageChangeScript;
+
+    enum Lane { Left = -1, Center = 0, Right = 1 }
+
+    Lane RandomLane()
+    {
+        return (Lane)UnityEngine.Random.Range(-1, 2);
+    }
+    float LaneToY(Lane lane)
+    {
+    return (int)lane * ItemWidth;
+    }
+    // 重み付き抽選のセグメントタイプを定義
+    public enum SegmentType
+    {
+        Safe,//安全
+        Single,//シングル
+        Double,//ダブル
+        Shift//シフト
+    }
+
+    public class WeightedItem
+    {
+        public SegmentType segmentType;
+        public int weight;
+    }
+    SegmentType WeightedLottery(WeightedItem[] items)
+    {
+        int totalWeight = 0;
+        foreach (var item in items)
+            totalWeight += item.weight;
+
+        int r = UnityEngine.Random.Range(0, totalWeight);
+        int current = 0;
+
+        foreach (var item in items)
+        {
+            current += item.weight;
+            if (r < current)
+                return item.segmentType;
+        }
+
+        throw new System.Exception("抽選失敗");
+    }
+    WeightedItem[] items = new WeightedItem[4];
+    SegmentType lastSegment;
+    public void Add(){
+        items[0] = new WeightedItem();
+        items[0].segmentType = SegmentType.Safe;
+        items[0].weight = 50;
+        items[1] = new WeightedItem();
+        items[1].segmentType = SegmentType.Single;
+        items[1].weight = 50;
+        items[2] = new WeightedItem();
+        items[2].segmentType = SegmentType.Shift;
+        items[2].weight = 50;
+        items[3] = new WeightedItem();
+        items[3].segmentType = SegmentType.Double;
+        items[3].weight = 50;
+    }
     // Start is called before the first frame update
     void Start()
     {
+        Add();
         StageChange();
         DifficultyUP();
         for (int i = 0; i < StageDat.ItemList.Count; i++)
@@ -60,9 +121,10 @@ public class automaticFloor : MonoBehaviour
     void DifficultyUP() { 
     if(objectProbability == null) return;
     if(objectProbability.ItemList.Count <= DifficultyLevel) return;
-        FrequencyOfObstacles = objectProbability.ItemList[DifficultyLevel].FrequencyOfObstacles;
-        ObjectAppearanceProbability = objectProbability.ItemList[DifficultyLevel].ObjectAppearanceProbability;
-        ProbabilityOf2Obstacles = objectProbability.ItemList[DifficultyLevel].ProbabilityOf2Obstacles;
+        items[0].weight = objectProbability.ItemList[DifficultyLevel].SkyProbability;
+        items[1].weight = objectProbability.ItemList[DifficultyLevel].ObstacleProbability;
+        items[2].weight = objectProbability.ItemList[DifficultyLevel].ItemProbability;
+        items[3].weight = objectProbability.ItemList[DifficultyLevel].ProbabilityOf2Obstacles;
         DifficultyLevel++;
 
     }
@@ -102,7 +164,7 @@ public class automaticFloor : MonoBehaviour
     // このメソッドは、新しいゲームオブジェクトを指定された位置に生成し、floorObject配列に追加します
     void summonObject( GameObject Object, Vector2 pox) { 
        int ArrayLength = floorObject.Length;//配列の現在の長さを取得
-        GameObject ball = Instantiate(Object, new Vector3(pox.y, pox.x, XCoordinate * 10), Quaternion.identity);
+        GameObject ball = Instantiate(Object, new Vector3(pox.y, pox.x, XCoordinate * FloorWidth), Quaternion.identity);
         ball.name = Object.name;
         Array.Resize(ref floorObject, ArrayLength+1);
         floorObject[ArrayLength] = ball;
@@ -129,7 +191,7 @@ public class automaticFloor : MonoBehaviour
             if (item.tag != Object.tag) continue;
             if (item.name != Object.name) continue;
             item.SetActive(true);
-            item.transform.position = new Vector3(pox.y, pox.x, XCoordinate * 10);
+            item.transform.position = new Vector3(pox.y, pox.x, XCoordinate * FloorWidth);
             return;
         }
         summonObject(Object,pox);
@@ -140,32 +202,48 @@ public class automaticFloor : MonoBehaviour
     // このメソッドは、自動的に床を生成します
     void AutomaticFloor() {
         movingObject(floor, new Vector2(0, 0));
-      
     }
 
+    SegmentType DecideSegment()
+    {
+        // 休憩を定期的に入れる
+        if (XCoordinate % FrequencyOfStageChanges == 0) 
+        return SegmentType.Safe;
+
+
+
+        return WeightedLottery(items);
+    }
     // このメソッドは、自動的にアイテムまたは障害物を生成します
     void AutomaticItems() {
-        float Y = ItemWidth * (int)UnityEngine.Random.Range(-2f, 2f);
-        if (!Probability(ObjectAppearanceProbability)) return;
-        if (Probability(FrequencyOfObstacles))
-        {
-            ObstaclesGeneration(Y);
-            return;
-        }
-        AutomaticPowerUpItemsGeneration(Y);
-            return;  
+        lastSegment = DecideSegment();
+        GenerateObstacles(lastSegment);
     }
-    void ObstaclesGeneration(float Y) {
-        // 難易度に応じて障害物の生成方法を変更
-        if (Probability(ProbabilityOf2Obstacles)) {
-            AutomaticObstacles(Y);
-            return;
+    void GenerateObstacles(SegmentType type)
+    {
+        float Y = LaneToY(RandomLane());
+        switch (type)
+        {
+            case SegmentType.Safe://安全
+                return;
+
+            case SegmentType.Single://シングル
+                AutomaticObstaclesGeneration(Y);
+                break;
+
+            case SegmentType.Double://ダブル
+                AutomaticObstacles(Y);
+                break;
+
+            case SegmentType.Shift://シフト
+                AutomaticPowerUpItemsGeneration(Y);
+                break;
         }
-        AutomaticObstaclesGeneration(Y);
     }
     void AutomaticObstacles(float Y)
     {
         float A = Y / ItemWidth;
+
         switch (A) {
             case 1:
                 movingObject(Connection, new Vector2(1, 0));
@@ -193,22 +271,5 @@ public class automaticFloor : MonoBehaviour
     void AutomaticPowerUpItemsGeneration(float Y)
     {
         movingObject(Items, new Vector2(1, Y));
-    }
-    public static bool Probability(float fPercent)
-    {
-        float fProbabilityRate = UnityEngine.Random.value * 100.0f;
-
-        if (fPercent == 100.0f && fProbabilityRate == fPercent)
-        {
-            return true;
-        }
-        else if (fProbabilityRate < fPercent)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
     }
 }
