@@ -228,9 +228,21 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: bae271e1c8a6c9140abb11550007dfaf, type: 2}
     - target: {fileID: 5127940053930259265, guid: 6e2a9500af6ec48449b02a9292117d8c, type: 3}
+      propertyPath: ItemWidth
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5127940053930259265, guid: 6e2a9500af6ec48449b02a9292117d8c, type: 3}
       propertyPath: Obstacles
       value: 
       objectReference: {fileID: 1175153937330276026, guid: f9b6d4cf6d8328a42b9dc75c6f81b60a, type: 3}
+    - target: {fileID: 5127940053930259265, guid: 6e2a9500af6ec48449b02a9292117d8c, type: 3}
+      propertyPath: floorPrefab
+      value: 
+      objectReference: {fileID: 997216389987337348, guid: c6cf823a7c7d50b44a752fc6d790d1ee, type: 3}
+    - target: {fileID: 5127940053930259265, guid: 6e2a9500af6ec48449b02a9292117d8c, type: 3}
+      propertyPath: obstaclePrefab
+      value: 
+      objectReference: {fileID: 5324475241842349968, guid: d707c5da3001d674ab6b20904976538d, type: 3}
     - target: {fileID: 5127940053930259265, guid: 6e2a9500af6ec48449b02a9292117d8c, type: 3}
       propertyPath: playerTransform
       value: 
@@ -779,7 +791,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1053334135}
   m_LocalRotation: {x: -0.42261827, y: -0, z: -0, w: 0.9063079}
-  m_LocalPosition: {x: 0, y: -12.4, z: -1.3}
+  m_LocalPosition: {x: 0, y: -22.09, z: -15.13}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
