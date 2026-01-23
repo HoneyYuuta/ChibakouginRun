@@ -18,6 +18,8 @@ public class SpeedDownItem : MonoBehaviour, Items
             player.ApplyTemporarySpeedDown(duration, penaltyRatio);
         }
 
+        CameraShake.Instance.Shake();
+
         Destroy(gameObject);
     }
 }

@@ -23,8 +23,8 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.A)) laneMover.MoveLeft();
-        else if (Input.GetKeyDown(KeyCode.D)) laneMover.MoveRight();
+        if (Input.GetKey(KeyCode.A)) laneMover.MoveLeft();
+        else if (Input.GetKey(KeyCode.D)) laneMover.MoveRight();
     }
 
     private void FixedUpdate()
