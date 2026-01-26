@@ -9,6 +9,13 @@ public class ScoreUpItem : MonoBehaviour , Items
     [SerializeField] private int scoreAmount = 100;
 public void ApplyEffect(GameObject target)
     {
+        // AudioSourceコンポーネントを取得
+        AudioSource audioSource = GetComponent<AudioSource>();
+        if (audioSource != null && audioSource.clip != null)
+        {
+            AudioSource.PlayClipAtPoint(audioSource.clip, transform.position);
+        }
+
         //ScoreManagerが存在するか確認してから加算する
         if (ScoreManager.Instance != null)
         {
