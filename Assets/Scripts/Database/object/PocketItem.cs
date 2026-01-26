@@ -8,4 +8,5 @@ public class PocketItem
    public GameObject ItemObject;
    public GameObject ObstaclesObject;
    public GameObject ConnectionObject;
+    public string stageName;
 }

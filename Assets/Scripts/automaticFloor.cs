@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography.X509Certificates;
 using Unity.VisualScripting;
 using UnityEditor.MemoryProfiler;
 using UnityEditor.SceneManagement;
@@ -13,7 +14,8 @@ public class automaticFloor : MonoBehaviour
     GameObject floor;//床のオブジェクト
     GameObject Obstacles;//障害物のオブジェクト
     GameObject Items;//アイテムのオブジェクト
-    GameObject Connection;
+    GameObject Connection;//接続オブジェクト
+    string stageName;
     [SerializeField]
     Transform playerTransform;//プレイヤーのトランスフォーム
     [SerializeField]
@@ -21,14 +23,16 @@ public class automaticFloor : MonoBehaviour
     [SerializeField]
     private ObjectProbabilityDatabase objectProbability;//オブジェクト確率データ
     int DifficultyLevel = 0;//難易度レベル
+    //プレイヤーが一定の 座標に到達したときに数値
+    float NextStageChangeCoordinate = 0;
     [SerializeField] GameObject[] floorObject;//床オブジェクトの配列
     public int XCoordinate=0;//X座標
     [SerializeField] float ItemWidth = 1.5f;//アイテムの幅                       
     [SerializeField] float FloorWidth = 15f;//床の幅
     int StageDatabaseIndex = 0;//ステージデータベースのインデックス
     [SerializeField] int FrequencyOfStageChanges = 100;//ステージ変更の頻度
-     int FrequencyOfObstacles = 40;//障害物の確率
-     int ObjectAppearanceProbability = 30;//アイテムの確率
+    int FrequencyOfObstacles = 40;//障害物の確率
+    int ObjectAppearanceProbability = 30;//アイテムの確率
     int ProbabilityOf2Obstacles = 0;//2つの障害物の確率
     [SerializeField]
     public StageChangeScript stageChangeScript;
@@ -137,16 +141,17 @@ public class automaticFloor : MonoBehaviour
         Obstacles = StageDat.ItemList[StageDatabaseIndex].ObstaclesObject;
         Items = StageDat.ItemList[StageDatabaseIndex].ItemObject;
         Connection = StageDat.ItemList[StageDatabaseIndex].ConnectionObject;
-       StageDatabaseIndex++;
-        stageChangeScript.StageUpdate("");
+        stageName = StageDat.ItemList[StageDatabaseIndex].stageName;
+        StageDatabaseIndex++;
     }
 
     // Update is called once per frame
     void Update()
     {
      if (playerTransform == null) return;
-     if (playerTransform.position.z < (XCoordinate - 10) * 10) return;
-
+     if (playerTransform.position.z <= NextStageChangeCoordinate) return;
+        stageChangeScript.StageUpdate(stageName);
+        NextStageChangeCoordinate += (FrequencyOfStageChanges * FloorWidth);
     }
     void StageChangeAnoDifficultyUP() {
         if (XCoordinate % FrequencyOfStageChanges != 0) return;
