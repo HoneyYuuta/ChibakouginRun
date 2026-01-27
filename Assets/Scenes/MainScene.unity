@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -905,6 +905,22 @@ PrefabInstance:
       propertyPath: m_AdditionalShaderChannelsFlag
       value: 25
       objectReference: {fileID: 0}
+    - target: {fileID: 15411953574475683, guid: 71af56a5b45d5cf4e87c0d0712886021, type: 3}
+      propertyPath: m_UiScaleMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 15411953574475683, guid: 71af56a5b45d5cf4e87c0d0712886021, type: 3}
+      propertyPath: m_MatchWidthOrHeight
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 15411953574475683, guid: 71af56a5b45d5cf4e87c0d0712886021, type: 3}
+      propertyPath: m_ReferenceResolution.x
+      value: 1080
+      objectReference: {fileID: 0}
+    - target: {fileID: 15411953574475683, guid: 71af56a5b45d5cf4e87c0d0712886021, type: 3}
+      propertyPath: m_ReferenceResolution.y
+      value: 1920
+      objectReference: {fileID: 0}
     - target: {fileID: 15411953817317852, guid: 71af56a5b45d5cf4e87c0d0712886021, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -936,6 +952,38 @@ PrefabInstance:
     - target: {fileID: 15411955296172624, guid: 71af56a5b45d5cf4e87c0d0712886021, type: 3}
       propertyPath: m_AnchorMin.x
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2640123120029996604, guid: 71af56a5b45d5cf4e87c0d0712886021, type: 3}
+      propertyPath: m_UiScaleMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2640123120029996604, guid: 71af56a5b45d5cf4e87c0d0712886021, type: 3}
+      propertyPath: m_MatchWidthOrHeight
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2640123120029996604, guid: 71af56a5b45d5cf4e87c0d0712886021, type: 3}
+      propertyPath: m_ReferenceResolution.x
+      value: 1080
+      objectReference: {fileID: 0}
+    - target: {fileID: 2640123120029996604, guid: 71af56a5b45d5cf4e87c0d0712886021, type: 3}
+      propertyPath: m_ReferenceResolution.y
+      value: 1920
+      objectReference: {fileID: 0}
+    - target: {fileID: 5395926514305442472, guid: 71af56a5b45d5cf4e87c0d0712886021, type: 3}
+      propertyPath: m_UiScaleMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5395926514305442472, guid: 71af56a5b45d5cf4e87c0d0712886021, type: 3}
+      propertyPath: m_MatchWidthOrHeight
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5395926514305442472, guid: 71af56a5b45d5cf4e87c0d0712886021, type: 3}
+      propertyPath: m_ReferenceResolution.x
+      value: 1080
+      objectReference: {fileID: 0}
+    - target: {fileID: 5395926514305442472, guid: 71af56a5b45d5cf4e87c0d0712886021, type: 3}
+      propertyPath: m_ReferenceResolution.y
+      value: 1920
       objectReference: {fileID: 0}
     - target: {fileID: 8324253469365203143, guid: 71af56a5b45d5cf4e87c0d0712886021, type: 3}
       propertyPath: m_Name
@@ -1348,6 +1396,22 @@ PrefabInstance:
     - target: {fileID: 3871390510656244781, guid: 0a8ea19de8c215840a0c3f985b9681fd, type: 3}
       propertyPath: m_Name
       value: Canvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 3871390510656244783, guid: 0a8ea19de8c215840a0c3f985b9681fd, type: 3}
+      propertyPath: m_UiScaleMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3871390510656244783, guid: 0a8ea19de8c215840a0c3f985b9681fd, type: 3}
+      propertyPath: m_MatchWidthOrHeight
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3871390510656244783, guid: 0a8ea19de8c215840a0c3f985b9681fd, type: 3}
+      propertyPath: m_ReferenceResolution.x
+      value: 1080
+      objectReference: {fileID: 0}
+    - target: {fileID: 3871390510656244783, guid: 0a8ea19de8c215840a0c3f985b9681fd, type: 3}
+      propertyPath: m_ReferenceResolution.y
+      value: 1920
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0a8ea19de8c215840a0c3f985b9681fd, type: 3}

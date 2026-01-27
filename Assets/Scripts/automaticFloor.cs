@@ -4,10 +4,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Security.Cryptography.X509Certificates;
 using Unity.VisualScripting;
-using UnityEditor.MemoryProfiler;
-using UnityEditor.SceneManagement;
 using UnityEngine;
-using static UnityEditor.Progress;
+
 
 public class automaticFloor : MonoBehaviour
 {
