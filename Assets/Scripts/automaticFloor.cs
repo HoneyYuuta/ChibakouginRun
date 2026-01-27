@@ -1,13 +1,6 @@
-﻿using DG.Tweening;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Security.Cryptography.X509Certificates;
-using Unity.VisualScripting;
-using UnityEditor.MemoryProfiler;
-using UnityEditor.SceneManagement;
+﻿using System;
 using UnityEngine;
-using static UnityEditor.Progress;
+
 
 public class automaticFloor : MonoBehaviour
 {

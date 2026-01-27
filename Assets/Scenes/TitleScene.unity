@@ -568,6 +568,46 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 252063647290138901, guid: 467dbe1b471c32744b3f5de42c2ac314, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 252063647290138901, guid: 467dbe1b471c32744b3f5de42c2ac314, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1164755598629201327, guid: 467dbe1b471c32744b3f5de42c2ac314, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1164755598629201327, guid: 467dbe1b471c32744b3f5de42c2ac314, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1164755598629201327, guid: 467dbe1b471c32744b3f5de42c2ac314, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4003249060356420564, guid: 467dbe1b471c32744b3f5de42c2ac314, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4003249060356420564, guid: 467dbe1b471c32744b3f5de42c2ac314, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4003249060356420564, guid: 467dbe1b471c32744b3f5de42c2ac314, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5650491424325592249, guid: 467dbe1b471c32744b3f5de42c2ac314, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5650491424325592249, guid: 467dbe1b471c32744b3f5de42c2ac314, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8324253469365203143, guid: 467dbe1b471c32744b3f5de42c2ac314, type: 3}
       propertyPath: m_Name
       value: Settings UI 1
