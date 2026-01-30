@@ -1419,6 +1419,14 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8430954271858186025, guid: 8d8816cbf22a59d489be556c5c2c968c, type: 3}
+      propertyPath: Loop
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8430954271858186025, guid: 8d8816cbf22a59d489be556c5c2c968c, type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8d8816cbf22a59d489be556c5c2c968c, type: 3}
 --- !u!1001 &3240333327500892956
