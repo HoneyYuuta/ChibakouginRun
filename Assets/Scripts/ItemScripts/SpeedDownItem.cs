@@ -19,10 +19,18 @@ public class SpeedDownItem : MonoBehaviour, Items
 
         PlayerController player = target.GetComponent<PlayerController>();
 
+        
+
         if (player != null)
         {
             //å∏è≠ó¶Ç‡àÍèèÇ…ìnÇ∑
             player.ApplyTemporarySpeedDown(duration, penaltyRatio);
+        }
+
+        var lifePoints = FindObjectOfType<LifePointsScript>();
+        if (lifePoints != null)
+        {
+            lifePoints.Damage();
         }
 
         CameraShake.Instance.Shake();
