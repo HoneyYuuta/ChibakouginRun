@@ -988,6 +988,10 @@ PrefabInstance:
       propertyPath: m_ReferenceResolution.y
       value: 1920
       objectReference: {fileID: 0}
+    - target: {fileID: 5262151349621129222, guid: 71af56a5b45d5cf4e87c0d0712886021, type: 3}
+      propertyPath: audioMixer
+      value: 
+      objectReference: {fileID: 24100000, guid: 27e9b843c9e1b684bb6e6f31e6a7d11b, type: 2}
     - target: {fileID: 5395926514305442472, guid: 71af56a5b45d5cf4e87c0d0712886021, type: 3}
       propertyPath: m_UiScaleMode
       value: 1
