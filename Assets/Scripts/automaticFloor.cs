@@ -33,7 +33,7 @@ public class automaticFloor : MonoBehaviour
     int ObjectAppearanceProbability = 30;//アイテムの確率
     int ProbabilityOf2Obstacles = 0;//2つの障害物の確率
     [SerializeField]
-    public StageChangeScript stageChangeScript;
+    public StageChangeScript stageChangeScript;//ステージ変更スクリプト
 
     enum Lane { Left = -1, Center = 0, Right = 1 }
 

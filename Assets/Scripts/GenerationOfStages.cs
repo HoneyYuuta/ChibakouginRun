@@ -1,12 +1,14 @@
-﻿using System.Collections;
+﻿using Palmmedia.ReportGenerator.Core;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 
 public class GenerationOfStages : MonoBehaviour
 {
-    public automaticFloor automaticFloor;
-    public AutoBackground autoBackground;
+   // public automaticFloor automaticFloor;
+
+   [SerializeField] public AutomaticFloor automaticFloor;
     public Vector3 direction = new Vector3();//レイの方向
     public float FiringPosition = 80f;//レイの発射位置のz座標
     public float distance = 10f;//レイの距離
@@ -28,8 +30,9 @@ public class GenerationOfStages : MonoBehaviour
         if (timer > 0) return;
         if (IsInvokingGenerationOfStages()) return;
         timer = cooldownTime;
-        autoBackground.AutomaticBackground(automaticFloor.XCoordinate);
-        automaticFloor.GenerationOfStages();
+    
+        automaticFloor.Generate();
+       // automaticFloor.GenerationOfStages();
     }
     bool IsInvokingGenerationOfStages()
     {

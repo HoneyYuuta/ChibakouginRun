@@ -41,4 +41,7 @@ public class LifePointsScript : MonoBehaviour
         HPImage[HP].color = new Color(1, 1, 1, 1);
         HP++;
     }
+    public bool IsDead() {
+        return HP <= 0;
+    }
 }
