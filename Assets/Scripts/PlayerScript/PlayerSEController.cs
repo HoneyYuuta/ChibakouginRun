@@ -8,7 +8,7 @@ public class PlayerSEController : MonoBehaviour
 
     [SerializeField] private AudioClip ScoreUpSE;  //スコア上昇系アイテム取得時SE
     [SerializeField] private AudioClip DamageSE;   //ダメージSE
-
+    [SerializeField] private AudioClip MoveSE;
     public void PlayScoreUpSE()
     {
         SE.PlayOneShot(ScoreUpSE);
@@ -17,5 +17,9 @@ public class PlayerSEController : MonoBehaviour
     public void PlayDamageSE()
     {
         SE.PlayOneShot(DamageSE);
+    }
+    public void PlayMoveSE()
+    {
+        SE.PlayOneShot(MoveSE);
     }
 }
