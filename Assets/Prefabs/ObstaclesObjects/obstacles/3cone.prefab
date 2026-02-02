@@ -96,7 +96,7 @@ GameObject:
   - component: {fileID: -2884153676800875807}
   m_Layer: 0
   m_Name: 3cone
-  m_TagString: Untagged
+  m_TagString: Obstacles
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

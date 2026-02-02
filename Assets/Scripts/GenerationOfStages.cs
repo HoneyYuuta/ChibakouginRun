@@ -30,9 +30,7 @@ public class GenerationOfStages : MonoBehaviour
         if (timer > 0) return;
         if (IsInvokingGenerationOfStages()) return;
         timer = cooldownTime;
-    
         automaticFloor.Generate();
-       // automaticFloor.GenerationOfStages();
     }
     bool IsInvokingGenerationOfStages()
     {

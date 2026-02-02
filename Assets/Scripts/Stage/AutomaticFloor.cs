@@ -32,10 +32,10 @@ public class AutomaticFloor : MonoBehaviour
       
         lottery = new SegmentLottery();
         // 最初の数フロアを生成
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < 10; i++)
         {
             generator.GenerateFloor(x);
-            autoBackground.AutomaticBackground(x);
+           
             x++;
         }
 
@@ -44,6 +44,7 @@ public class AutomaticFloor : MonoBehaviour
     public void Generate()
     {
         generator.GenerateConnection(x);
+        autoBackground.AutomaticBackground(x);
         x++;
     }
     void Update()
