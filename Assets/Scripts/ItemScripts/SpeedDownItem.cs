@@ -10,16 +10,12 @@ public class SpeedDownItem : MonoBehaviour, Items
 
     public void ApplyEffect(GameObject target)
     {
-        // AudioSourceコンポーネントを取得
-        AudioSource audioSource = GetComponent<AudioSource>();
-        if (audioSource != null && audioSource.clip != null)
-        {
-            AudioSource.PlayClipAtPoint(audioSource.clip, transform.position);
-        }
-
         PlayerController player = target.GetComponent<PlayerController>();
-
-        
+        if (target.TryGetComponent<PlayerSEController>(out var playerSEController))
+        {
+            //SEを再生
+            playerSEController.PlayDamageSE();
+        }
 
         if (player != null)
         {
