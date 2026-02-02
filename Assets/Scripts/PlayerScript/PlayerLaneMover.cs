@@ -32,6 +32,12 @@ public class PlayerLaneMover : MonoBehaviour
     //ÀÛ‚ÌˆÚ“®ˆ—
     private void ExecuteMove()
     {
+        PlayerSEController playerSEController = GetComponent<PlayerSEController>();
+        if (playerSEController != null)
+        {
+            playerSEController.PlayMoveSE();
+        }
+
         isLaneChanging = true;
         float targetX = currentLaneIndex * lateralMoveDistance;
 

@@ -130,29 +130,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 5721659005656645482, guid: 5671d576b8201e7499d8e4a762c8fbb6, type: 3}
-      propertyPath: lateralMoveDuration
-      value: 0.05
+    - target: {fileID: -1835496263323972811, guid: 5671d576b8201e7499d8e4a762c8fbb6, type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -1835496263323972811, guid: 5671d576b8201e7499d8e4a762c8fbb6, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: -4453363075378437693, guid: 27e9b843c9e1b684bb6e6f31e6a7d11b, type: 2}
     - target: {fileID: 6855827543587383201, guid: 5671d576b8201e7499d8e4a762c8fbb6, type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 6855827543587383202, guid: 5671d576b8201e7499d8e4a762c8fbb6, type: 3}
-      propertyPath: frontSpeed
-      value: 70
-      objectReference: {fileID: 0}
-    - target: {fileID: 6855827543587383202, guid: 5671d576b8201e7499d8e4a762c8fbb6, type: 3}
-      propertyPath: speedDatabase
-      value: 
-      objectReference: {fileID: 11400000, guid: 00a39e0a61d0cf74882bcc1a458522a1, type: 2}
-    - target: {fileID: 6855827543587383203, guid: 5671d576b8201e7499d8e4a762c8fbb6, type: 3}
-      propertyPath: m_Constraints
-      value: 116
-      objectReference: {fileID: 0}
-    - target: {fileID: 6855827543587383204, guid: 5671d576b8201e7499d8e4a762c8fbb6, type: 3}
-      propertyPath: m_IsTrigger
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6855827543587383207, guid: 5671d576b8201e7499d8e4a762c8fbb6, type: 3}
       propertyPath: m_RootOrder
@@ -197,14 +185,6 @@ PrefabInstance:
     - target: {fileID: 6855827543587383207, guid: 5671d576b8201e7499d8e4a762c8fbb6, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7392276986666241479, guid: 5671d576b8201e7499d8e4a762c8fbb6, type: 3}
-      propertyPath: accelerationSpeed
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 7392276986666241479, guid: 5671d576b8201e7499d8e4a762c8fbb6, type: 3}
-      propertyPath: decelerationSpeed
-      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5671d576b8201e7499d8e4a762c8fbb6, type: 3}
