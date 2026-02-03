@@ -109,8 +109,7 @@ public class StageGenerator
         {
             case 1:
                 movingObject(stageController.Connection, new Vector2(1, 0));
-                GenerateObstacle(XCoordinate, 0 * itemWidth);
-                GenerateObstacle(XCoordinate, -1 * itemWidth);
+              
                 break;
             case 0:
                 GenerateObstacle(XCoordinate, 1 * itemWidth);
@@ -118,8 +117,6 @@ public class StageGenerator
                 break;
             case -1:
                 movingObject(stageController.Connection, new Vector2(1, 1 * itemWidth));
-                GenerateObstacle(XCoordinate, 1 * itemWidth);
-                GenerateObstacle(XCoordinate, 0 * itemWidth);
                 break;
 
         }

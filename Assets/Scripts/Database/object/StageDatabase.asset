@@ -16,7 +16,7 @@ MonoBehaviour:
   - FloorObject: {fileID: 997216389987337348, guid: c6cf823a7c7d50b44a752fc6d790d1ee, type: 3}
     ItemObject: {fileID: 3723341898024776394, guid: 249db6ab46723ce429f54fa95f668876, type: 3}
     ObstaclesObject: {fileID: 5324475241842349968, guid: d707c5da3001d674ab6b20904976538d, type: 3}
-    ConnectionObject: {fileID: 9213292764056050771, guid: c9dd2265c8802f74c937be39af4be633, type: 3}
+    ConnectionObject: {fileID: 7263975927941305326, guid: e1d31b8ba50a80c49b540c52bfbed9ce, type: 3}
     stageName: "\u516B\u8857\u5E02"
   - FloorObject: {fileID: 997216389987337348, guid: c6cf823a7c7d50b44a752fc6d790d1ee, type: 3}
     ItemObject: {fileID: 4374994957154459947, guid: 8d8816cbf22a59d489be556c5c2c968c, type: 3}
@@ -26,5 +26,5 @@ MonoBehaviour:
   - FloorObject: {fileID: 997216389987337348, guid: c6cf823a7c7d50b44a752fc6d790d1ee, type: 3}
     ItemObject: {fileID: 2906210802408276400, guid: 5c14a954ed250a4418d187e2473c611c, type: 3}
     ObstaclesObject: {fileID: 5324475241842349968, guid: d707c5da3001d674ab6b20904976538d, type: 3}
-    ConnectionObject: {fileID: 9213292764056050771, guid: c9dd2265c8802f74c937be39af4be633, type: 3}
+    ConnectionObject: {fileID: 7263975927941305326, guid: e1d31b8ba50a80c49b540c52bfbed9ce, type: 3}
     stageName: "\u5927\u539F\u5E02"
