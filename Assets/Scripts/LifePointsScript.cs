@@ -29,8 +29,10 @@ public class LifePointsScript : MonoBehaviour
       //      Heal();
       //  }
     }
+
     public void Damage() {
-        if (HP <= 0) return;
+        if (IsDead()) return;
+
         HP--;
         HPImage[HP].color = new Color(1, 1, 1, 0.5f);
         

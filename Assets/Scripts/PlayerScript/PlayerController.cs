@@ -49,6 +49,14 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("ChibaCorgi"))
+        {
+            GameManager.Instance.GameOver();
+        }
+    }
+
     //外部呼び出し用
 
     public void ApplyTemporarySpeedUp(float duration)
@@ -71,11 +79,8 @@ public class PlayerController : MonoBehaviour
         speedHandler.DecreaseLevel();
     }
 
-    private void OnCollisionEnter(Collision collision)
+    public void StopMovement()
     {
-        if (collision.gameObject.CompareTag("ChibaCorgi"))
-        {
-            GameManager.Instance.GameOver();
-        }
+        speedHandler.StopMovement();
     }
 }

@@ -1,4 +1,5 @@
 using UnityEngine;
+using DG.Tweening;
 
 public class ScoreManager : MonoBehaviour
 {
@@ -27,10 +28,17 @@ public class ScoreManager : MonoBehaviour
 
     }
 
-
     public void AddScore(int amount)
     {
         bonusScore += amount;
         Debug.Log("Bonus Added! Current Bonus: " + bonusScore);
+
+        ScoreAnimetion(amount);
     }
+
+    private void ScoreAnimetion(int amount)
+    {
+        // スコア加算時のアニメーション処理をここに実装
+    }
+
 }

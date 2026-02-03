@@ -27,6 +27,10 @@ public class SpeedDownItem : MonoBehaviour, Items
         if (lifePoints != null)
         {
             lifePoints.Damage();
+            if (lifePoints.IsDead())
+            {
+                player.StopMovement();
+            }
         }
 
         CameraShake.Instance.Shake();
