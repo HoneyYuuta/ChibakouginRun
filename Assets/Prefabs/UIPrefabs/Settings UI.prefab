@@ -256,9 +256,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 15411953574475741}
-        m_TargetAssemblyTypeName: SettingsUI, Assembly-CSharp
-        m_MethodName: OnPressed
+      - m_Target: {fileID: 7863030062090647095}
+        m_TargetAssemblyTypeName: SettingsUIProcessing, Assembly-CSharp
+        m_MethodName: WhenSettingsIsPressed
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -280,7 +280,6 @@ GameObject:
   - component: {fileID: 15411953574475680}
   - component: {fileID: 15411953574475683}
   - component: {fileID: 15411953574475682}
-  - component: {fileID: 15411953574475741}
   m_Layer: 5
   m_Name: Setting
   m_TagString: Untagged
@@ -370,19 +369,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &15411953574475741
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 15411953574475740}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bdda3dab592af684c98172cb186f1a23, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  UI: {fileID: 7659439761568493598}
 --- !u!1 &132340967940895805
 GameObject:
   m_ObjectHideFlags: 0
@@ -579,9 +565,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3475601365355165148}
-        m_TargetAssemblyTypeName: SettingsScreen, Assembly-CSharp
-        m_MethodName: OnPressed
+      - m_Target: {fileID: 7863030062090647095}
+        m_TargetAssemblyTypeName: SettingsUIProcessing, Assembly-CSharp
+        m_MethodName: WhenVolumeIsPressed
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -789,9 +775,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 268262318837450674}
-        m_TargetAssemblyTypeName: SettingsScreen, Assembly-CSharp
-        m_MethodName: OnPressed
+      - m_Target: {fileID: 7863030062090647095}
+        m_TargetAssemblyTypeName: SettingsUIProcessing, Assembly-CSharp
+        m_MethodName: WhenSettingsIsPressed
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1054,7 +1040,6 @@ GameObject:
   - component: {fileID: 7771324771751532620}
   - component: {fileID: 3042489469167379390}
   - component: {fileID: 5421147244938300001}
-  - component: {fileID: 268262318837450674}
   - component: {fileID: 5262151349621129222}
   m_Layer: 5
   m_Name: Volume settings (2)
@@ -1148,19 +1133,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &268262318837450674
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2329207699200303785}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 57c417fe799c3f94f8e6675e41d39e82, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  UI: {fileID: 7659439761568493598}
 --- !u!114 &5262151349621129222
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1583,13 +1555,25 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5564744119310147543}
-        m_TargetAssemblyTypeName: SettingsUI, Assembly-CSharp
-        m_MethodName: OnPressed
+      - m_Target: {fileID: 7863030062090647095}
+        m_TargetAssemblyTypeName: SettingsUIProcessing, Assembly-CSharp
+        m_MethodName: WhenBackIsPressed
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: SettingsUIProcessing, Assembly-CSharp
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -2499,8 +2483,6 @@ GameObject:
   - component: {fileID: 6172982370996688489}
   - component: {fileID: 137632382428485253}
   - component: {fileID: 3684589386863222869}
-  - component: {fileID: 5564744119310147543}
-  - component: {fileID: 3475601365355165148}
   m_Layer: 5
   m_Name: Settings screen (2)
   m_TagString: Untagged
@@ -2593,32 +2575,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &5564744119310147543
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7659439761568493598}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bdda3dab592af684c98172cb186f1a23, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  UI: {fileID: 15411953574475740}
---- !u!114 &3475601365355165148
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7659439761568493598}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 57c417fe799c3f94f8e6675e41d39e82, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  UI: {fileID: 2329207699200303785}
 --- !u!1 &8324253469365203143
 GameObject:
   m_ObjectHideFlags: 0
@@ -2628,6 +2584,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8554766044725352417}
+  - component: {fileID: 7863030062090647095}
   m_Layer: 0
   m_Name: Settings UI
   m_TagString: Untagged
@@ -2653,6 +2610,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7863030062090647095
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8324253469365203143}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3e6b08287b0aa44f8aba126e8dbe7b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UI: {fileID: 15411953574475740}
+  settingUI: {fileID: 7659439761568493598}
+  volumeUI: {fileID: 2329207699200303785}
 --- !u!1 &8577414391990551029
 GameObject:
   m_ObjectHideFlags: 0
