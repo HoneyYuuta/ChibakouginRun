@@ -26,11 +26,11 @@ public class AutoBackground : MonoBehaviour
     }
 
     // Instantiateを使って背景オブジェクトを配置する
-    public void AutomaticBackground(int x)
+    public void AutomaticBackground(int x ,float xx)
     {
         if(backgroundObjectCoordinate == null) return;
         if(XCoordinate != x) return;
-        Instantiate(gameObject, new Vector3(backgroundObjectCoordinate.x, backgroundObjectCoordinate.y,((XCoordinate-1) * 10)), Quaternion.identity);
+        Instantiate(gameObject, new Vector3(backgroundObjectCoordinate.x, backgroundObjectCoordinate.y,((XCoordinate-1) * xx)), Quaternion.identity);
         Awake();
     }
     // Update is called once per frame

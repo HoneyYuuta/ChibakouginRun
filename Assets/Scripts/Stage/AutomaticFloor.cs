@@ -44,7 +44,7 @@ public class AutomaticFloor : MonoBehaviour
     public void Generate()
     {
         generator.GenerateConnection(x);
-        autoBackground.AutomaticBackground(x);
+        autoBackground.AutomaticBackground(x , floorWidth);
         x++;
     }
     void Update()
