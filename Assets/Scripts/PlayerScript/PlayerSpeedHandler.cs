@@ -77,7 +77,7 @@ public class PlayerSpeedHandler : MonoBehaviour
         CheckGameOverCondition();
     }
 
-    private void CheckGameOverCondition()
+    public void CheckGameOverCondition()
     {
         if (isStopping && currentActualSpeed < 0.1f)
         {
@@ -181,5 +181,11 @@ public class PlayerSpeedHandler : MonoBehaviour
         }
         BuffTimeRatio = 0f;
         DecreaseLevel();
+    }
+
+    public void StopMovement()
+    {
+        isStopping = true;
+        StopDecayTimer();
     }
 }
