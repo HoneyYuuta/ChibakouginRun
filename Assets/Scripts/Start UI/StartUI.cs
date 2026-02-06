@@ -33,29 +33,33 @@ public class StartUI : MonoBehaviour
     public void StartCountDown()
     {
         startUI.SetActive(true);
-        var fadeIn = DOTween.Sequence();
+        Time.timeScale = 0;
+        var fadeIn = DOTween.Sequence().SetUpdate(true);
+        startText.DOFade(1, 0).SetUpdate(true);
         //３秒カウントダウン
         fadeIn.Append(startText.DOFade(0, countDownTime).SetDelay(countDownTime))
             .AppendCallback(() =>
             {
-                startText.DOFade(1, 0);
+                startText.DOFade(1, 0).SetUpdate(true);
                 startText.text = "2";
             }).
             Append(startText.DOFade(0, countDownTime).SetDelay(countDownTime))
             .AppendCallback(() =>
             {
-                startText.DOFade(1, 0);
+                startText.DOFade(1, 0).SetUpdate(true);
                 startText.text = "1";
             }).
             Append(startText.DOFade(0, countDownTime).SetDelay(countDownTime))
             .AppendCallback(() =>
             {
-                startText.DOFade(1, 0);
+                startText.DOFade(1, 0).SetUpdate(true);
                 startText.text = "Start!";
+                Time.timeScale = 1;
             }).
             Append(startText.DOFade(0, countDownTime).SetDelay(countDownTime))
             .AppendCallback(() =>
             {
+                startText.text = "3";
                 startUI.SetActive(false);
             });
 

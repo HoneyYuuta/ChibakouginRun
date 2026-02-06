@@ -11,6 +11,9 @@ public class SettingsUIProcessing : MonoBehaviour
     GameObject settingUI;
     [SerializeField]
     GameObject volumeUI;
+
+    [SerializeField][Header("StartUIのオブジェクト")] private StartUI startUI;
+
     void Start()
     {
         
@@ -28,6 +31,7 @@ public class SettingsUIProcessing : MonoBehaviour
         settingUI.SetActive(false);
         volumeUI.SetActive(false);
         Time.timeScale = 1;
+        startUI.StartCountDown();
     }
     //設定が押されたとき
     public void WhenSettingsIsPressed()
