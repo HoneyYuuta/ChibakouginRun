@@ -13,6 +13,9 @@ public class StartUI : MonoBehaviour
     [SerializeField]
     TextMeshProUGUI startText;
 
+    //カウントダウン時間
+    [SerializeField]
+    float countDownTime = 0.5f;
 
     // Start is called before the first frame update
     void Start()
@@ -32,25 +35,25 @@ public class StartUI : MonoBehaviour
         startUI.SetActive(true);
         var fadeIn = DOTween.Sequence();
         //３秒カウントダウン
-        fadeIn.Append(startText.DOFade(0, 1f).SetDelay(1f))
+        fadeIn.Append(startText.DOFade(0, countDownTime).SetDelay(countDownTime))
             .AppendCallback(() =>
             {
                 startText.DOFade(1, 0);
                 startText.text = "2";
             }).
-            Append(startText.DOFade(0, 1f).SetDelay(1f))
+            Append(startText.DOFade(0, countDownTime).SetDelay(countDownTime))
             .AppendCallback(() =>
             {
                 startText.DOFade(1, 0);
                 startText.text = "1";
             }).
-            Append(startText.DOFade(0, 1f).SetDelay(1f))
+            Append(startText.DOFade(0, countDownTime).SetDelay(countDownTime))
             .AppendCallback(() =>
             {
                 startText.DOFade(1, 0);
                 startText.text = "Start!";
             }).
-            Append(startText.DOFade(0, 1f).SetDelay(1f))
+            Append(startText.DOFade(0, countDownTime).SetDelay(countDownTime))
             .AppendCallback(() =>
             {
                 startUI.SetActive(false);
