@@ -36,10 +36,11 @@ public class SettingsUIProcessing : MonoBehaviour
     //設定が押されたとき
     public void WhenSettingsIsPressed()
     {
+
         UI.SetActive(false);
         settingUI.SetActive(true);
         volumeUI.SetActive(false);
-
+        startUI.StopCountDown();
         Time.timeScale = 0;
     }
     //音量が押されたとき
