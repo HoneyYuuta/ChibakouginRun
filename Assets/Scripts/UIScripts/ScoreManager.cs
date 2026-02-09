@@ -1,9 +1,12 @@
 using UnityEngine;
+using TMPro;
 using DG.Tweening;
 
 public class ScoreManager : MonoBehaviour
 {
     public static ScoreManager Instance;
+
+    [SerializeField] private TextMeshProUGUI addedScoreText;
 
     //GameUIManagerから読めるようにpublicプロパティにする
     public float TotalScore { get; private set; } = 0;
@@ -16,6 +19,15 @@ public class ScoreManager : MonoBehaviour
     {
         if (Instance == null) { Instance = this; }
         else { Destroy(gameObject); }
+    }
+
+    void Start()
+    {
+        // 最初は上昇分テキストを隠しておく
+        if (addedScoreText != null)
+        {
+            addedScoreText.alpha = 0f;
+        }
     }
 
     void Update()
@@ -38,7 +50,21 @@ public class ScoreManager : MonoBehaviour
 
     private void ScoreAnimetion(int amount)
     {
-        // スコア加算時のアニメーション処理をここに実装
+        if (addedScoreText == null) return;
+
+        // テキストを更新 ("+100" のようにする)
+        addedScoreText.text = "+" + amount.ToString();
+
+        // アニメーションのリセット（連打された時用）
+        addedScoreText.DOKill(); //前の動きを止める
+        addedScoreText.alpha = 1f; //透明度を戻す
+        addedScoreText.transform.localScale = Vector3.one; //大きさを戻す
+
+        //ポンッと拡大して出る
+        addedScoreText.transform.DOPunchScale(Vector3.one * 0.5f, 0.3f);
+
+        //フェードアウトしながら消える
+        addedScoreText.DOFade(0f, 1.0f).SetEase(Ease.InQuart).SetDelay(0.5f);
     }
 
 }
