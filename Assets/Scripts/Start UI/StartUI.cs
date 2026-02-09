@@ -65,4 +65,12 @@ public class StartUI : MonoBehaviour
 
 
     }
+    //中断
+    public void StopCountDown()
+    {
+        DOTween.KillAll(true);
+        startText.text = "3";
+        startUI.SetActive(false);
+        Time.timeScale = 0;
+    }
 }
