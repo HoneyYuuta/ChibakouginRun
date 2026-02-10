@@ -32,6 +32,7 @@ public class PlayerLaneMover : MonoBehaviour
     //ÀÛ‚ÌˆÚ“®ˆ—
     private void ExecuteMove()
     {
+        if (GameManager.Instance.IsGameOver) return;
         PlayerSEController playerSEController = GetComponent<PlayerSEController>();
         if (playerSEController != null)
         {
