@@ -2,11 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class LifePointsScript : MonoBehaviour
 {
     [SerializeField]
     Image[] HPImage;
+    //アニメーション画像
+    [SerializeField]
+    GameObject HPAnimationImage;
+
     [SerializeField]
     public int HP = 5;
     // Start is called before the first frame update
@@ -35,7 +40,17 @@ public class LifePointsScript : MonoBehaviour
 
         HP--;
         HPImage[HP].color = new Color(1, 1, 1, 0.5f);
-        
+        var seq = DOTween.Sequence();
+        HPAnimationImage.transform.position = HPImage[HP].transform.position;
+        HPAnimationImage.SetActive(true);
+        seq.Append(HPAnimationImage.transform.DOMove(new Vector3(0, -500, 0), 1).SetRelative(true).SetEase(Ease.InSine)).
+            AppendCallback(() =>
+            {
+                HPAnimationImage.SetActive(false);
+            });
+
+
+
 
     }
     public void Heal() {
