@@ -209,7 +209,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2350710950354166608, guid: b9ae1137b2d54fb4e9e9575ae6df5fd7, type: 3}
       propertyPath: m_RootOrder
-      value: 15
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 2350710950354166608, guid: b9ae1137b2d54fb4e9e9575ae6df5fd7, type: 3}
       propertyPath: m_AnchorMax.x
@@ -1609,83 +1609,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0e291e2289444ce479d69d66d6f4fa30, type: 3}
---- !u!1001 &1794120737
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 6084195412896713488, guid: b0c6f05fdcad6c1498d893f52ec519b1, type: 3}
-      propertyPath: m_Constraints
-      value: 116
-      objectReference: {fileID: 0}
-    - target: {fileID: 6084195412896713490, guid: b0c6f05fdcad6c1498d893f52ec519b1, type: 3}
-      propertyPath: m_Name
-      value: ChibaCorgi (2)
-      objectReference: {fileID: 0}
-    - target: {fileID: 6084195412896713491, guid: b0c6f05fdcad6c1498d893f52ec519b1, type: 3}
-      propertyPath: DelayTime
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 6084195412896713491, guid: b0c6f05fdcad6c1498d893f52ec519b1, type: 3}
-      propertyPath: frontSpeed
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6084195412896713491, guid: b0c6f05fdcad6c1498d893f52ec519b1, type: 3}
-      propertyPath: speedDatabase
-      value: 
-      objectReference: {fileID: 11400000, guid: 00a39e0a61d0cf74882bcc1a458522a1, type: 2}
-    - target: {fileID: 6084195412896713491, guid: b0c6f05fdcad6c1498d893f52ec519b1, type: 3}
-      propertyPath: levelUpInterval
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 6084195412896713492, guid: b0c6f05fdcad6c1498d893f52ec519b1, type: 3}
-      propertyPath: m_RootOrder
-      value: 13
-      objectReference: {fileID: 0}
-    - target: {fileID: 6084195412896713492, guid: b0c6f05fdcad6c1498d893f52ec519b1, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 1.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6084195412896713492, guid: b0c6f05fdcad6c1498d893f52ec519b1, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 1.25
-      objectReference: {fileID: 0}
-    - target: {fileID: 6084195412896713492, guid: b0c6f05fdcad6c1498d893f52ec519b1, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -4
-      objectReference: {fileID: 0}
-    - target: {fileID: 6084195412896713492, guid: b0c6f05fdcad6c1498d893f52ec519b1, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6084195412896713492, guid: b0c6f05fdcad6c1498d893f52ec519b1, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6084195412896713492, guid: b0c6f05fdcad6c1498d893f52ec519b1, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6084195412896713492, guid: b0c6f05fdcad6c1498d893f52ec519b1, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6084195412896713492, guid: b0c6f05fdcad6c1498d893f52ec519b1, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6084195412896713492, guid: b0c6f05fdcad6c1498d893f52ec519b1, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6084195412896713492, guid: b0c6f05fdcad6c1498d893f52ec519b1, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: b0c6f05fdcad6c1498d893f52ec519b1, type: 3}
 --- !u!1001 &1933383245
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1743,83 +1666,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 803e99e57c753a841b142cc8d152f777, type: 3}
---- !u!1001 &1956411624
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 6084195412896713488, guid: b0c6f05fdcad6c1498d893f52ec519b1, type: 3}
-      propertyPath: m_Constraints
-      value: 116
-      objectReference: {fileID: 0}
-    - target: {fileID: 6084195412896713490, guid: b0c6f05fdcad6c1498d893f52ec519b1, type: 3}
-      propertyPath: m_Name
-      value: ChibaCorgi (1)
-      objectReference: {fileID: 0}
-    - target: {fileID: 6084195412896713491, guid: b0c6f05fdcad6c1498d893f52ec519b1, type: 3}
-      propertyPath: DelayTime
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 6084195412896713491, guid: b0c6f05fdcad6c1498d893f52ec519b1, type: 3}
-      propertyPath: frontSpeed
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6084195412896713491, guid: b0c6f05fdcad6c1498d893f52ec519b1, type: 3}
-      propertyPath: speedDatabase
-      value: 
-      objectReference: {fileID: 11400000, guid: 00a39e0a61d0cf74882bcc1a458522a1, type: 2}
-    - target: {fileID: 6084195412896713491, guid: b0c6f05fdcad6c1498d893f52ec519b1, type: 3}
-      propertyPath: levelUpInterval
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 6084195412896713492, guid: b0c6f05fdcad6c1498d893f52ec519b1, type: 3}
-      propertyPath: m_RootOrder
-      value: 12
-      objectReference: {fileID: 0}
-    - target: {fileID: 6084195412896713492, guid: b0c6f05fdcad6c1498d893f52ec519b1, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -1.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6084195412896713492, guid: b0c6f05fdcad6c1498d893f52ec519b1, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 1.25
-      objectReference: {fileID: 0}
-    - target: {fileID: 6084195412896713492, guid: b0c6f05fdcad6c1498d893f52ec519b1, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -4
-      objectReference: {fileID: 0}
-    - target: {fileID: 6084195412896713492, guid: b0c6f05fdcad6c1498d893f52ec519b1, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6084195412896713492, guid: b0c6f05fdcad6c1498d893f52ec519b1, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6084195412896713492, guid: b0c6f05fdcad6c1498d893f52ec519b1, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6084195412896713492, guid: b0c6f05fdcad6c1498d893f52ec519b1, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6084195412896713492, guid: b0c6f05fdcad6c1498d893f52ec519b1, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6084195412896713492, guid: b0c6f05fdcad6c1498d893f52ec519b1, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6084195412896713492, guid: b0c6f05fdcad6c1498d893f52ec519b1, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: b0c6f05fdcad6c1498d893f52ec519b1, type: 3}
 --- !u!1001 &2038536469
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1837,7 +1683,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3240333327309182073, guid: ac0a6d6e1d666d2498a61194e4472cd4, type: 3}
       propertyPath: m_RootOrder
-      value: 14
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 3240333327309182073, guid: ac0a6d6e1d666d2498a61194e4472cd4, type: 3}
       propertyPath: m_AnchorMax.x
