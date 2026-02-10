@@ -23,18 +23,8 @@ public class SpeedDownItem : MonoBehaviour, Items
             player.ApplyTemporarySpeedDown(duration, penaltyRatio);
         }
 
-        var lifePoints = FindObjectOfType<LifePointsScript>();
-        if (lifePoints != null)
-        {
-            lifePoints.Damage();
-            if (lifePoints.IsDead())
-            {
-                player.StopMovement();
-            }
-        }
-
         CameraShake.Instance.Shake();
 
-        Destroy(gameObject);
+        gameObject.SetActive(gameObject);
     }
 }

@@ -6,15 +6,15 @@ using UnityEngine;
 public class PlayerSpeedHandler : MonoBehaviour
 {
     [SerializeField][Header("データベース")] private speedDatabase speedDatabase;
-    [SerializeField][Header("加速度設定")] private float accelerationSpeed = 2.0f;
-    [SerializeField][Header("減速度設定")] private float decelerationSpeed = 50.0f;
+    [SerializeField][Header("加速度設定")] private float accelerationSpeed = 3.0f;
+    [SerializeField][Header("減速度設定")] private float decelerationSpeed = 10.0f;
 
     //自動レベルアップの設定
     [Header("自動レベルアップ設定")]
     [SerializeField] private bool enableAutoLevelUp = true; //有効/無効
     [SerializeField] private float autoLevelUpInterval = 10.0f; //何秒ごとに上げるか
 
-    private int currentLevel = 0;
+    private int currentLevel = 7;
     private float currentActualSpeed = 0f;
     private bool isStopping = false;
 
@@ -83,12 +83,13 @@ public class PlayerSpeedHandler : MonoBehaviour
         {
             currentActualSpeed = 0f;
             Debug.Log("完全に停止しました。ゲームオーバー！");
-            if (GameManager.Instance != null) GameManager.Instance.GameOver();
+            GameManager.Instance.GameOver();
         }
     }
 
     //外部から操作されるメソッド群
 
+    //加速アイテムの処理(一定時間速度アップ)
     public void ApplyTemporarySpeedUp(float duration)
     {
         if (isStopping) isStopping = false;
@@ -96,9 +97,22 @@ public class PlayerSpeedHandler : MonoBehaviour
         IncreaseLevel();
     }
 
-    //割合で速度を下げる処理
+    //障害物にぶつかったら割合で速度を下げる処理
     public void ApplyPercentageSpeedDown(float duration, float penaltyRatio)
     {
+        //プレイヤーの体力管理
+        var lifePoints = FindObjectOfType<LifePointsScript>();
+        if (lifePoints != null)
+        {
+            lifePoints.Damage();
+            if (lifePoints.IsDead())
+            {
+                decelerationSpeed = 3.0f;
+                StopMovement();
+                return;
+            }
+        }
+
         //倍率を設定 (例: 1.0 - 0.1 = 0.9)
         speedMultiplier = 1.0f - penaltyRatio;
         Debug.Log($"速度 {penaltyRatio * 100}% ダウン！ 現在の倍率: {speedMultiplier}");
@@ -113,6 +127,19 @@ public class PlayerSpeedHandler : MonoBehaviour
         speedRecoveryCoroutine = StartCoroutine(RecoveryRoutine(duration));
     }
 
+    //減速から回復するコルーチン
+    private IEnumerator RecoveryRoutine(float duration)
+    {
+        yield return new WaitForSeconds(duration);
+
+        // 時間が経過したら倍率を1.0(100%)に戻す
+        speedMultiplier = 1.0f;
+        Debug.Log("速度制限解除！");
+
+        speedRecoveryCoroutine = null;
+    }
+
+    //加速アイテムの処理(レベルが1上昇)
     public void IncreaseLevel()
     {
         if (currentLevel < speedDatabase.GetMaxLevel())
@@ -123,6 +150,7 @@ public class PlayerSpeedHandler : MonoBehaviour
         ResetDecayTimer();
     }
 
+    //減速アイテムの処理(レベルが1下降)
     public void DecreaseLevel()
     {
         if (currentLevel > 0)
@@ -137,18 +165,6 @@ public class PlayerSpeedHandler : MonoBehaviour
             isStopping = true;
             StopDecayTimer();
         }
-    }
-
-    //減速から回復するコルーチン
-    private IEnumerator RecoveryRoutine(float duration)
-    {
-        yield return new WaitForSeconds(duration);
-
-        // 時間が経過したら倍率を1.0(100%)に戻す
-        speedMultiplier = 1.0f;
-        Debug.Log("速度制限解除！");
-
-        speedRecoveryCoroutine = null;
     }
 
     private void ResetDecayTimer()

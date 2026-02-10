@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 //プレイヤーの入力検知と各コンポーネントの統括を行うメインクラス
 
@@ -40,6 +41,7 @@ public class PlayerController : MonoBehaviour
         rb.velocity = forwardVel;
     }
 
+    //アイテム、障害物の処理
     private void OnTriggerEnter(Collider other)
     {
         var item = other.GetComponent<Items>();
@@ -53,17 +55,19 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("ChibaCorgi"))
         {
-            GameManager.Instance.GameOver();
+            SceneManager.LoadScene("GameOverScene");
         }
     }
 
     //外部呼び出し用
 
+    //加速効果を適用
     public void ApplyTemporarySpeedUp(float duration)
     {
         speedHandler.ApplyTemporarySpeedUp(duration);
     }
 
+    //減速効果を適用
     public void ApplyTemporarySpeedDown(float duration, float penaltyRatio)
     {
         speedHandler.ApplyPercentageSpeedDown(duration, penaltyRatio);

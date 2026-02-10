@@ -22,7 +22,5 @@ public class GameManager : MonoBehaviour
 
         IsGameOver = true;
         Debug.Log("GAMEOVER”»’è");
-        SceneManager.LoadScene("GameOverScene");
-
     }
 }
