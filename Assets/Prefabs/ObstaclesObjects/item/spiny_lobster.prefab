@@ -343,6 +343,7 @@ GameObject:
   - component: {fileID: 2530811880814058250}
   - component: {fileID: 8034275166728496835}
   - component: {fileID: -8021082676482504817}
+  - component: {fileID: 4594444013656574553}
   m_Layer: 0
   m_Name: spiny_lobster
   m_TagString: Items
@@ -404,6 +405,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreAmount: 100
+--- !u!114 &4594444013656574553
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2906210802408276400}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9ba3a7ce12f22e4b90193132a68e7bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4941503148553238962
 GameObject:
   m_ObjectHideFlags: 0

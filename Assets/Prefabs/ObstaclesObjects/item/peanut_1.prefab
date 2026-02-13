@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2930448947425563423}
   - component: {fileID: 8205851953696107491}
   - component: {fileID: 6831865436086999474}
+  - component: {fileID: -3026733287316006333}
   m_Layer: 0
   m_Name: peanut_1
   m_TagString: Items
@@ -112,3 +113,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreAmount: 100
+--- !u!114 &-3026733287316006333
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3723341898024776394}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9ba3a7ce12f22e4b90193132a68e7bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

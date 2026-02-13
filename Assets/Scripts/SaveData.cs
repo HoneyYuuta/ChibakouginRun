@@ -80,6 +80,10 @@ public static class SaveData
     {
         return PlayerPrefs.GetString(IndividualSave.Name, "Player");
     }
+    public static bool HasName()
+    {
+        return PlayerPrefs.HasKey(IndividualSave.Name);
+    }
     //最高得点
     public static int SetHighestScore()
     {
