@@ -14,7 +14,7 @@ public class PlayerSpeedHandler : MonoBehaviour
     [SerializeField] private bool enableAutoLevelUp = true; //—LŒø/–³Œø
     [SerializeField] private float autoLevelUpInterval = 10.0f; //‰½•b‚²‚Æ‚Éã‚°‚é‚©
 
-    private int currentLevel = 7;
+    private int currentLevel = 0;
     private float currentActualSpeed = 0f;
     private bool isStopping = false;
 
