@@ -14,6 +14,9 @@ public class ScoreManager : MonoBehaviour
     private float bonusScore = 0;
 
     [SerializeField] private GameObject PlayerObj;
+    [SerializeField] private PlayerSpeedHandler speedHandler;
+
+    int level = 0;
 
     private void Awake()
     {
@@ -42,9 +45,12 @@ public class ScoreManager : MonoBehaviour
 
     public void AddScore(int amount)
     {
-        bonusScore += amount;
-        Debug.Log("Bonus Added! Current Bonus: " + bonusScore);
+        if (speedHandler != null)
+        {
+            level = speedHandler.CurrentLevel;
+        }
 
+        bonusScore += amount + level * 100;
         ScoreAnimetion(amount);
     }
 

@@ -22,5 +22,6 @@ public class GameManager : MonoBehaviour
 
         IsGameOver = true;
         Debug.Log("GAMEOVER”»’è");
+
     }
 }
