@@ -50,11 +50,11 @@ public class ScoreManager : MonoBehaviour
             level = speedHandler.CurrentLevel;
         }
 
-        bonusScore += amount + level * 100;
+        bonusScore += amount + 100;
         ScoreAnimetion(amount);
     }
 
-    private void ScoreAnimetion(int amount)
+    private void ScoreAnimetion(float amount)
     {
         if (addedScoreText == null) return;
 

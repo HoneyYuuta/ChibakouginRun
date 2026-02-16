@@ -73,7 +73,7 @@ public class ChibaCorgiController : MonoBehaviour
             .SetUpdate(true)
             .OnComplete(() =>
             {
-                Debug.Log("捕まえたワン！");
+                Debug.Log("ゲームオーバーやな");
             });
     }
 }
