@@ -14,7 +14,14 @@ public class RotatingObjectScript : MonoBehaviour
        .SetRelative(true)
        .SetEase(Ease.Linear)
        .SetLoops(-1);
-        
+        //上下運動
+        var seq = DOTween.Sequence();
+        seq.Append(transform.DOMoveY(0.5f, 1).SetRelative(true).SetEase(Ease.InOutSine))
+            .Append(transform.DOMoveY(-0.5f, 1).SetRelative(true).SetEase(Ease.InOutSine))
+            .SetLoops(-1);
+
+
+
     }
 
     // Update is called once per frame

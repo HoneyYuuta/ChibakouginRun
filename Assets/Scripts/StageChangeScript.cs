@@ -36,7 +36,7 @@ public class StageChangeScript : MonoBehaviour
             stageText.text = stageName;
         }
         this.gameObject.SetActive(true);
-        var fadeIn = DOTween.Sequence();
+        var fadeIn = DOTween.Sequence().SetUpdate(true);
         fadeIn.Append(stageImage.DOFade(0, fadeDuration).SetDelay(displayDuration))
             .Join(stageText.DOFade(0, fadeDuration))
         .OnComplete(() => 
