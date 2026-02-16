@@ -1,8 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.MemoryProfiler;
-using UnityEngine;
-using static UnityEditor.Progress;
+﻿using UnityEngine;
 
 public class StageGenerator
 {
