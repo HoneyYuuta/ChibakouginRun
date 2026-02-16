@@ -10,7 +10,8 @@ public enum SegmentType
     Safe,
     Single,
     Double,
-    Shift
+    Shift,
+    Recovery
 }
 
 public class WeightedItem

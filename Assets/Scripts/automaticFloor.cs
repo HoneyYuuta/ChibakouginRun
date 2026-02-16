@@ -13,6 +13,7 @@ public class automaticFloor : MonoBehaviour
     GameObject Obstacles;//障害物のオブジェクト
     GameObject Items;//アイテムのオブジェクト
     GameObject Connection;//接続オブジェクト
+    GameObject Recovery;
     string stageName;
     [SerializeField]
     Transform playerTransform;//プレイヤーのトランスフォーム
@@ -32,6 +33,7 @@ public class automaticFloor : MonoBehaviour
     int FrequencyOfObstacles = 40;//障害物の確率
     int ObjectAppearanceProbability = 30;//アイテムの確率
     int ProbabilityOf2Obstacles = 0;//2つの障害物の確率
+    int RecoveryItemProbability = 50;//回復アイテムの確率
     [SerializeField]
     public StageChangeScript stageChangeScript;//ステージ変更スクリプト
 
@@ -51,7 +53,9 @@ public class automaticFloor : MonoBehaviour
         Safe,//安全
         Single,//シングル
         Double,//ダブル
-        Shift//シフト
+        Shift,//シフト
+        Recovery//回復
+
     }
 
     public class WeightedItem
@@ -77,7 +81,7 @@ public class automaticFloor : MonoBehaviour
 
         throw new System.Exception("抽選失敗");
     }
-    WeightedItem[] items = new WeightedItem[4];
+    WeightedItem[] items = new WeightedItem[5];
     SegmentType lastSegment;
     public void Add(){
         items[0] = new WeightedItem();
@@ -92,6 +96,10 @@ public class automaticFloor : MonoBehaviour
         items[3] = new WeightedItem();
         items[3].segmentType = SegmentType.Double;
         items[3].weight = 50;
+        items[4] = new WeightedItem();
+        items[4].segmentType = SegmentType.Recovery;
+        items[4].weight = 50;
+
     }
     // Start is called before the first frame update
     void Start()
@@ -127,6 +135,7 @@ public class automaticFloor : MonoBehaviour
         items[1].weight = objectProbability.ItemList[DifficultyLevel].ObstacleProbability;
         items[2].weight = objectProbability.ItemList[DifficultyLevel].ItemProbability;
         items[3].weight = objectProbability.ItemList[DifficultyLevel].ProbabilityOf2Obstacles;
+        items[4].weight = objectProbability.ItemList[DifficultyLevel].RecoveryItemProbability;
         DifficultyLevel++;
 
     }
@@ -139,6 +148,7 @@ public class automaticFloor : MonoBehaviour
         Obstacles = StageDat.ItemList[StageDatabaseIndex].ObstaclesObject;
         Items = StageDat.ItemList[StageDatabaseIndex].ItemObject;
         Connection = StageDat.ItemList[StageDatabaseIndex].ConnectionObject;
+        Recovery = StageDat.ItemList[StageDatabaseIndex].RecoveryObject;
         stageName = StageDat.ItemList[StageDatabaseIndex].stageName;
         StageDatabaseIndex++;
     }
@@ -241,6 +251,9 @@ public class automaticFloor : MonoBehaviour
             case SegmentType.Shift://シフト
                 AutomaticPowerUpItemsGeneration(Y);
                 break;
+            case SegmentType.Recovery://回復
+                AutomaticRecoveryItemsGeneration(Y);
+                break;
         }
     }
     void AutomaticObstacles(float Y)
@@ -266,6 +279,7 @@ public class automaticFloor : MonoBehaviour
         }
     }
 
+
     // このメソッドは、自動的に障害物を生成します
     void AutomaticObstaclesGeneration(float Y) {
         movingObject(Obstacles, new Vector2(1,Y));
@@ -274,5 +288,10 @@ public class automaticFloor : MonoBehaviour
     void AutomaticPowerUpItemsGeneration(float Y)
     {
         movingObject(Items, new Vector2(1, Y));
+    }
+    // このメソッドは、自動的に回復アイテムを生成します
+    void AutomaticRecoveryItemsGeneration(float Y)
+    {
+        movingObject(Recovery, new Vector2(1, Y));
     }
 }

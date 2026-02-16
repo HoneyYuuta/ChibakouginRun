@@ -17,31 +17,39 @@ MonoBehaviour:
     ItemProbability: 25
     ObstacleProbability: 25
     ProbabilityOf2Obstacles: 0
+    RecoveryItemProbability: 100
   - SkyProbability: 30
     ItemProbability: 35
     ObstacleProbability: 35
     ProbabilityOf2Obstacles: 0
+    RecoveryItemProbability: 100
   - SkyProbability: 20
     ItemProbability: 35
     ObstacleProbability: 25
     ProbabilityOf2Obstacles: 10
+    RecoveryItemProbability: 100
   - SkyProbability: 10
     ItemProbability: 35
     ObstacleProbability: 35
     ProbabilityOf2Obstacles: 20
+    RecoveryItemProbability: 0
   - SkyProbability: 5
     ItemProbability: 25
     ObstacleProbability: 40
     ProbabilityOf2Obstacles: 30
+    RecoveryItemProbability: 0
   - SkyProbability: 0
     ItemProbability: 20
     ObstacleProbability: 40
     ProbabilityOf2Obstacles: 40
+    RecoveryItemProbability: 0
   - SkyProbability: 0
     ItemProbability: 5
     ObstacleProbability: 45
     ProbabilityOf2Obstacles: 50
+    RecoveryItemProbability: 0
   - SkyProbability: 0
     ItemProbability: 5
     ObstacleProbability: 5
     ProbabilityOf2Obstacles: 90
+    RecoveryItemProbability: 0
