@@ -16,6 +16,9 @@ public class ObjectProbability
     [Header("2つの障害物の確率")]
     [Range(0, 100)]
     public int ProbabilityOf2Obstacles = 0;//2つの障害物の確率
+    [Header("回復アイテムの確率")]
+    [Range(0, 100)]
+     public int RecoveryItemProbability = 0;//回復アイテムの確率
 
 
 }
