@@ -17,6 +17,7 @@ public class StartUI : MonoBehaviour
     [SerializeField]
     float countDownTime = 0.5f;
 
+  
     // Start is called before the first frame update
     void Start()
     {
@@ -68,7 +69,7 @@ public class StartUI : MonoBehaviour
     //中断
     public void StopCountDown()
     {
-        DOTween.KillAll(true);
+        DOTween.CompleteAll(true);
         startText.text = "3";
         startUI.SetActive(false);
         Time.timeScale = 0;

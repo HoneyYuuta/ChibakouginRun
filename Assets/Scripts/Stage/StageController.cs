@@ -15,9 +15,12 @@ public class StageController
     public GameObject Obstacles { get; private set; }
     public GameObject Items { get; private set; }
     public GameObject Connection { get; private set; }
+
+    public GameObject Recovery { get; private set; }
+
     public string StageName { get; private set; }
 
-    public WeightedItem[] items = new WeightedItem[4];
+    public WeightedItem[] items = new WeightedItem[5];
 
     public void Add()
     {
@@ -33,6 +36,9 @@ public class StageController
         items[3] = new WeightedItem();
         items[3].segmentType = SegmentType.Double;
         items[3].weight = 50;
+        items[4] = new WeightedItem();
+        items[4].segmentType = SegmentType.Recovery;
+        items[4].weight = 50;
     }
 
     public StageController(ItemDataBase db, ObjectProbabilityDatabase prob)
@@ -53,6 +59,7 @@ public class StageController
         Items = data.ItemObject;
         Connection = data.ConnectionObject;
         StageName = data.stageName;
+        Recovery = data.RecoveryObject;
         stageIndex++;
     }
     // 難易度を上げるメソッド
@@ -63,6 +70,7 @@ public class StageController
         items[1].weight = probabilityDB.ItemList[difficultyLevel].ObstacleProbability;
         items[2].weight = probabilityDB.ItemList[difficultyLevel].ItemProbability;
         items[3].weight = probabilityDB.ItemList[difficultyLevel].ProbabilityOf2Obstacles;
+        items[4].weight = probabilityDB.ItemList[difficultyLevel].RecoveryItemProbability;
         difficultyLevel++;
     }
 }

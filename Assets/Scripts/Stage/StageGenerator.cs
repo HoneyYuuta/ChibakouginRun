@@ -58,6 +58,10 @@ public class StageGenerator
     {
         pooler.Spawn(obj, new Vector3(vec.y, vec.x, XCoordinate * floorWidth));
     }
+    void GenerateRecovery(int x, float y)
+    {
+        pooler.Spawn(stageController.Recovery, new Vector3(y, 1, x * floorWidth));
+    }
     SegmentType DecideSegment()
     {
         // 休憩を定期的に入れる
@@ -95,6 +99,10 @@ public class StageGenerator
             case SegmentType.Shift://シフト
                 GenerateItem(XCoordinate, Y);
                 break;
+
+            case SegmentType.Recovery://回復
+                GenerateRecovery(XCoordinate, Y);
+                break;
         }
     }
     void AutomaticObstacles(float Y)
@@ -127,5 +135,4 @@ public class StageGenerator
     {
         return (FrequencyOfStageChanges * floorWidth);
     }
-
 }
