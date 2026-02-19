@@ -14,42 +14,42 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemList:
   - SkyProbability: 50
-    ItemProbability: 25
-    ObstacleProbability: 25
+    ItemProbability: 24
+    ObstacleProbability: 24
     ProbabilityOf2Obstacles: 0
-    RecoveryItemProbability: 100
+    RecoveryItemProbability: 2
   - SkyProbability: 30
-    ItemProbability: 35
-    ObstacleProbability: 35
+    ItemProbability: 34
+    ObstacleProbability: 34
     ProbabilityOf2Obstacles: 0
-    RecoveryItemProbability: 100
+    RecoveryItemProbability: 2
   - SkyProbability: 20
-    ItemProbability: 35
-    ObstacleProbability: 25
+    ItemProbability: 34
+    ObstacleProbability: 24
     ProbabilityOf2Obstacles: 10
-    RecoveryItemProbability: 100
+    RecoveryItemProbability: 2
   - SkyProbability: 10
-    ItemProbability: 35
-    ObstacleProbability: 35
+    ItemProbability: 34
+    ObstacleProbability: 34
     ProbabilityOf2Obstacles: 20
-    RecoveryItemProbability: 0
+    RecoveryItemProbability: 2
   - SkyProbability: 5
-    ItemProbability: 25
-    ObstacleProbability: 40
+    ItemProbability: 24
+    ObstacleProbability: 39
     ProbabilityOf2Obstacles: 30
-    RecoveryItemProbability: 0
+    RecoveryItemProbability: 2
   - SkyProbability: 0
-    ItemProbability: 20
-    ObstacleProbability: 40
+    ItemProbability: 19
+    ObstacleProbability: 39
     ProbabilityOf2Obstacles: 40
-    RecoveryItemProbability: 0
+    RecoveryItemProbability: 2
   - SkyProbability: 0
-    ItemProbability: 5
-    ObstacleProbability: 45
+    ItemProbability: 4
+    ObstacleProbability: 44
     ProbabilityOf2Obstacles: 50
-    RecoveryItemProbability: 0
+    RecoveryItemProbability: 2
   - SkyProbability: 0
-    ItemProbability: 5
-    ObstacleProbability: 5
+    ItemProbability: 4
+    ObstacleProbability: 4
     ProbabilityOf2Obstacles: 90
-    RecoveryItemProbability: 0
+    RecoveryItemProbability: 2
