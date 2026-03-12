@@ -21,7 +21,8 @@ public class RankingScript : MonoBehaviour
     {
         for (int i = 0; i < rankText.Length; i++)
         {
-            rankText[i].text = SaveData.SetRankingName(i) + " " + "点";
+            int score = SaveData.SetRankingScore(i);
+            rankText[i].text = score + " " + "点";
         }
     }
 

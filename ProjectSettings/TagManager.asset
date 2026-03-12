@@ -7,6 +7,7 @@ TagManager:
   - Items
   - Obstacles
   - ChibaCorgi
+  - recoveryItems
   layers:
   - Default
   - TransparentFX

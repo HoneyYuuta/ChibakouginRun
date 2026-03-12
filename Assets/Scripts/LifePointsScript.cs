@@ -48,10 +48,6 @@ public class LifePointsScript : MonoBehaviour
             {
                 HPAnimationImage.SetActive(false);
             });
-
-
-
-
     }
     public void Heal() {
         if (HP >= HPImage.Length) return;

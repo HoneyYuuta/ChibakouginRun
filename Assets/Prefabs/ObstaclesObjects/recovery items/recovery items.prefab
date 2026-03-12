@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4474027422199638764}
   m_Layer: 0
   m_Name: recovery items
-  m_TagString: Untagged
+  m_TagString: recoveryItems
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
