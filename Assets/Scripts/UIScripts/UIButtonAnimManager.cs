@@ -11,8 +11,8 @@ public class UIButtonAnimManager : MonoBehaviour
 
     void Start()
     {
-        // シーン中の「Button」コンポーネントがついている物を全部探す
-        // (TMPのボタンもButtonコンポーネントがついているので検知されます)
+        //シーン中の「Button」コンポーネントがついている物を全部探す
+        //(TMPのボタンもButtonコンポーネントがついているので検知されます)
         Button[] allButtons = FindObjectsOfType<Button>();
 
         foreach (Button btn in allButtons)
@@ -27,7 +27,7 @@ public class UIButtonAnimManager : MonoBehaviour
     }
 }
 
-// ▼ 自動でボタンにくっつくアニメーション用部品 ▼
+//自動でボタンにくっつくアニメーション用部品
 public class SimplePressAnim : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
     private float targetScale;
@@ -42,7 +42,7 @@ public class SimplePressAnim : MonoBehaviour, IPointerDownHandler, IPointerUpHan
         this.originalScale = transform.localScale;
     }
 
-    // 押した時：拡大
+    //押した時：拡大
     public void OnPointerDown(PointerEventData eventData)
     {
         tween?.Kill();
@@ -51,7 +51,7 @@ public class SimplePressAnim : MonoBehaviour, IPointerDownHandler, IPointerUpHan
             .SetLink(gameObject);
     }
 
-    // 離した時：元に戻る
+    //離した時：元に戻る
     public void OnPointerUp(PointerEventData eventData)
     {
         tween?.Kill();

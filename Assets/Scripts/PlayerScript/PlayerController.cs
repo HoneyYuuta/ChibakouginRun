@@ -24,18 +24,21 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        //左右移動の入力検知
         if (Input.GetKeyDown(KeyCode.A)) laneMover.MoveLeft();
         else if (Input.GetKeyDown(KeyCode.D)) laneMover.MoveRight();
     }
 
     private void FixedUpdate()
     {
+        //速度の更新と物理挙動の適用
         speedHandler.UpdateSpeed(Time.fixedDeltaTime);
         ApplyVelocity();
     }
 
     private void ApplyVelocity()
     {
+        //前方速度を計算してRigidbodyに適用
         Vector3 forwardVel = transform.forward * speedHandler.CurrentSpeed;
         forwardVel.y = rb.velocity.y;
         rb.velocity = forwardVel;
@@ -73,11 +76,13 @@ public class PlayerController : MonoBehaviour
         speedHandler.ApplyPercentageSpeedDown(duration, penaltyRatio);
     }
 
+    //加速アイテムの処理(レベルが1上昇)
     public void IncreaseLevel()
     {
         speedHandler.IncreaseLevel();
     }
 
+    //減速アイテムの処理(レベルが1下降)
     public void DecreaseLevel()
     {
         speedHandler.DecreaseLevel();
