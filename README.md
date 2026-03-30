@@ -18,3 +18,9 @@
 
 障害物をよけつつ千葉の特産品を集めてください
 
+
+
+ここでブラウザからでも遊べます
+
+https://honeyyuuta.github.io/ChibakouginRun/WebGLBuild/
+
